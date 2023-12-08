@@ -1,16 +1,16 @@
 """
-ASGI config for OCRWebsite project.
+ASGI config for helloWorld project.
 
 It exposes the ASGI callable as a module-level variable named ``application``.
 
 For more information on this file, see
-https://docs.djangoproject.com/en/4.2/howto/deployment/asgi/
+https://docs.djangoproject.com/en/5.0/howto/deployment/asgi/
 """
 
 import os
 
 from django.core.asgi import get_asgi_application
 
-os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'OCRWebsite.settings')
+os.environ.setdefault('DJANGO_SETTINGS_MODULE', 'helloWorld.settings')
 
 application = get_asgi_application()
