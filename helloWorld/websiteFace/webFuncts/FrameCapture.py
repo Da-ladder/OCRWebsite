@@ -12,6 +12,7 @@ import moviepy.editor
 import os
 import sys
 from datetime import datetime as dt
+from django.shortcuts import render
 
 
 class Video2Images:
@@ -240,6 +241,7 @@ class Video2Images:
             image += 1
             pct_completed = frame / total_frames * 100
             print(f"Frame Capture status: {round(pct_completed, 2)} %")
+            #render(self, 'polls/ocrpage.html', f"Analysis %: {round(pct_completed,2)} %")
             iio.imwrite(
                 os.path.join(self.out_dir, f'{int(running_video_timer)}{self.save_format}'),
                 iio.imread(self.video_filepath, index=frame)
