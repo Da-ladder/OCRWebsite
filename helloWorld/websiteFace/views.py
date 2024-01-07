@@ -31,7 +31,7 @@ def simpleTest(request):
     #                    </script></html>""")
 
 def about(request):
-    template = loader.get_template("polls/about.html")
+    template = loader.get_template("templates/about.html")
     return HttpResponse(template.render())
 
 def contact(request):
