@@ -5,16 +5,24 @@ primary = ["red","yellow","blue"]
 def randomShit():
     randInt1 = rng.randint(0,2)
     randInt2 = rng.randint(0,2)
-    if(primary[randInt1] == "red") and (primary[randInt2] == "yellow"):
-        print("Your color is Orange")
-    elif(primary[randInt1] == "red") and (primary[randInt2] == "blue"):
-        print("Your color is Purple")
-    elif(primary[randInt1] == "yellow") and (primary[randInt2] == "blue"):
-        print("Your color is Green")
-    elif(primary[randInt1] == "red") and (primary[randInt2] == "red"):
-        print("Your color is Red")
-    elif(primary[randInt1] == "blue") and (primary[randInt2] == "blue"):
-        print("Your color is Blue")
-    elif(primary[randInt1] == "yellow") and (primary[randInt2] == "yellow"):
-        print("Your color is Yellow")
+    stringCont = primary[randInt1] + primary[randInt2]
+    match stringCont:
+        case "redred":
+            print("Your color is red")
+        case "redyellow":
+            print("Your color is orange")
+        case "yellowred":
+            print("Your color is orange")
+        case "yellowyellow":
+            print("Your color is yellow")
+        case "yellowblue":
+            print("Your color is green")
+        case "blueyellow":
+            print("Your color is green")
+        case "blueblue":
+            print("Your color is blue")
+        case "bluered":
+            print("Your color is purple")
+        case "redblue":
+            print("Your color is purple")
     

@@ -5,6 +5,44 @@
   font-family: 'Trebuchet MS', 'Lucida Sans Unicode', 'Lucida Grande', 'Lucida Sans', Arial, sans-serif;
 }
 
+.loader{
+  position: fixed;
+  top: 0;
+  left: 0;
+  width: 100vw;
+  height: 100vh;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  background-color: rgb(219, 175, 0);;
+  transition: opacity 0.75s, visibility 0.75s;
+}
+
+.loader-hidden{
+  opacity: 0;
+  visibility: hidden;
+}
+
+.loader::after{
+  content: "";
+  width: 75px;
+  height: 75px;
+  border: 15px solid rgb(255, 226, 109);
+  border-top-color: #b18200;
+  border-radius: 50%;
+  animation: loading 0.75s ease infinite;
+
+}
+
+@keyframes loading {
+  from{
+    transform: rotate(0turn);
+  }
+  to{
+    transform: rotate(1turn);
+  }
+}
+
 nav {
   height: 80px;
   background: #000000;
@@ -96,3 +134,8 @@ button:hover {
       grid-template-columns: 1fr;
   }
 }
+
+/* About Page Style */
+
+
+
