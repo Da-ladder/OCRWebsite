@@ -18,7 +18,8 @@ def frontPage(request):
     return HttpResponse(template.render())
 
 def start(request):
-    VideoAnalysis.process_vid("https://www.youtube.com/watch?v=uCrFhEUjyLY")
+    #VideoAnalysis.checkVidStorage("YZw2Fi-rgy")
+    VideoAnalysis.process_vid("https://www.youtube.com/watch?v=YZw2Fi-rgyc")
     return HttpResponse("It Finished!")
 
 def videoAnalysis(request):

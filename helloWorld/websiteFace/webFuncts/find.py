@@ -21,22 +21,14 @@ currStat = 0
 downloadPercentage = 0
 frameCaptureStatus = 30
 analysisStatus = 0
-#vid_storage = os.path.join(os.getcwd(), "videos")
-vid_storage = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\videos"
-#image_storage = os.path.join(os.getcwd(), "images")
-image_storage = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\images"
-#team_results = os.path.join(os.getcwd(), "results")
-team_results = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\results"
+vid_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "videos") #scuffed but whatever
+#vid_storage = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\videos"
+image_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "images")
+#image_storage = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\images"
+team_results = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "results")
+#team_results = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\results" # home computer filepath
+vid_track = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "Videolist.txt")
 class VideoAnalysis:
-    @staticmethod
-    def checkVidStorage(ytlink):
-        fileFind = ytlink + ".txt"
-        for filename in os.listdir(team_results):
-            print(filename)
-            if filename == fileFind:
-                return True
-        return False
-
     @staticmethod
     def getStat():
         global currStat, downloadPercentage, frameCaptureStatus, analysisStatus
@@ -52,10 +44,15 @@ class VideoAnalysis:
     
     @staticmethod
     def yt_link_filter(yt_link):
-        yt_link = yt_link[
-            : yt_link.find("&t")
-        ]  # filter links before doing anything else to ensure consistency
-        yt_link = yt_link[yt_link.find("v=")+2:] # was + 2 before I dunno what it did tbh
+        if (yt_link.find("&t") == -1):
+            pass
+        else:
+            # filter links before doing anything else to ensure consistency
+            yt_link = yt_link[:yt_link.find("&t")+1]
+        if (yt_link.find("v=") == -1):
+            pass
+        else:
+            yt_link = yt_link[yt_link.find("v=")+2:]
         return yt_link
     
     @staticmethod
@@ -205,6 +202,11 @@ class VideoAnalysis:
     def process_vid(yt_link, team=None):
         start_time = time.time()
         yt_folder_name = VideoAnalysis.yt_link_filter(yt_link)
+        print(yt_folder_name)
+        # add video to processed list
+        with open(vid_track, 'a') as file:
+            file.write(yt_folder_name + "\n")
+        # end of appendings
         print("The name for the yt video is:", yt_folder_name)
         if VideoAnalysis.checkVidStorage(yt_folder_name):
             print("Video Already Processed!!!")
@@ -216,6 +218,15 @@ class VideoAnalysis:
 
         if team is not None:
             VideoAnalysis.find_team(yt_folder_name, team)
+    
+
+    @staticmethod
+    def checkVidStorage(ytlink):
+        filteredLink = VideoAnalysis.yt_link_filter(ytlink)
+        with open(vid_track, 'r') as file:
+            for line in file:
+                if (line.strip("\n") == filteredLink):
+                    return True
 
 
 
