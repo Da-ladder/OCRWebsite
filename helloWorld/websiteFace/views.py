@@ -14,7 +14,7 @@ simpleString = ""
 
 def test(request):
     middleware.csrf.get_token(request) 
-    template = loader.get_template("polls/test.html")
+    template = loader.get_template("test.html")
     return HttpResponse(template.render())
 
 def start(request):
@@ -24,22 +24,22 @@ def start(request):
 def simpleTest(request):
     # User will not see progress bar if pop-ups are blocked
     # Fix this eventually with HTML GET request later on
-    template = loader.get_template("polls/videoSubmit.html")
+    template = loader.get_template("videoSubmit.html")
     return HttpResponse(template.render())
     #return HttpResponse("""<html><script>window.open('http://127.0.0.1:8000/progress/');
     #                    window.location.replace('/start');
     #                    </script></html>""")
 
 def about(request):
-    template = loader.get_template("templates/about.html")
+    template = loader.get_template("about.html")
     return HttpResponse(template.render())
 
 def contact(request):
-    template = loader.get_template("polls/contact.html")
+    template = loader.get_template("contact.html")
     return HttpResponse(template.render())
 
 def robotics(request):
-    template = loader.get_template("polls/robotics.html")
+    template = loader.get_template("robotics.html")
     return HttpResponse(template.render())
 
 def progressBar(request):
@@ -54,7 +54,7 @@ def progressBar(request):
         simpleString = "Analysis %" + str(curProgress[1])
     else:
         simpleString = "Oops! Something went wrong"
-    template = loader.get_template('polls/progress.html')
+    template = loader.get_template('progress.html')
     context = {'strVar': simpleString}
     time.sleep(1.2)
     return HttpResponse(template.render(context, request))
