@@ -12,16 +12,16 @@ import time
 
 simpleString = ""
 
-def test(request):
+def frontPage(request):
     middleware.csrf.get_token(request) 
-    template = loader.get_template("test.html")
+    template = loader.get_template("frontPage.html")
     return HttpResponse(template.render())
 
 def start(request):
     VideoAnalysis.process_vid("https://www.youtube.com/watch?v=uCrFhEUjyLY")
     return HttpResponse("It Finished!")
 
-def simpleTest(request):
+def videoAnalysis(request):
     # User will not see progress bar if pop-ups are blocked
     # Fix this eventually with HTML GET request later on
     template = loader.get_template("videoSubmit.html")

@@ -5,11 +5,10 @@ from . import views
 
 urlpatterns = [
     # ex: /home/
-    path("", views.test, name="TEST"),
+    path("", views.frontPage, name="TEST"),
     # /home/simple_function
-    path("simple_function", views.simpleTest, name="TEST2"),
+    path("video_analysis", views.videoAnalysis, name="TEST2"),
     path("about/", views.about, name="ABOUT"),
-    path("progress/", views.progressBar, name="PROGRESS BAR"),
     path("start/", views.start, name="START"),
     path("action_page/", views.action_page, name="POSTtest"),
     path("checkProgress/", views.progressBar, name="HEHE"),
