@@ -14,8 +14,8 @@ import easyocr.easyocr
 # from cv2 import dnn_superres
 from pytube import YouTube as YT
 
-import frameCapture
-from performance_timer import Timer
+#import frameCapture
+from .timer import Timer
 
 
 start_time = time.time()
