@@ -18,18 +18,14 @@ def frontPage(request):
     return HttpResponse(template.render())
 
 def start(request):
-    #VideoAnalysis.checkVidStorage("YZw2Fi-rgy")
-    VideoAnalysis.process_vid("https://www.youtube.com/watch?v=YZw2Fi-rgyc")
+    if request.method == 'GET':
+        link = request.GET.get('link', None)
+        VideoAnalysis.process_vid(link)
     return HttpResponse("It Finished!")
 
 def videoAnalysis(request):
-    # User will not see progress bar if pop-ups are blocked
-    # Fix this eventually with HTML GET request later on
     template = loader.get_template("videoSubmit.html")
     return HttpResponse(template.render())
-    #return HttpResponse("""<html><script>window.open('http://127.0.0.1:8000/progress/');
-    #                    window.location.replace('/start');
-    #                    </script></html>""")
 
 def about(request):
     template = loader.get_template("about.html")

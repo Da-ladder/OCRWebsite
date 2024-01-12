@@ -1,10 +1,18 @@
 
 <form action="/start" method="get">
-    <input type="text" name="username">
-    <input type="submit" value="Submit">
-  </form>
+  <p>Insert YT link to process below: </p>
+  <input type="text" size="40" name="link">
+  <input type="submit" value="Submit video link to process">
+</form>
 
-  <form action="/checkProgress" method="get">
-    <!--<input type="text" name="username"> -->
-    <input type="submit" value="Submit">
-  </form>
+<form action="/checkProgress" method="get">
+  <p>Insert YT link and team ID to find their matches below:</p>
+  <input type="text" size="40" name="link" value="link">
+  <br>
+  <input type="text" size="40" name="link" value="team ID"> 
+  <input type="submit" value="Find team!">
+</form>
+
+<form action="/checkProgress" method="get">
+  <input type="submit" value="Check video progress">
+</form>

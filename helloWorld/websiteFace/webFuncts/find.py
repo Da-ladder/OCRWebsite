@@ -28,6 +28,8 @@ image_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "ima
 team_results = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "results")
 #team_results = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\results" # home computer filepath
 vid_track = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "Videolist.txt")
+
+
 class VideoAnalysis:
     @staticmethod
     def getStat():
@@ -41,7 +43,8 @@ class VideoAnalysis:
                 return [currStat, frameCaptureStatus]
             elif currStat == 3:
                 return [currStat, analysisStatus]
-    
+
+
     @staticmethod
     def yt_link_filter(yt_link):
         if (yt_link.find("&t") == -1):
@@ -54,7 +57,8 @@ class VideoAnalysis:
         else:
             yt_link = yt_link[yt_link.find("v=")+2:]
         return yt_link
-    
+
+
     @staticmethod
     def progressBar(count_value, total, suffix=""):
         global downloadPercentage
@@ -68,12 +72,14 @@ class VideoAnalysis:
         sys.stdout.write("\033[F")
         sys.stdout.flush()
 
+
     @staticmethod
     def on_progress(stream, chunk, bytes_remaining):
         total_size = stream.filesize
         bytes_downloaded = total_size - bytes_remaining
         VideoAnalysis.progressBar(bytes_downloaded, total_size)
-    
+
+
     @staticmethod
     def down_yt_vid(yt_link, yt_fold_name, itag=None):
         global vid_storage, currStat, downloadPercentage, frameCaptureStatus, analysisStatus
@@ -100,20 +106,24 @@ class VideoAnalysis:
         else:
             print("done")
         print(tracker.end_time())
-    
+
+
     @staticmethod
     def split_frames(ytlink):
         global image_storage, currStat, downloadPercentage, frameCaptureStatus, analysisStatus
         currStat = 2
         vid_loc = os.path.join(vid_storage, ytlink) + ".mp4"
         tracker = Timer()
+        frameCaptureStatus = 9
         Video2Images(
             video_filepath=vid_loc,
             out_folder_name=ytlink,
             capture_rate=0.0165,
             out_dir=image_storage,
         )
+        frameCaptureStatus = 99.9
         print(tracker.end_time())
+
 
     @staticmethod
     def frame_read(ytlink):
@@ -143,12 +153,14 @@ class VideoAnalysis:
         text_file.close()
         print(tracker.end_time)
 
+
     @staticmethod
     def urlgen(yt_link, filename):
         filename = filename.removesuffix(".jpg")  # filename can not be a path
         final_link = yt_link + "&t={:}s".format(filename)
 
         return final_link
+
 
     @staticmethod
     def find_team(yt_link, team):
@@ -197,16 +209,14 @@ class VideoAnalysis:
                                 print(targetTeam, "FOUND AT", file_timestamp)
         
         return foundMatches
-    
+
+
     @staticmethod
     def process_vid(yt_link, team=None):
+        global currStat, downloadPercentage, frameCaptureStatus, analysisStatus
         start_time = time.time()
         yt_folder_name = VideoAnalysis.yt_link_filter(yt_link)
         print(yt_folder_name)
-        # add video to processed list
-        with open(vid_track, 'a') as file:
-            file.write(yt_folder_name + "\n")
-        # end of appendings
         print("The name for the yt video is:", yt_folder_name)
         if VideoAnalysis.checkVidStorage(yt_folder_name):
             print("Video Already Processed!!!")
@@ -216,9 +226,16 @@ class VideoAnalysis:
             VideoAnalysis.frame_read(yt_folder_name)
         print((time.time() - start_time))
 
-        if team is not None:
-            VideoAnalysis.find_team(yt_folder_name, team)
-    
+        # add video to processed list
+        with open(vid_track, 'a') as file:
+            file.write(yt_folder_name + "\n")
+        # end of appendings
+        
+        currStat = 0
+        downloadPercentage = 0
+        frameCaptureStatus = 0
+        analysisStatus = 0
+
 
     @staticmethod
     def checkVidStorage(ytlink):
