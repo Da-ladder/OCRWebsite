@@ -28,6 +28,14 @@ class VideoProcesser:
         if not isActive:
            VideoProcesser.main()
 
+    @staticmethod
+    def checkList(link):
+        global processingList
+        for url in processingList:
+            if url == link:
+                return True
+        return False
+
 
 
 class ImageProcesser:
@@ -37,7 +45,17 @@ class ImageProcesser:
         imageIsActive = True
         index = 0
         while (len(imageProcessList) != 0):
-            pass
+            if (VideoAnalysis.checkVidStorage(imageProcessList[index[0]])):
+                VideoAnalysis.find_team(imageProcessList[index[0]], imageProcessList[index[1]]) # passes a list to the second param
+                # TODO figure out how to spit back found matches for each team
+            else:
+                if (not VideoProcesser.checkList(imageProcessList[index[0]])):
+                    VideoProcesser.addVideo(imageProcessList[index[0]])
+                if (len(imageProcessList)-1) > index:
+                    index += 1
+                else:
+                    index = 0
+                sleep(1) # wait one second before checking the list again
         
         imageIsActive = False
 

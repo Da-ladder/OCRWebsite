@@ -164,9 +164,10 @@ class VideoAnalysis:
 
     @staticmethod
     def find_team(yt_link, team):
+        filteredLink = VideoAnalysis.yt_link_filter(yt_link)
         foundMatches = []
         with open(
-            os.path.join(team_results, yt_link), "r"
+            os.path.join(team_results, filteredLink), "r"
         ) as file:
             for line in file:
                 line = line.removeprefix("Output: ")
@@ -204,7 +205,7 @@ class VideoAnalysis:
                         for targetTeam in team:
                             if targetTeam == teams:
                                 foundMatches.append(targetTeam)
-                                link = "https://www.youtube.com/watch?v=" + yt_link + "&t=" + str(file_timestamp) + "s"
+                                link = "https://www.youtube.com/watch?v=" + filteredLink + "&t=" + str(file_timestamp) + "s"
                                 foundMatches.append(link)
                                 print(targetTeam, "FOUND AT", file_timestamp)
         
@@ -244,6 +245,8 @@ class VideoAnalysis:
             for line in file:
                 if (line.strip("\n") == filteredLink):
                     return True
+
+        return False
 
 
 
