@@ -8,6 +8,7 @@ from django import middleware
 
 from .webFuncts.functFun import randomShit
 from .webFuncts.find import VideoAnalysis
+from .webFuncts.wrapper import ImageProcesser
 import time
 
 simpleString = ""
@@ -22,6 +23,13 @@ def start(request):
         link = request.GET.get('link', None)
         VideoAnalysis.process_vid(link)
     return HttpResponse("It Finished!")
+
+def find_team(request):
+    if request.method == 'GET':
+        link = request.GET.get('link', None)
+        team = request.GET.get('team', None)
+        ImageProcesser.findTeam(link, team)
+    return HttpResponse("It Finished find team!")
 
 def videoAnalysis(request):
     template = loader.get_template("videoSubmit.html")

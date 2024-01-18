@@ -51,7 +51,7 @@ class VideoAnalysis:
             pass
         else:
             # filter links before doing anything else to ensure consistency
-            yt_link = yt_link[:yt_link.find("&t")+1]
+            yt_link = yt_link[:yt_link.find("&t")]
         if (yt_link.find("v=") == -1):
             pass
         else:
@@ -167,7 +167,7 @@ class VideoAnalysis:
         filteredLink = VideoAnalysis.yt_link_filter(yt_link)
         foundMatches = []
         with open(
-            os.path.join(team_results, filteredLink), "r"
+            os.path.join(team_results, filteredLink + ".txt"), "r"
         ) as file:
             for line in file:
                 line = line.removeprefix("Output: ")
@@ -199,7 +199,6 @@ class VideoAnalysis:
                         # print("ranks")
                         extraneous_matches = True
                         break
-
                 if not extraneous_matches:
                     for teams in line:
                         for targetTeam in team:
@@ -207,7 +206,7 @@ class VideoAnalysis:
                                 foundMatches.append(targetTeam)
                                 link = "https://www.youtube.com/watch?v=" + filteredLink + "&t=" + str(file_timestamp) + "s"
                                 foundMatches.append(link)
-                                print(targetTeam, "FOUND AT", file_timestamp)
+                                print(targetTeam, "FOUND AT", link)
         
         return foundMatches
 

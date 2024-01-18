@@ -45,12 +45,16 @@ class ImageProcesser:
         imageIsActive = True
         index = 0
         while (len(imageProcessList) != 0):
-            if (VideoAnalysis.checkVidStorage(imageProcessList[index[0]])):
-                VideoAnalysis.find_team(imageProcessList[index[0]], imageProcessList[index[1]]) # passes a list to the second param
+            if (VideoAnalysis.checkVidStorage(imageProcessList[index][0])):
+                print("hyay")
+                VideoAnalysis.find_team(imageProcessList[index][0], imageProcessList[index][1]) # passes a list to the second param
+                imageProcessList.pop(index)
                 # TODO figure out how to spit back found matches for each team
             else:
-                if (not VideoProcesser.checkList(imageProcessList[index[0]])):
-                    VideoProcesser.addVideo(imageProcessList[index[0]])
+                print("roip")
+                if (not VideoProcesser.checkList(imageProcessList[index][0])):
+                    print(imageProcessList[index][0])
+                    VideoProcesser.addVideo(imageProcessList[index][0])
                 if (len(imageProcessList)-1) > index:
                     index += 1
                 else:
@@ -63,11 +67,11 @@ class ImageProcesser:
     @staticmethod
     def findTeam(link, team):
         global imageProcessList, imageIsActive
-        link = VideoAnalysis.yt_link_filter(link)
+        #link = VideoAnalysis.yt_link_filter(link)
         if isinstance(team, list):
             imageProcessList.append([link, team])
         else:
             imageProcessList.append([link, [team]])
         
         if not imageIsActive:
-           ImageProcesser.main()
+            ImageProcesser.main()
