@@ -16,6 +16,7 @@ from pytube import YouTube as YT
 
 from .FrameCapture import Video2Images
 from .timer import Timer
+from ..models import VideoStorage
 
 currStat = 0
 downloadPercentage = 0
@@ -34,6 +35,8 @@ class VideoAnalysis:
     @staticmethod
     def getStat():
         global currStat, downloadPercentage, frameCaptureStatus, analysisStatus
+
+        #returns the stage of processing the video is in
         if currStat == 0:
             return [-10, 0]
         else:
@@ -62,6 +65,7 @@ class VideoAnalysis:
     @staticmethod
     def progressBar(count_value, total, suffix=""):
         global downloadPercentage
+        # Makes a visual bar (in command line) for devs to see progress
         bar_length = 100
         filled_up_Length = int(round(bar_length * count_value / float(total)))
         percentage = round(100.0 * count_value / float(total), 1)
@@ -75,6 +79,7 @@ class VideoAnalysis:
 
     @staticmethod
     def on_progress(stream, chunk, bytes_remaining):
+        # updates the bar
         total_size = stream.filesize
         bytes_downloaded = total_size - bytes_remaining
         VideoAnalysis.progressBar(bytes_downloaded, total_size)
@@ -83,15 +88,20 @@ class VideoAnalysis:
     @staticmethod
     def down_yt_vid(yt_link, yt_fold_name, itag=None):
         global vid_storage, currStat, downloadPercentage, frameCaptureStatus, analysisStatus
+
+        # starts the timer and changes the stage of processing it is on
         currStat = 1
         tracker = Timer()
 
+        # creates an object so that the video can be installed
         video = YT(
             yt_link,
             on_progress_callback=VideoAnalysis.on_progress,
             use_oauth=True,
             allow_oauth_cache=True,
         )
+
+        # try block to catch download errors
         try:
             if itag is None:
                 stream = video.streams.get_highest_resolution()
@@ -101,20 +111,32 @@ class VideoAnalysis:
                 output_path=vid_storage, filename=(yt_fold_name + ".mp4")
             )
             print("your video downloaded successfully")
+
+            # Makes a new data entry into the database if download is successful
+            vid = VideoStorage(
+                vid_name = video.title,
+                vid_sec_length = video.length,
+                vid_key = yt_fold_name,
+                vid_extracted = ""
+            )
+            vid.save()
         except AttributeError:
             print("failed to download in {:} itag".format(itag))
         else:
-            print("done")
+            print("failed?")
         print(tracker.end_time())
 
 
     @staticmethod
     def split_frames(ytlink):
         global image_storage, currStat, downloadPercentage, frameCaptureStatus, analysisStatus
+
+        # changes the stage of processing it is on and starts timer
         currStat = 2
-        vid_loc = os.path.join(vid_storage, ytlink) + ".mp4"
         tracker = Timer()
-        frameCaptureStatus = 9
+
+        vid_loc = os.path.join(vid_storage, ytlink) + ".mp4"
+        frameCaptureStatus = 9 # TODO make frame capture update more accurate
         Video2Images(
             video_filepath=vid_loc,
             out_folder_name=ytlink,
@@ -128,35 +150,46 @@ class VideoAnalysis:
     @staticmethod
     def frame_read(ytlink):
         global team_results, currStat, downloadPercentage, frameCaptureStatus, analysisStatus
+
+        # changes the stage of processing it is on and starts timer
         currStat = 3
         tracker = Timer()
+
+        # sets up easy OCR & the location of the captured frames
         reader = easyocr.Reader(["en"], gpu=True)
-        os_path = os.path.join(team_results, ytlink)
-        text_file = open(os_path + ".txt", "w")
         frame_loc = os.path.join(image_storage, ytlink)
 
-        list_o_frame = []
+        # counts the number of captured frames in the folder
         numOfFiles = 0
-        curNum = 0
         for filename in os.listdir(frame_loc):
             numOfFiles += 1
-        
+
+        # sets up appendText and tracks current frame in processing
+        appendText = ""
+        curNum = 0
+
         for filename in os.listdir(frame_loc):
-            # list_o_frame.append(os.path.join(framls, filename))
+            # increments current frame and reads it
             curNum += 1
             result = reader.readtext(os.path.join(frame_loc, filename), detail=0)
-            analysisStatus = (curNum/numOfFiles)*100
-            print(os.path.join(image_storage, filename))
-            print(result)
-            text_file.write("Output: " + str(result) + " file: " + str(filename) + "\n")
 
-        text_file.close()
+            # updates the progress percentage and adds the output to appendText
+            analysisStatus = (curNum/numOfFiles)*100
+            appendText += "Output: " + str(result) + " file: " + str(filename) + "\n"
+
+        # grabs video instance, adds extracted text, and saves it
+        vidInstance = VideoStorage.objects.get(vid_key=ytlink)
+        vidInstance.vid_extracted = appendText
+        vidInstance.save()
+
         print(tracker.end_time)
 
 
     @staticmethod
     def urlgen(yt_link, filename):
         filename = filename.removesuffix(".jpg")  # filename can not be a path
+
+        # generates a link to the exact timestamp in the video
         final_link = yt_link + "&t={:}s".format(filename)
 
         return final_link
@@ -219,7 +252,7 @@ class VideoAnalysis:
         print(yt_folder_name)
         print("The name for the yt video is:", yt_folder_name)
         if VideoAnalysis.checkVidStorage(yt_folder_name):
-            print("Video Already Processed!!!")
+            print("Video Already Processed!")
         else:
             VideoAnalysis.down_yt_vid(yt_link, yt_folder_name)
             VideoAnalysis.split_frames(yt_folder_name)
@@ -230,8 +263,6 @@ class VideoAnalysis:
         with open(vid_track, 'a') as file:
             file.write(yt_folder_name + "\n")
         # end of appendings
-
-        
 
 
 
