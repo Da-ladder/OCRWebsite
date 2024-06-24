@@ -196,6 +196,46 @@ class VideoAnalysis:
 
 
     @staticmethod
+    def process_vid(yt_link, team=None):
+        global currStat, downloadPercentage, frameCaptureStatus, analysisStatus
+        start_time = time.time()
+        
+        # makes a folder name which is just the video key and prints it out
+        yt_folder_name = VideoAnalysis.yt_link_filter(yt_link)
+        print("The name for the yt video is:" + yt_folder_name)
+
+        # checks if it has been processed and processes the video if it is not in the database yet
+        if VideoAnalysis.checkVidStorage(yt_folder_name):
+            print("Video Already Processed!")
+        else:
+            # downloads, splits, and reads the frames of the video
+            VideoAnalysis.down_yt_vid(yt_link, yt_folder_name)
+            VideoAnalysis.split_frames(yt_folder_name)
+            VideoAnalysis.frame_read(yt_folder_name)
+        
+        # returns the time it took to process the video
+        print((time.time() - start_time))
+
+
+        # resets all stats so that the next video can be processed
+        currStat = 0
+        downloadPercentage = 0
+        frameCaptureStatus = 0
+        analysisStatus = 0
+
+
+    @staticmethod
+    def checkVidStorage(ytlink):
+        filteredLink = VideoAnalysis.yt_link_filter(ytlink)
+
+        # if video key is already in the database then the video exists
+        if (VideoStorage.objects.filter(vid_key=filteredLink).exists()):
+            return True
+        else:
+            return False
+    
+
+    @staticmethod
     def find_team(yt_link, team):
         filteredLink = VideoAnalysis.yt_link_filter(yt_link)
         foundMatches = []
@@ -244,57 +284,6 @@ class VideoAnalysis:
         return foundMatches
 
 
-    @staticmethod
-    def process_vid(yt_link, team=None):
-        global currStat, downloadPercentage, frameCaptureStatus, analysisStatus
-        start_time = time.time()
-        yt_folder_name = VideoAnalysis.yt_link_filter(yt_link)
-        print(yt_folder_name)
-        print("The name for the yt video is:", yt_folder_name)
-        if VideoAnalysis.checkVidStorage(yt_folder_name):
-            print("Video Already Processed!")
-        else:
-            VideoAnalysis.down_yt_vid(yt_link, yt_folder_name)
-            VideoAnalysis.split_frames(yt_folder_name)
-            VideoAnalysis.frame_read(yt_folder_name)
-        print((time.time() - start_time))
-
-        # add video to processed list
-        with open(vid_track, 'a') as file:
-            file.write(yt_folder_name + "\n")
-        # end of appendings
-
-
-
-        # resets all stats so that the next video can be processed
-        currStat = 0
-        downloadPercentage = 0
-        frameCaptureStatus = 0
-        analysisStatus = 0
-
-
-    @staticmethod
-    def checkVidStorage(ytlink):
-        filteredLink = VideoAnalysis.yt_link_filter(ytlink)
-        with open(vid_track, 'r') as file:
-            for line in file:
-                if (line.strip("\n") == filteredLink):
-                    return True
-
-        return False
-
-
 
 start_time = time.time()
-
-
-
-"""
-yt_link = "https://www.youtube.com/watch?v=uCrFhEUjyLY&t=21099s"
-yt_folder_name = yt_link_filter(yt_link)
-print(yt_folder_name)
-#down_yt_vid(yt_link, yt_folder_name)
-split_frames(yt_folder_name)
-frame_read(yt_folder_name)
-"""
 
