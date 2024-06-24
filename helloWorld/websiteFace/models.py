@@ -6,6 +6,4 @@ class VideoStorage(models.Model):
     vid_key = models.CharField(max_length=11, null=True)
     vid_extracted = models.TextField(null=True, blank=True)
 
-
-
 # Create your models here.
