@@ -235,39 +235,57 @@ class VideoAnalysis:
 
     @staticmethod
     def find_team(yt_link, team):
+        # strips video link down to video ID and sets up found matches
         filteredLink = VideoAnalysis.yt_link_filter(yt_link)
         foundMatches = []
-        with open(
-            os.path.join(team_results, filteredLink + ".txt"), "r"
-        ) as file:
-            for line in file:
-                line = line.removeprefix("Output: ")
-                file_timestamp = line[line.find("file: ") + 6 : -5]
-                line = line[: line.find(" file:")]
-                line = line.replace("'", "").removesuffix("]").removeprefix("[")
-                line = line.split(", ")
-                extraneous_matches = False
-                for item in line:
-                    item = item.strip()
 
-                    # figures out if screen is showing elimination bracket or alliance selection and skips past frame
-                    if (item.lower() == "elimination bracket" or item.lower().find("alliance selection") != -1):
-                        extraneous_matches = True
-                        break
-                    # figures out if screen is showing qualification rankings or match schedule and skips past frame
-                    elif (item.lower() == "qualification rankings" or item.lower() == "rank" or item.lower() == "match schedule"):
-                        extraneous_matches = True
-                        break
+        # retrieves extracted text and iterates over each line.
+        vidInst = VideoStorage.objects.get(vid_key=filteredLink)
+        lines = vidInst.vid_extracted.split("\n")
 
-                if not extraneous_matches:
-                    for teams in line:
-                        for targetTeam in team:
-                            if targetTeam == teams:
-                                foundMatches.append(targetTeam)
-                                link = "https://www.youtube.com/watch?v=" + filteredLink + "&t=" + str(file_timestamp) + "s"
-                                foundMatches.append(link)
-                                print(targetTeam, "FOUND AT", link)
+        for line in lines:
+            # processes each line so that it can be made into a list
+            line = line.removeprefix("Output: ")
+
+            # finds timestamp using file name as time is stored in seconds in the file name
+            file_timestamp = line[line.find("file: ") + 6 : -5]
+            print (file_timestamp)
+
+            # processes the line further and splits it into a list
+            line = line[: line.find(" file:")]
+            line = line.replace("'", "").removesuffix("]").removeprefix("[")
+            linephrases = line.split(", ")
+            
+            # extraneous frames will be skipped over using extraneous_matches as a flag
+            extraneous_matches = False
+
+            # processes words in the line
+            for item in linephrases:
+                item = item.strip()
+                # figures out if screen is showing elimination bracket or alliance selection and skips past frame
+                if (item.lower() == "elimination bracket" or item.lower().find("alliance selection") != -1):
+                    extraneous_matches = True
+                    break
+                # figures out if screen is showing qualification rankings or match schedule and skips past frame
+                elif (item.lower() == "qualification rankings" or item.lower() == "rank" or item.lower() == "match schedule"):
+                    extraneous_matches = True
+                    break
+            
+            # only triggers if the frame is not extraneous
+            if not extraneous_matches:
+
+                # goes through potentional teams in each line
+                for teams in linephrases: # this works as team # are isloated and not generally with other words
+
+                    # iterates through the teams to be found
+                    for targetTeam in team:
+                        if targetTeam == teams:
+                            # append the team number and the link which points to their match
+                            link = "https://www.youtube.com/watch?v=" + filteredLink + "&t=" + str(file_timestamp) + "s"
+                            foundMatches.append([targetTeam, link])
+                            print(targetTeam, "FOUND AT", link)
         
+        # returns all of the found matches
         return foundMatches
 
 

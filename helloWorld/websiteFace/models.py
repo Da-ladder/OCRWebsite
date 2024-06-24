@@ -8,6 +8,9 @@ class VideoStorage(models.Model):
 
     def __str__(self):
         return self.vid_name
+    
+
+
 
 
 # Create your models here.

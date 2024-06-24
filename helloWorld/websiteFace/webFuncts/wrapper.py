@@ -61,24 +61,26 @@ class ImageProcesser:
         index = 0
         print("is worky?")
         while (len(imageProcessList) != 0):
-            # checks if the video has already been found
+            # checks if the video has already been processed
             if (VideoAnalysis.checkVidStorage(imageProcessList[index][0])):
                 # finds team through extracted video information
                 VideoAnalysis.find_team(imageProcessList[index][0], imageProcessList[index][1])
                 imageProcessList.pop(index)
                 # TODO figure out how to spit back found matches for each team
             else:
+                # if the video has not been processed and it is not in the list to be processed
+                # add it to the list to be processed
                 if (not VideoProcesser.checkList(imageProcessList[index][0])):
-                    print("link = " + imageProcessList[index][0]) # prints out link
                     VideoProcesser.addVideo(imageProcessList[index][0])
+                
+                # skips over the video which needs to be processed and sees if there is a video it can do
                 if (len(imageProcessList)-1) > index:
                     index += 1
                 else:
                     index = 0
-                sleep(1) # wait one second before checking the list again
+                sleep(1) # wait one second before checking the list again to prevent compute hoarding
         
-        imageIsActive = False
-
+        imageIsActive = False # notfies that the function has ended
 
 
     @staticmethod
@@ -99,12 +101,20 @@ class ImageProcesser:
         if not imageIsActive:
             ImageProcesser.main()
 
+
     @staticmethod
     def checkList(item):
         global imageProcessList
 
-        for i in processingList:
+        # iterates through the list to check if it is in queue (prevents too many spam requests)
+        for i in imageProcessList:
             if i == item:
                 return True
         return False
 
+
+    @staticmethod
+    def giveList():
+        global imageProcessList
+        return imageProcessList
+    
