@@ -6,7 +6,6 @@ from django.template import loader
 from django.shortcuts import render
 from django import middleware
 
-from .webFuncts.functFun import randomShit
 from .webFuncts.find import VideoAnalysis
 from .webFuncts.wrapper import ImageProcesser
 import time
