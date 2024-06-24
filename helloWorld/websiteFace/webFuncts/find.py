@@ -27,8 +27,6 @@ analysisStatus = 0
 # TODO change to new filesystem!!! (will still require folders)
 vid_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "videos")
 image_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "images")
-team_results = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "results")
-vid_track = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "Videolist.txt")
 
 
 class VideoAnalysis:
@@ -251,27 +249,16 @@ class VideoAnalysis:
                 extraneous_matches = False
                 for item in line:
                     item = item.strip()
-                    if (
-                        item.lower() == "elimination bracket"
-                        or item.lower().find("alliance selection") != -1
-                    ):
-                        # print("emlim bracket")
+
+                    # figures out if screen is showing elimination bracket or alliance selection and skips past frame
+                    if (item.lower() == "elimination bracket" or item.lower().find("alliance selection") != -1):
                         extraneous_matches = True
                         break
-                    elif item.lower() == "qualification rankings" or item.lower() == (
-                        "wp" and "ap"
-                    ):
-                        # print("qual rankings")
+                    # figures out if screen is showing qualification rankings or match schedule and skips past frame
+                    elif (item.lower() == "qualification rankings" or item.lower() == "rank" or item.lower() == "match schedule"):
                         extraneous_matches = True
                         break
-                    elif (
-                        item.lower() == "rank"
-                        or item.lower() == "match schedule"
-                        or item.lower() == "red teams"
-                    ):
-                        # print("ranks")
-                        extraneous_matches = True
-                        break
+
                 if not extraneous_matches:
                     for teams in line:
                         for targetTeam in team:
