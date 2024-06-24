@@ -1,18 +1,48 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width,
+    initial-scale=1.0">
+    <link rel="stylesheet" href="/static/style.css">
+    <script src="/static/script.js" defer></script>
+    <title>OCR Page</title>
 
-<form action="/start" method="get">
-  <p>Insert YT link to process below: </p>
-  <input type="text" size="40" name="link">
-  <input type="submit" value="Submit video link to process">
-</form>
+    <nav>
+            
+      <div class="logo">Coding Club</div>
+      <div class="nav-items">
+          <a href="/">Back to Homepage</a>
+          <a href="/about">About</a>
+          <a href="/contact">Contact</a>
+          <a href="/robotics">Robotics2(TEST)</a>
+      </div>
+  </nav>
 
-<form action="/findteam" method="get">
-  <p>Insert YT link and team ID to find their matches below:</p>
-  <input type="text" size="40" name="link" value="link">
-  <br>
-  <input type="text" size="40" name="team" value="team"> 
-  <input type="submit" value="Find team!">
-</form>
-
-<form action="/checkProgress" method="get">
-  <input type="submit" value="Check video progress">
-</form>
+    <body>
+        <section class="form">
+            <div class="form-container">
+              <form action="/start" method="get">
+                <p>Insert YT link to process below: </p>
+                <input type="text" size="40" name="link" style="margin-bottom: 5px">
+                <button class="button-ocr" style="margin-bottom: 60px"> Submit video link to process </button>
+              </form>
+              
+              <form action="/findteam" method="get">
+                <p>Insert livestream link and team # to find their matches below:</p>
+                <input type="text" size="40" name="link" placeholder="Input link here..." style="margin-bottom: 5px">
+                <br>
+                <input type="text" size="40" name="team" placeholder="Input team # here... (ex: 5150Z)" style="margin-bottom: 5px"> 
+                <br>
+                <button class="button-ocr" style="margin-bottom: 60px"> Submit </button>
+              </form>
+              
+              <form action="/checkProgress" method="get">
+                <button class="button-ocr" style="margin-bottom: 111px"> Check Video Progress </button>
+              </form>
+            </div>
+          </section>
+    </body>
+</head>
+</html>
