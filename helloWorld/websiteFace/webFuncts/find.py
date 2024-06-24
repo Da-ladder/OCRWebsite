@@ -21,12 +21,12 @@ currStat = 0
 downloadPercentage = 0
 frameCaptureStatus = 30
 analysisStatus = 0
-vid_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "videos") #scuffed but whatever
-#vid_storage = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\videos"
+
+# Gets filepath two levels up from the current directory with the following folder names. MAKE FOLDERS IF THEY DO NOT EXIST 
+# TODO change to new filesystem!!! (will still require folders)
+vid_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "videos")
 image_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "images")
-#image_storage = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\images"
 team_results = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "results")
-#team_results = r"C:\Users\zcody\OneDrive\Documents\Coding Club\webStorage\results" # home computer filepath
 vid_track = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "Videolist.txt")
 
 
@@ -47,10 +47,10 @@ class VideoAnalysis:
 
     @staticmethod
     def yt_link_filter(yt_link):
+        # filter links so that only video key remains
         if (yt_link.find("&t") == -1):
             pass
         else:
-            # filter links before doing anything else to ensure consistency
             yt_link = yt_link[:yt_link.find("&t")]
         if (yt_link.find("v=") == -1):
             pass
@@ -67,7 +67,7 @@ class VideoAnalysis:
         percentage = round(100.0 * count_value / float(total), 1)
         downloadPercentage = percentage
         bar = "=" * filled_up_Length + "-" * (bar_length - filled_up_Length)
-        os.system("cls")
+        #os.system("cls") # clears bar but no need
         print("[%s] %s%s ...%s" % (bar, percentage, "%", suffix))
         sys.stdout.write("\033[F")
         sys.stdout.flush()
@@ -230,7 +230,12 @@ class VideoAnalysis:
         with open(vid_track, 'a') as file:
             file.write(yt_folder_name + "\n")
         # end of appendings
+
         
+
+
+
+        # resets all stats so that the next video can be processed
         currStat = 0
         downloadPercentage = 0
         frameCaptureStatus = 0

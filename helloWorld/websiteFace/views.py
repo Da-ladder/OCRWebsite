@@ -8,6 +8,7 @@ from django import middleware
 
 from .webFuncts.find import VideoAnalysis
 from .webFuncts.wrapper import ImageProcesser
+from .webFuncts.wrapper import VideoProcesser
 import time
 
 simpleString = ""
@@ -20,15 +21,15 @@ def frontPage(request):
 def start(request):
     if request.method == 'GET':
         link = request.GET.get('link', None)
-        VideoAnalysis.process_vid(link)
-    return HttpResponse("It Finished!")
+        VideoProcesser.addVideo(link)
+    return HttpResponse("Process has completed (your video is either in queue or is processing)")
 
 def find_team(request):
     if request.method == 'GET':
         link = request.GET.get('link', None)
         team = request.GET.get('team', None)
         ImageProcesser.findTeam(link, team)
-    return HttpResponse("It Finished find team!")
+    return HttpResponse("Process for find_team has finished")
 
 def videoAnalysis(request):
     template = loader.get_template("videoSubmit.html")
