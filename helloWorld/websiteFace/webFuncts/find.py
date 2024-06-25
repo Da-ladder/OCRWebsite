@@ -105,7 +105,7 @@ class VideoAnalysis:
             if itag is None:
                 stream = video.streams.get_highest_resolution()
             else:
-                stream = video.streams.get_by_itag(itag)  # 136 = 720p 134 = 360p
+                stream = video.streams.get_highest_resolution() # video.streams.get_by_itag(itag)  # 136 = 720p 134 = 360p
             stream.download(
                 output_path=vid_storage, filename=(yt_fold_name + ".mp4")
             )
@@ -174,7 +174,7 @@ class VideoAnalysis:
 
             # updates the progress percentage and adds the output to appendText
             analysisStatus = (curNum/numOfFiles)*100
-            appendText += "Output: " + str(result) + " file: " + str(filename) + "\n"
+            appendText += "Output: " + str(result) + " file: " + filename + "\n"
 
         # grabs video instance, adds extracted text, and saves it
         vidInstance = VideoStorage.objects.get(vid_key=ytlink)
