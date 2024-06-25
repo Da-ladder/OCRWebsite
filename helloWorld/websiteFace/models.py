@@ -10,6 +10,13 @@ class VideoStorage(models.Model):
         return self.vid_name
     
 
+class ResultStorage(models.Model):
+    found = models.CharField(max_length = 100)
+    vid_name = models.CharField(max_length = 100)
+    vid_links = models.TextField(null=True, blank=True)
+
+    def __str__(self):
+        return self.found + " - " + self.vid_name
 
 
 

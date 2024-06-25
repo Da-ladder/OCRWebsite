@@ -17,6 +17,7 @@ from pytube import YouTube as YT
 from .FrameCapture import Video2Images
 from .timer import Timer
 from ..models import VideoStorage
+from ..models import ResultStorage
 
 currStat = 0
 downloadPercentage = 0
@@ -237,7 +238,8 @@ class VideoAnalysis:
     def find_team(yt_link, team):
         # strips video link down to video ID and sets up found matches
         filteredLink = VideoAnalysis.yt_link_filter(yt_link)
-        foundMatches = []
+        foundMatches = ""
+        teamsFinding = ""
 
         # retrieves extracted text and iterates over each line.
         vidInst = VideoStorage.objects.get(vid_key=filteredLink)
@@ -248,7 +250,7 @@ class VideoAnalysis:
             line = line.removeprefix("Output: ")
 
             # finds timestamp using file name as time is stored in seconds in the file name
-            file_timestamp = line[line.find("file: ") + 6 : -5]
+            file_timestamp = line[line.find("file: ") + 6 : -4]
             print (file_timestamp)
 
             # processes the line further and splits it into a list
@@ -282,11 +284,20 @@ class VideoAnalysis:
                         if targetTeam == teams:
                             # append the team number and the link which points to their match
                             link = "https://www.youtube.com/watch?v=" + filteredLink + "&t=" + str(file_timestamp) + "s"
-                            foundMatches.append([targetTeam, link])
+                            foundMatches += targetTeam + " Link:" + link + "\n"
                             print(targetTeam, "FOUND AT", link)
-        
-        # returns all of the found matches
-        return foundMatches
+
+        # puts all teams to be found in a string
+        for eachTeam in team:
+            teamsFinding += eachTeam + " | "
+
+        # creates a new data table with the found teams and link
+        output = ResultStorage(
+            found = teamsFinding,
+            vid_name = VideoStorage.objects.get(vid_key=filteredLink).vid_name,
+            vid_links = foundMatches
+        )
+        output.save()
 
 
 
