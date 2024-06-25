@@ -50,6 +50,9 @@
 /* top bar config */
 nav {
   height: 80px;
+  width:100%;
+  overflow:hidden;
+  position:fixed;
   background: #000000;
   display: flex;
   justify-content: space-between;
@@ -75,7 +78,7 @@ nav a {
 
 /* top text bar active config */
 nav a:hover {
-  color: #ffd000;
+  color: #dbaf00;
 }
 
 .hero {
@@ -91,6 +94,7 @@ nav a:hover {
 }
 
 .column-left {
+  margin-top: 50px;
   display: flex;
   flex-direction: column;
   justify-content: center;
@@ -126,6 +130,7 @@ nav a:hover {
 }
 
 .column-right {
+  margin-top: 50px;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -156,6 +161,7 @@ body {
 }
 
 form {
+  margin-top:100px;
   font-size: 20px;
 }
 

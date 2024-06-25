@@ -3,46 +3,81 @@
 <head>
     <meta charset="UTF-8">
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
-    <meta name="viewport" content="width=device-width,
-    initial-scale=1.0">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <link rel="stylesheet" href="/static/style.css">
     <script src="/static/script.js" defer></script>
     <title>OCR Page</title>
-
+    <!-- Dropdown styles - put this in styles.css and dropdown script in js file when reformatting -->
+    <style>
+        .dropdown {
+            margin-bottom: 10px;
+        }
+        .dropdown-content {
+            display: none;
+            padding: 10px;
+            border: 4px solid #000000;
+            background-color: #daa000;
+        }
+    </style>
+</head>
+<body>
     <nav>
-            
-      <div class="logo">Coding Club</div>
-      <div class="nav-items">
-          <a href="/">Back to Homepage</a>
-          <a href="/about">About</a>
-          <a href="/contact">Contact</a>
-          <a href="/robotics">Robotics2(TEST)</a>
-      </div>
-  </nav>
+        <div class="logo">Coding Club</div>
+        <div class="nav-items">
+            <a href="/">Back to Homepage</a>
+            <a href="/about">About</a>
+            <a href="/contact">Contact</a>
+            <a href="/robotics">Robotics2(TEST)</a>
+        </div>
+    </nav>
 
-    <body>
-        <section class="form">
-            <div class="form-container">
-              <form action="/start" method="get">
+    <!-- Create a form that takes the youtube link and team name and sends it to the OCR -->
+    <section class="form">
+        <div class="form-container">
+            <form action="/start" method="get">
                 <p>Insert YT link to process below: </p>
                 <input type="text" size="40" name="link" style="margin-bottom: 5px">
-                <button class="button-ocr" style="margin-bottom: 60px"> Submit video link to process </button>
-              </form>
-              
-              <form action="/findteam" method="get">
+                <button class="button-ocr">Submit video link to process</button>
+            </form>
+            
+            <form action="/findteam" method="get">
                 <p>Insert livestream link and team # to find their matches below:</p>
                 <input type="text" size="40" name="link" placeholder="Input link here..." style="margin-bottom: 5px">
                 <br>
                 <input type="text" size="40" name="team" placeholder="Input team # here... (ex: 5150Z)" style="margin-bottom: 5px"> 
                 <br>
-                <button class="button-ocr" style="margin-bottom: 60px"> Submit </button>
-              </form>
-              
-              <form action="/checkProgress" method="get">
-                <button class="button-ocr" style="margin-bottom: 111px"> Check Video Progress </button>
-              </form>
+                <button class="button-ocr">Submit</button>
+            </form>
+            
+            <form action="/checkProgress" method="get">
+                <button class="button-ocr" style="margin-bottom: 111px">Check Video Progress</button>
+            </form>
+        </div>
+    </section>
+
+    <!-- Show instances of the ResultStorage model class (displays the team name, 
+     video name, and every timestamp that the OCR found)
+    )-->
+    <h1>Instances of ResultStorage:</h1>
+    {% for video in videos %}
+        <div class="dropdown">
+            <h2>{{ video.vid_name }} - {{ video.found }}</h2>
+            <div class="dropdown-content">
+                {% for link in video.vid_links %}
+                    <p><a href="{{ link }}">{{ link }}</a></p>
+                {% endfor %}
             </div>
-          </section>
-    </body>
-</head>
+        </div>
+    {% endfor %}
+
+    <!-- This script is a basic dropdown data menu, don't mess with it -->
+    <script src="https://code.jquery.com/jquery-3.6.0.min.js"></script>
+    <script>
+        $(document).ready(function() {
+            $('.dropdown h2').click(function() {
+                $(this).next('.dropdown-content').slideToggle();
+            });
+        });
+    </script>
+</body>
 </html>
