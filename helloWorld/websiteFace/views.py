@@ -1,3 +1,4 @@
+import re
 from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -42,7 +43,10 @@ def videoAnalysis(request):
     # For loop to split the video links into seperate elements on a list (for hyperlinking)
     for video in videos:
         # Split vid_links by space (assuming links are separated by spaces)
-        video.vid_links = video.vid_links.split() # Turn vid_links into a list
+
+        video.vid_links = re.split(r'\n|Link:', video.vid_links)
+
+        #video.vid_links = video.vid_links.split("\n") # Turn vid_links into a list
 
     # Create a list of instances
     context = {

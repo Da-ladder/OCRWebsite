@@ -184,5 +184,16 @@ input, select, textarea {
   color: #000;
 }
 
+.button-hyperlink {
+  padding: .75rem 2rem;
+  font-size: 1rem;
+  border: none;
+  color: #ffffff;
+  background: rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 5px; 
+  margin-bottom:20px !important;
+}
+
 
 

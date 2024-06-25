@@ -64,7 +64,9 @@
             <h2>{{ video.vid_name }} - {{ video.found }}</h2>
             <div class="dropdown-content">
                 {% for link in video.vid_links %}
-                    <p><a href="{{ link }}">{{ link }}</a></p>
+                  {% if not forloop.counter0|divisibleby:2 %}
+                    <a href="{{link}}" class="button-hyperlink" target="_blank"> {{video.found}} {{link}}  </a> <br><br><br>
+                  {% endif %}
                 {% endfor %}
             </div>
         </div>
