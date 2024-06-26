@@ -70,7 +70,7 @@ def robotics(request):
 def progressBar(request):
     global simpleString
     simpleString = ""
-    curProgress = 0 #VideoAnalysis.getStat()
+    curProgress = VideoAnalysis.getStat()
     if curProgress[0] == 1:
         simpleString = "download %" + str(curProgress[1])
     elif curProgress[0] == 2:
