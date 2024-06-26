@@ -1,5 +1,6 @@
 from django.urls import path
 from django.contrib.staticfiles.urls import staticfiles_urlpatterns
+from django.contrib import admin
 
 from . import views
 
@@ -7,6 +8,8 @@ urlpatterns = [
     # Shows the URL needed after the domain name
     # /
     path("", views.frontPage, name="TEST"),
+    #/admin/
+    path("admin/", admin.site.urls),
     # /video_analysis/
     path("video_analysis", views.videoAnalysis, name="TEST2"),
     # /about/
