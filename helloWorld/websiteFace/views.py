@@ -6,7 +6,7 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
 from django import middleware
-from .models import ResultStorage
+from .webFuncts.models import ResultStorage
 
 
 #from .webFuncts.find import VideoAnalysis
