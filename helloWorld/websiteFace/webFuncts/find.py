@@ -283,7 +283,7 @@ class VideoAnalysis:
                         if targetTeam == teams:
                             # append the team number and the link which points to their match
                             link = "https://www.youtube.com/watch?v=" + filteredLink + "&t=" + str(file_timestamp) + "s"
-                            foundMatches += targetTeam + " Link:" + link + "\n"
+                            foundMatches += targetTeam + link
                             print(targetTeam, "FOUND AT", link)
 
         # puts all teams to be found in a string

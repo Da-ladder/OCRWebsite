@@ -1,3 +1,4 @@
+import re
 from django.http import Http404
 from django.http import HttpResponse, HttpResponseRedirect
 
@@ -5,6 +6,8 @@ from django.http import HttpResponse
 from django.template import loader
 from django.shortcuts import render
 from django import middleware
+from .models import ResultStorage
+
 
 #from .webFuncts.find import VideoAnalysis
 from .tasks import *
@@ -29,10 +32,28 @@ def find_team(request):
         team = request.GET.get('team', None)
         findTeam_async.delay(link, team)
     return HttpResponse("Process for find_team has finished")
-
+    
 def videoAnalysis(request):
-    template = loader.get_template("videoSubmit.html")
-    return HttpResponse(template.render())
+    # All models that are found are put in the videos list
+    
+    videos = ResultStorage.objects.all()
+
+    # Django admin doesn't allow links to be stored on the database so we separate ourselves
+    # For loop to split the video links into seperate elements on a list (for hyperlinking)
+    for video in videos:
+        # Split vid_links by space (assuming links are separated by spaces)
+
+        video.vid_links = re.split(r'\n|Link:', video.vid_links)
+
+        #video.vid_links = video.vid_links.split("\n") # Turn vid_links into a list
+
+    # Create a list of instances
+    context = {
+        'videos': videos,
+    }
+
+    # Render the page with videoSubmit template and give the html file the list of instances
+    return render(request, 'videoSubmit.html', context)
 
 def about(request):
     template = loader.get_template("about.html")
