@@ -9,9 +9,8 @@ from django import middleware
 from .models import ResultStorage
 
 
-from .webFuncts.find import VideoAnalysis
-from .webFuncts.wrapper import ImageProcesser
-from .webFuncts.wrapper import VideoProcesser
+#from .webFuncts.find import VideoAnalysis
+from .tasks import *
 import time
 
 simpleString = ""
@@ -24,14 +23,14 @@ def frontPage(request):
 def start(request):
     if request.method == 'GET':
         link = request.GET.get('link', None)
-        VideoProcesser.addVideo(link)
+        addVid_async.delay(link)
     return HttpResponse("Process has completed (your video is either in queue or is processing)")
 
 def find_team(request):
     if request.method == 'GET':
         link = request.GET.get('link', None)
         team = request.GET.get('team', None)
-        ImageProcesser.findTeam(link, team)
+        findTeam_async.delay(link, team)
     return HttpResponse("Process for find_team has finished")
     
 def videoAnalysis(request):
@@ -71,7 +70,7 @@ def robotics(request):
 def progressBar(request):
     global simpleString
     simpleString = ""
-    curProgress = VideoAnalysis.getStat()
+    curProgress = 0 #VideoAnalysis.getStat()
     if curProgress[0] == 1:
         simpleString = "download %" + str(curProgress[1])
     elif curProgress[0] == 2:

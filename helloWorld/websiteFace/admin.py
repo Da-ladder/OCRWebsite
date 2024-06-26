@@ -1,9 +1,8 @@
 from django.contrib import admin
 
-from .models import VideoStorage
-from .models import ResultStorage
+from .webFuncts import models
 
-admin.site.register(VideoStorage)
-admin.site.register(ResultStorage)
+admin.site.register(models.VideoStorage)
+admin.site.register(models.ResultStorage)
 
 # Register your models here.

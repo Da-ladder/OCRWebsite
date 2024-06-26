@@ -14,10 +14,17 @@ import easyocr.easyocr
 # from cv2 import dnn_superres
 from pytube import YouTube as YT
 
-from .FrameCapture import Video2Images
-from .timer import Timer
-from ..models import VideoStorage
-from ..models import ResultStorage
+
+try:
+    from FrameCapture import Video2Images
+    from models import VideoStorage
+    from models import ResultStorage
+except:
+    from .models import VideoStorage
+    from .models import ResultStorage
+    from .FrameCapture import Video2Images
+
+
 
 currStat = 0
 downloadPercentage = 0
@@ -25,9 +32,8 @@ frameCaptureStatus = 30
 analysisStatus = 0
 
 # Gets filepath two levels up from the current directory with the following folder names. MAKE FOLDERS IF THEY DO NOT EXIST 
-# TODO change to new filesystem!!! (will still require folders)
-vid_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "videos")
-image_storage = os.path.join(os.path.dirname(os.path.dirname(os.getcwd())), "images")
+vid_storage = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd()))), "videos")
+image_storage = os.path.join(os.path.dirname(os.path.dirname(os.path.dirname(os.getcwd()))), "images")
 
 
 class VideoAnalysis:
@@ -90,7 +96,6 @@ class VideoAnalysis:
 
         # starts the timer and changes the stage of processing it is on
         currStat = 1
-        tracker = Timer()
 
         # creates an object so that the video can be installed
         video = YT(
@@ -123,7 +128,6 @@ class VideoAnalysis:
             print("failed to download in {:} itag".format(itag))
         else:
             print("failed?")
-        print(tracker.end_time())
 
 
     @staticmethod
@@ -132,7 +136,6 @@ class VideoAnalysis:
 
         # changes the stage of processing it is on and starts timer
         currStat = 2
-        tracker = Timer()
 
         vid_loc = os.path.join(vid_storage, ytlink) + ".mp4"
         frameCaptureStatus = 9 # TODO make frame capture update more accurate
@@ -143,7 +146,6 @@ class VideoAnalysis:
             out_dir=image_storage,
         )
         frameCaptureStatus = 99.9
-        print(tracker.end_time())
 
 
     @staticmethod
@@ -152,7 +154,6 @@ class VideoAnalysis:
 
         # changes the stage of processing it is on and starts timer
         currStat = 3
-        tracker = Timer()
 
         # sets up easy OCR & the location of the captured frames
         reader = easyocr.Reader(["en"], gpu=True)
@@ -180,8 +181,6 @@ class VideoAnalysis:
         vidInstance = VideoStorage.objects.get(vid_key=ytlink)
         vidInstance.vid_extracted = appendText
         vidInstance.save()
-
-        print(tracker.end_time)
 
 
     @staticmethod
