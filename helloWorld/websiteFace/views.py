@@ -38,13 +38,14 @@ def videoAnalysis(request):
     
     videos = ResultStorage.objects.all()
 
+    videos = list(videos)[::-1]
+
     # Django admin doesn't allow links to be stored on the database so we separate ourselves
     # For loop to split the video links into seperate elements on a list (for hyperlinking)
     for video in videos:
         # Split vid_links by space (assuming links are separated by spaces)
 
         video.vid_links = re.split(r'\n|Link:', video.vid_links)
-
         #video.vid_links = video.vid_links.split("\n") # Turn vid_links into a list
 
     # Create a list of instances
