@@ -1,12 +1,19 @@
 from time import sleep
-from .find import VideoAnalysis
-from ..models import VideoStorage
+
+try:
+    from find import VideoAnalysis
+except:
+    from .find import VideoAnalysis
+
+#from .models import VideoStorage
+from celery import Celery
 
 
 imageProcessList = []
 processingList = []
 isActive = False
 imageIsActive = False
+
 
 class VideoProcesser:
     @staticmethod
@@ -32,7 +39,7 @@ class VideoProcesser:
 
         # activate main loop if it is not active
         if not isActive:
-           VideoProcesser.main()
+           a = VideoProcesser.main()
 
     @staticmethod
     def checkList(link):
@@ -91,7 +98,7 @@ class ImageProcesser:
         if isinstance(team, list):
             linkTeam = [link, team]
         else:
-            linkTeam = [link, [team]]
+            linkTeam = [link, team.replace(" ", "").split(",")]
         
         # adds video to the processing list if it is not in processing list
         if not ImageProcesser.checkList(linkTeam):
