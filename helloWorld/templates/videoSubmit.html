@@ -32,28 +32,31 @@
     </nav>
 
     <!-- Create a form that takes the youtube link and team name and sends it to the OCR -->
-    <section class="form">
-        <div class="form-container">
-            <form action="/start" method="get">
-                <p>Insert YT link to process below: </p>
-                <input type="text" size="40" name="link" style="margin-bottom: 5px">
-                <button class="button-ocr">Submit video link to process</button>
-            </form>
-            
-            <form action="/findteam" method="get">
-                <p>Insert livestream link and team # to find their matches below:</p>
-                <input type="text" size="40" name="link" placeholder="Input link here..." style="margin-bottom: 5px">
-                <br>
-                <input type="text" size="40" name="team" placeholder="Input team # here... (ex: 5150Z)" style="margin-bottom: 5px"> 
-                <br>
-                <button class="button-ocr">Submit</button>
-            </form>
-            
-            <form action="/checkProgress" method="get">
-                <button class="button-ocr" style="margin-bottom: 111px">Check Video Progress</button>
-            </form>
-        </div>
-    </section>
+    <section class="hero">
+      <div class="hero-container">
+        <div class="column-left-ocr">
+          <section class="form">
+              <div class="form-container">
+                  <form action="/start" method="get">
+                      <p>Insert YT link to process below: </p>
+                      <input type="text" size="40" name="link" style="margin-bottom: 5px">
+                      <button class="button-ocr">Submit video link to process</button>
+                  </form>
+                  
+                  <form action="/findteam" method="get">
+                      <p>Insert livestream link and team # to find their matches below:</p>
+                      <input type="text" size="25" name="link" placeholder="Input link here..." style="margin-bottom: 5px">
+                      <br>
+                      <input type="text" size="25" name="team" placeholder="Input team # here... (ex: 5150Z)" style="margin-bottom: 5px"> 
+                      <br>
+                      <button class="button-ocr" style="margin-bottom:10px">Submit</button>
+                  </form>
+                  
+                  <form action="/checkProgress" method="get">
+                      <button class="button-ocr" style="margin-bottom: 0px">Check Video Progress</button>
+                  </form>
+              </div>
+          </section>
 
     <!-- Show instances of the ResultStorage model class (displays the team name, 
      video name, and every timestamp that the OCR found)
