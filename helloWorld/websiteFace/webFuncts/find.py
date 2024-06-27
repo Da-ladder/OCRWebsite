@@ -25,6 +25,9 @@ except:
     from .FrameCapture import Video2Images
 
 
+from pytube.exceptions import PytubeError
+
+
 
 currStat = 0
 downloadPercentage = 0
@@ -97,16 +100,17 @@ class VideoAnalysis:
         # starts the timer and changes the stage of processing it is on
         currStat = 1
 
-        # creates an object so that the video can be installed
-        video = YT(
-            yt_link,
-            on_progress_callback=VideoAnalysis.on_progress,
-            use_oauth=True,
-            allow_oauth_cache=True,
-        )
-
         # try block to catch download errors
         try:
+
+            # creates an object so that the video can be installed
+            video = YT(
+                yt_link,
+                on_progress_callback=VideoAnalysis.on_progress,
+                use_oauth=True,
+                allow_oauth_cache=True,
+            )
+
             if itag is None:
                 stream = video.streams.get_highest_resolution()
             else:
@@ -124,10 +128,28 @@ class VideoAnalysis:
                 vid_extracted = ""
             )
             vid.save()
+
+            return True
         except AttributeError:
             print("failed to download in {:} itag".format(itag))
-        else:
-            print("failed?")
+            return False
+        except PytubeError as err:
+            video = YT(
+                yt_link,
+                on_progress_callback=VideoAnalysis.on_progress,
+                use_oauth=True,
+                allow_oauth_cache=True,
+            )
+
+            vid = VideoStorage(
+                vid_name = video.title + "  FAILED DOWNLOAD",
+                vid_sec_length = video.length,
+                vid_key = yt_fold_name,
+                vid_extracted = err
+            )
+            vid.save()
+
+            return False
 
 
     @staticmethod
@@ -207,9 +229,9 @@ class VideoAnalysis:
             print("Video Already Processed!")
         else:
             # downloads, splits, and reads the frames of the video
-            VideoAnalysis.down_yt_vid(yt_link, yt_folder_name)
-            VideoAnalysis.split_frames(yt_folder_name)
-            VideoAnalysis.frame_read(yt_folder_name)
+            if VideoAnalysis.down_yt_vid(yt_link, yt_folder_name): # will only proceed if the video downloaded
+                VideoAnalysis.split_frames(yt_folder_name)
+                VideoAnalysis.frame_read(yt_folder_name)
         
         # returns the time it took to process the video
         print((time.time() - start_time))

@@ -24,14 +24,14 @@ def start(request):
     if request.method == 'GET':
         link = request.GET.get('link', None)
         addVid_async.delay(link)
-    return HttpResponse("Process has completed (your video is either in queue or is processing)")
+    return HttpResponseRedirect("/")
 
 def find_team(request):
     if request.method == 'GET':
         link = request.GET.get('link', None)
         team = request.GET.get('team', None)
         findTeam_async.delay(link, team)
-    return HttpResponse("Process for find_team has finished")
+    return HttpResponseRedirect("/")
     
 def videoAnalysis(request):
     # All models that are found are put in the videos list
