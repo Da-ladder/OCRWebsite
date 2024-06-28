@@ -1,4 +1,51 @@
-<!--Autogens for default club page--> 
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{club.name}}</title>
+    <link rel="stylesheet" href="/static/clubDefault.css">
+</head>
+<body>
+    <div class="top-bar">
+        <div class="club-name">{{club.name}}</div>
+        <button class="join-button">Join</button>
+    </div>
 
-
-<h1>{{club.discription}}</h1>
+    <!--Cards can be added as needed. One is commented out as reference-->
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2>About</h2>
+                <p>{{club.discription}}</p>
+            </div>
+            <!--
+            <div class="card">
+                <h2>Partner</h2>
+                <div class="partner">
+                    <p>GSB Alumni Home Page</p>
+                </div>
+            </div>
+            -->
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>General Schedule</h3>
+                <p>{{club.generalMeets}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>Meeting Location</h3>
+                <p>{{club.location}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>Contact(s)</h3>
+                <p>{{club.contact}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>Advisor(s)</h3>
+                <p>{{club.advisorOrAdvisors}}</p>
+            </div>
+        </div>
+    </div>
+</body>
+</html>
