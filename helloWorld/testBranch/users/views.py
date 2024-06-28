@@ -13,5 +13,18 @@ def club_display(request):
     clubs = Club.objects.all()
     return render(request, 'classDisplay.html', {'classes': clubs})
 
+# Triggered when no custom club redirect exists
+# TODO make custom 404 page
+def club_default(request):
+    
+    # Assumes each club has its own name
+    className = request.GET.get('className')
+
+    context = {
+        'club': Club.objects.get(name = className)
+    }
+
+    return render(request, "clubDefault.html", context)
+
 
 # Create your views here.
