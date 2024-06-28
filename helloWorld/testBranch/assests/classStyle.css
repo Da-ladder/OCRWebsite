@@ -1,0 +1,52 @@
+/* static/styles.css */
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+.container {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 20px;
+    padding: 20px;
+}
+
+.class-card {
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    width: 200px;
+    padding: 20px;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    transition: transform 0.3s;
+}
+
+.class-card .class-name {
+    margin: 0;
+    font-size: 1.5em;
+}
+
+.class-card .class-description {
+    margin-top: 10px;
+    font-size: 1em;
+    color: #666;
+    max-height: 55px; /* Adjust the maximum height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show before truncating */
+    -webkit-box-orient: vertical;
+}
+
+.class-card:hover {
+    transform: translateY(-10px);
+}
