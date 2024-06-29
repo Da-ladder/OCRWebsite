@@ -55,8 +55,10 @@ body {
     display: -webkit-box;
     -webkit-line-clamp: 3; /* Number of lines to show before truncating */
     -webkit-box-orient: vertical;
+    font-family: 'Source Sans Pro'
 }
 
 .class-card:hover {
     transform: translateY(-10px);
+    background-color: #ffcfa2
 }
