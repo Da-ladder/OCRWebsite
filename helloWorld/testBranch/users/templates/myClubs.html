@@ -8,6 +8,15 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
 <body>
+     <!-- Navigation bar -->
+     <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <a href="/myClubs" style='color:#FF0000'>My Clubs</a>
+            <a href="/clubs">Explore</a>
+            <a href="/">Account</a>
+        </div>
+    </nav>
     <div class="container" id = "clubLayotTag">
         {% for class in classes %}
             <div class="class-card" data-url="{{ class.url }}">

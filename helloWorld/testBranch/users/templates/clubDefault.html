@@ -7,6 +7,22 @@
     <link rel="stylesheet" href="/static/clubDefault.css">
 </head>
 <body>
+
+    
+    <!-- Navigation bar -->
+    <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <input type="text" id="searchInput" placeholder="Search clubs by name...">
+            <button onclick="searchClubs()">Search</button>
+            <button onclick="resetQuery()">Reset</button>
+            <a href="/myClubs">My Clubs</a>
+            <a href="/clubs">Explore</a>
+            <a href="/">Account</a>
+        </div>
+    </nav>
+
+
     <div class="top-bar">
         <div class="club-name">{{club.name}}</div>
         <form action="/joinClub" method="get">
