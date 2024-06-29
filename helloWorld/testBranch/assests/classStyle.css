@@ -111,3 +111,65 @@ nav a {
 nav a:hover {
   color: #dbaf00;
 }
+
+.hero {
+  background: #f4f4f4;
+
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 95vh;
+  padding: 0rem calc((100vw - 1399px) / 2);
+}
+
+.column-left {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: rgb(0, 0, 0);
+  padding: 0rem 2rem;
+}
+
+.column-left h1 {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+}
+
+.column-left p {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.button-primary {
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  border: none;
+  color: #ffffff;
+  background: rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.button-primary:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.column-right {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 2rem;
+}
+
+@media screen and (max-width: 750px){
+  .hero-container{
+      grid-template-columns: 1fr;
+  }
+}

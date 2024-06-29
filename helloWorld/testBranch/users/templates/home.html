@@ -1,16 +1,15 @@
 {% load socialaccount %}
 <!DOCTYPE html>
-<html lang="en">
-<head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Google Login Placeholder</title>
-    <link rel="stylesheet" href="/static/loginDefault.css">
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+        <title>Personal Portfolio</title>
+        <link rel="stylesheet" href="/static/loginDefault.css">
     <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/static/classStyle.css">
-</head>
-<body>
-
+    </head>
+    <body>
     <!-- Navigation bar -->
     <nav>   
         <div class="logo">Club Website</div>
@@ -21,21 +20,21 @@
         </div>
     </nav>
 
-    <h1 style="text-align: center; margin-top:150px;"> Google OAuth</h1>
-    {% if user.is_authenticated %}
-    <p>Welcome. You are logged in {{user.username}} </p>
-    {% else %}
-    <p>Welcome. Please sign in to access this part of the website </p>
-    {% endif %}
-
-
-
-    <a href="{% provider_login_url 'google' %}" class="btn-google-login">
-        <i class="fab fa-google"></i> Sign in with Google
-    </a>
-
-    
-</body>
-
-
+        <section class="hero">
+            <div class="hero-container">
+                <div class="column-left">
+                    <h1>DHS Extracurriculars</h1>
+                    <p>Explore a diverse array of enriching extracurricular activities tailored to your interests, ranging from STEM clubs to arts and community service initiatives.</p>
+                    <a href="{% provider_login_url 'google' %}" class="btn-google-login">
+                        <i class="fab fa-google"></i> Get Started
+                    </a>
+                </div>
+                <div class="column-right">
+                    
+                </div>
+                
+            </div>
+        </section>
+        <div class="loader"></div>
+    </body>
 </html>
