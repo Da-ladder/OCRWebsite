@@ -31,7 +31,10 @@ ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 # Application definition
 
-SITE_ID = 3
+SITE_ID = 4
+
+# most secure way is to set to false rather than true. POST requests are much more secure (eh for now)
+SOCIALACCOUNT_LOGIN_ON_GET=True
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -54,7 +57,10 @@ SOCIALACCOUNT_PROVIDERS = {
             "profile",
             "email"
         ],
-        "AUTH_PARAMS": {"access_type": "online"}
+        "AUTH_PARAMS": {"access_type": "online", 
+                        "include_granted_scopes": "true",
+                        },
+        "VERIFIED_EMAIL": True
     }
 }
 
@@ -149,5 +155,5 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-LOGIN_REDIRECT_URL = "/"
+LOGIN_REDIRECT_URL = "/loggedIn"
 LOGOUT_REDIRECT_URL = "/"
