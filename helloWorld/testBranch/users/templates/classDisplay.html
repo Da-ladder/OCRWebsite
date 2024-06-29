@@ -8,14 +8,36 @@
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
 <body>
-    <div class="container" id = "clubLayotTag">
-        {% for class in classes %}
-            <div class="class-card" data-url="{{ class.url }}">
-                <h3 class="class-name" font-family: 'Source Sans Pro'>{{ class.name }}</h3>
-                <p class="class-description" font-family: 'Source Sans Pro'>{{ class.discription }}</p>
+
+    <!-- Navigation bar -->
+    <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <input type="text" id="searchInput" placeholder="Search clubs by name...">
+            <button onclick="searchClubs()">Search</button>
+            <button onclick="resetQuery()">Reset</button>
+            <a href="#home">Home</a>
+            <a href="#about">About</a>
+            <a href="#contact">Contact</a>
+        </div>
+    </nav>
+
+    <!-- Main content -->
+    <div class="container" id="clubLayoutTag">
+        {% for category, clubs in clubs_by_category.items %}
+        <h2>{{ category }}</h2>
+        <div class="category-container">
+            {% for club in clubs %}
+            <div class="class-card" data-url="{{ club.url }}">
+                <h3 class="class-name">{{ club.name }}</h3>
+                <p class="class-description">{{ club.discription }}</p>
             </div>
+            {% endfor %}
+        </div>
         {% endfor %}
+        
     </div>
+
     <script src="/static/classCards.js"></script>
 </body>
 </html>
