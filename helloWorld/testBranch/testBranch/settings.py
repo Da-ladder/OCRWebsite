@@ -31,9 +31,9 @@ ALLOWED_HOSTS = ["127.0.0.1","localhost"]
 
 # Application definition
 
-SITE_ID = 4
+SITE_ID = 3
 
-# most secure way is to set to false rather than true. POST requests are much more secure (eh for now)
+# most secure way is to set to false rather thazn true. POST requests are much more secure (eh for now)
 SOCIALACCOUNT_LOGIN_ON_GET=True
 
 INSTALLED_APPS = [

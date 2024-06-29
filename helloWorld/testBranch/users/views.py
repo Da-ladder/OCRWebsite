@@ -67,7 +67,7 @@ def registerUser(request):
 
         if created:
             # redirects user to a certain page if the account was just created
-            return render(request, 'test.html', {'content': user.email}) # change this to a success screen or something
+            return redirect("/clubs") # change this to a success screen or something
         else:
             # gets user to the primary club page if they already have an account
             return redirect("/clubs")
