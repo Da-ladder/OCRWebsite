@@ -2,7 +2,7 @@ Save pip versions to a .txt file
 pip freeze > requirements.txt
 
 Website to see stuff
-http://0.0.0.0:8000/
+localhost:8001/
 
 Activate virtual environment
 .\venv\Scripts\activate
