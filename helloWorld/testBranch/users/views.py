@@ -83,22 +83,3 @@ def joinClub(request):
     else:
         return redirect("/")
 
-
-def club_list(request):
-    clubs_by_category = {}
-
-    # Fetch all unique categories
-    categories = Club.objects.values_list('category', flat=True).distinct()
-
-    # Fetch clubs for each category
-    for category in categories:
-        clubs_by_category[category] = Club.objects.filter(category=category)
-
-    context = {
-        'clubs_by_category': clubs_by_category
-    }
-
-    return render(request, 'club_list.html', context)
-
-
-# Create your views here.
