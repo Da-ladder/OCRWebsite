@@ -9,7 +9,8 @@
 <body>
     <h1 style="text-align: center;"> My google OAuth Project </h1>
     {% if user.is_authenticated %}
-    <p>Welcome. You are logged in as {{user.username}} </p>
+    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    <p>Welcome. You are logged in {{user.username}} </p>
     {% else %}
     <a href="{% provider_login_url 'google' %}">Login with Google</a>
     {% endif %}

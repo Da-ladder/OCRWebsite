@@ -9,7 +9,11 @@
 <body>
     <div class="top-bar">
         <div class="club-name">{{club.name}}</div>
-        <button class="join-button">Join</button>
+        <form action="/joinClub" method="get">
+            <input type="hidden" name="clubName" value="{{club.name}}">
+            <button type="submit" class="join-button">Join</button>
+        </form>
+        
     </div>
 
     <!--Cards can be added as needed. One is commented out as reference-->
@@ -19,14 +23,6 @@
                 <h2>About</h2>
                 <p>{{club.discription}}</p>
             </div>
-            <!--
-            <div class="card">
-                <h2>Partner</h2>
-                <div class="partner">
-                    <p>GSB Alumni Home Page</p>
-                </div>
-            </div>
-            -->
         </div>
         <div class="sidebar">
             <div class="sidebar-section">

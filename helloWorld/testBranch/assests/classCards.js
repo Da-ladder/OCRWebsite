@@ -14,7 +14,7 @@ document.querySelectorAll('.class-card').forEach(card => {
 
             // Construct query parameters
             const queryParams = new URLSearchParams(additionalInfo).toString();
-            const url = 'clubs/default'
+            const url = 'default'
             const fullUrl = `${url}?${queryParams}`;
         
             window.location.href = fullUrl;
