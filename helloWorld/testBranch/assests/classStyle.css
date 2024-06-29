@@ -13,15 +13,16 @@ body {
     flex-wrap: nowrap;
     overflow-x: auto;
     overflow-y: hidden;
-    /*overflow: hidden; /* This hides overflow content */
     gap: 20px;
     padding: 2% 2% 2% 2%; /* Added top padding for spacing */
-    scrollbar-width: none;
+    /*scrollbar-width: none;*/
 }
 
+/*
 .container::-webkit-scrollbar {
     display: none;
 }
+*/
 
 .class-card {
     background-color: #fff;

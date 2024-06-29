@@ -1,0 +1,20 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Interface</title>
+    <link rel="stylesheet" href="/static/myClubStyle.css">
+</head>
+<body>
+    <div class="container" id = "clubLayotTag">
+        {% for class in classes %}
+            <div class="class-card" data-url="{{ class.url }}">
+                <h3 class="class-name">{{ class.name }}</h3>
+                <p class="class-description">{{ class.discription }}</p>
+            </div>
+        {% endfor %}
+    </div>
+    <script src="/static/classCards.js"></script>
+</body>
+</html>
