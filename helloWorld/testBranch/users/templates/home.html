@@ -4,7 +4,9 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Document</title>
+    <title>Google Login Placeholder</title>
+    <link rel="stylesheet" href="/static/loginDefault.css">
+    <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
     <link rel="stylesheet" href="/static/classStyle.css">
 </head>
 <body>
@@ -19,12 +21,21 @@
         </div>
     </nav>
 
-    <h1 style="text-align: center; margin-top:150px;"> My google OAuth Project </h1>
+    <h1 style="text-align: center; margin-top:150px;"> Google OAuth</h1>
     {% if user.is_authenticated %}
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
     <p>Welcome. You are logged in {{user.username}} </p>
     {% else %}
-    <a href="{% provider_login_url 'google' %}">Login with Google</a>
+    <p>Welcome. Please sign in </p>
     {% endif %}
+
+
+
+    <a href="{% provider_login_url 'google' %}" class="btn-google-login">
+        <i class="fab fa-google"></i> Sign in with Google
+    </a>
+
+    
 </body>
+
+
 </html>
