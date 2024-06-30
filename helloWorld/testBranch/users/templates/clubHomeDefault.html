@@ -9,13 +9,13 @@
 <body>
 
     <div class="top-bar">
-        <form action="/clubs/" method="get">
+        <form action="/myClubs/" method="get">
             <button type="submit" class="join-button">Back</button>
         </form>
         <div class="club-name">{{club.name}}</div>
-        <form action="/joinClub" method="get">
+        <form action="/leaveClub" method="get">
             <input type="hidden" name="clubName" value="{{club.name}}">
-            <button type="submit" class="join-button">Join</button>
+            <button type="submit" class="join-button">Leave</button>
         </form>
     </div>
 
@@ -23,8 +23,10 @@
     <div class="main-content">
         <div class="container">
             <div class="card">
-                <h2>About</h2>
-                <p>{{club.discription}}</p>
+                <h2>Live Feed</h2>
+                <p>This part of the website is still under developement. Please direct feedback 
+                    about the website or suggestions to czhu5059@danbury.k12.ct.us
+                </p>
             </div>
         </div>
         <div class="sidebar">
@@ -43,6 +45,10 @@
             <div class="sidebar-section">
                 <h3>Advisor(s)</h3>
                 <p>{{club.advisorOrAdvisors}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>About</h3>
+                <p>{{club.discription}}</p>
             </div>
         </div>
     </div>

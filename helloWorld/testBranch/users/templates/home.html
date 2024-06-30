@@ -25,9 +25,16 @@
                 <div class="column-left">
                     <h1>DHS Extracurriculars</h1>
                     <p>Explore a diverse array of enriching extracurricular activities tailored to your interests, ranging from STEM clubs to arts and community service initiatives.</p>
-                    <a href="{% provider_login_url 'google' %}" class="btn-google-login">
-                        <i class="fab fa-google"></i> Get Started
-                    </a>
+                    {% if user.is_authenticated %}
+                        <p>Welcome, {{ user.username }}!</p>
+                        <a href="{% provider_login_url 'google' %}" class="btn-google-login">
+                            <i class="fab fa-google"></i> Sign in With a Different Account
+                        </a>
+                    {% else %}
+                        <a href="{% provider_login_url 'google' %}" class="btn-google-login">
+                            <i class="fab fa-google"></i> Get Started
+                        </a>
+                    {% endif %}
                 </div>
                 <div class="column-right">
                     

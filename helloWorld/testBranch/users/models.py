@@ -27,6 +27,7 @@ class Club(models.Model):
     tagOrTags = models.ManyToManyField(ClubTag, blank=True)
 
     url = models.URLField(max_length=150, blank=True, null=True)
+    homeURL = models.URLField(max_length=150, blank=True, null=True)
 
     def __str__(self):
         return self.name

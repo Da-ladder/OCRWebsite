@@ -11,5 +11,6 @@ urlpatterns = [
     path("clubs/default", views.club_default),
     path("joinClub", views.joinClub),
     path("myClubs/", views.dis_my_clubs),
-    path("myClubs/default", views.club_default),
+    path("myClubs/default", views.club_home_default),
+    path("leaveClub", views.leaveClub),
 ]

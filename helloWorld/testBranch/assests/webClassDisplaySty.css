@@ -1,4 +1,14 @@
 /* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
 body {
     font-family: Arial, sans-serif;
     margin: 0;
@@ -26,22 +36,6 @@ h2 {
 }
 
 .card {
-    background-color: #fff;
-    flex: 0 0 auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s;
-}
-
-.card {
     display: flex; /* Ensure cards are in a single row */
     flex: 0 0 auto;
     flex-direction: column;
@@ -49,12 +43,11 @@ h2 {
     align-items: center;
     text-align: center;
     white-space: normal;
-
     min-width: 240px;
     max-width: 240px;
     min-height: 240px;
     max-height: 240px;
-    background-color: #f0f0f0;
+    background-color: #fff;
     padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
@@ -132,7 +125,6 @@ nav {
   justify-content: space-between;
   align-items: center;
   padding: 0rem calc((100vw - 1300px) / 2);
-  padding-left: 10px;
   margin-bottom:100px;
   z-index: 1000; /* Ensure navbar is on top of other content */
 }
@@ -153,6 +145,9 @@ nav a {
   padding: 0 1.5rem;
 }
 
+.nav-items{
+    align-items: right;
+}
 
 .nav-items input[type="text"], .nav-items button {
   margin-left: 10px; /* Add spacing between input and button */

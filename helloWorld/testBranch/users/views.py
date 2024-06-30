@@ -1,3 +1,4 @@
+from time import sleep
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
@@ -58,6 +59,19 @@ def club_default(request):
 
     return render(request, "clubDefault.html", context)
 
+# Triggered when no custom club redirect for their homepage exists
+# TODO make custom 404 page
+def club_home_default(request):
+
+    # Assumes each club has its own name
+    className = request.GET.get('className')
+
+    context = {
+        'club': Club.objects.get(name = className)
+    }
+
+    return render(request, "clubHomeDefault.html", context)
+
 def registerUser(request):
     if request.user.is_authenticated:
         user, created = User.objects.get_or_create(
@@ -80,6 +94,14 @@ def joinClub(request):
         className = request.GET.get('clubName')
         Club.objects.get(name = className).users.add(User.objects.get(email = request.user.email))
         return redirect("/clubs")
+    else:
+        return redirect("/")
+    
+def leaveClub(request):
+    if request.user.is_authenticated:
+        className = request.GET.get('clubName')
+        Club.objects.get(name = className).users.remove(User.objects.get(email = request.user.email))
+        return redirect("/myClubs")
     else:
         return redirect("/")
 
