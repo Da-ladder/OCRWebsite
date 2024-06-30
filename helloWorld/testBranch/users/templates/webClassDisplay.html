@@ -5,45 +5,40 @@
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Auto-scaling Paginator</title>
     <link rel="stylesheet" href="/static/webClassDisplaySty.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
 <body>
 
+    <!-- Navigation bar -->
+    <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <input type="text" id="searchInput" placeholder="Work in Progress!!! Search clubs by name...">
+            <button onclick="searchClubs()">Search</button> <!-- Search will be changed later -->
+            <button onclick="resetQuery()">Reset</button>
+            <a href="/myClubs">My Clubs</a>
+            <a href="/clubs" style='color:#FF0000'>Explore</a>
+            <a href="/">Account</a>
+        </div>
+    </nav>
 
-    <div class="card-wrapper" id="card-wrapper-1">
-        <div class="pagination-nav-btn prev-btn" id="prev-btn-1">Previous</div>
-        <div class="card-container" id="card-container-1">
-            <div class="card">Card 1</div>
-            <div class="card">Card 2</div>
-            <div class="card">Card 3</div>
-            <div class="card">Card 4</div>
-            <div class="card">Card 5</div>
-            <div class="card">Card 6</div>
-            <div class="card">Card 7</div>
-            <div class="card">Card 8</div>
-            <div class="card">Card 9</div>
-            <div class="card">Card 10</div>
-        </div>
-        <div class="pagination-nav-btn next-btn" id="next-btn-1">Next</div>
-    </div>
-    <div class="card-wrapper" id="card-wrapper-2">
-        <div class="pagination-nav-btn prev-btn" id="prev-btn-2">Previous</div>
-        <div class="card-container" id="card-container-2">
-            <div class="card">Card 1</div>
-            <div class="card">Card 2</div>
-            <div class="card">Card 3</div>
-            <div class="card">Card 4</div>
-            <div class="card">Card 5</div>
-            <div class="card">Card 6</div>
-            <div class="card">Card 7</div>
-            <div class="card">Card 8</div>
-            <div class="card">Card 9</div>
-            <div class="card">Card 10</div>
-            <div class="card">Card 7</div>
-            <div class="card">Card 8</div>
-            <div class="card">Card 9</div>
-            <div class="card">Card 10</div>
-        </div>
-        <div class="pagination-nav-btn next-btn" id="next-btn-2">Next</div>
+    <!-- Main content with auto pager-->
+    <div class="container" id="clubLayoutTag">
+        {% for category, clubs in clubs_by_category.items %}
+            <h2>{{ category }}</h2>
+            <div class="card-wrapper">
+                <div class="pagination-nav-btn prev-btn">&lt;</div>
+                <div class="card-container">
+                    {% for club in clubs %}
+                        <div class="card" data-url="{{ club.url }}">
+                            <h3 class="class-name">{{ club.name }}</h3>
+                            <p class="class-description">{{ club.discription }}</p>
+                        </div>
+                    {% endfor %}
+                </div>
+                <div class="pagination-nav-btn next-btn">&gt;</div>
+            </div>
+        {% endfor %}
     </div>
 
     <script src="/static/webClassDisplayGen.js"></script>
