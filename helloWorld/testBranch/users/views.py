@@ -35,7 +35,7 @@ def club_display(request):
         'clubs_by_category': clubs_by_category
     }
     
-    return render(request, 'classDisplay.html', context)
+    return render(request, 'webClassDisplay.html', context)
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
