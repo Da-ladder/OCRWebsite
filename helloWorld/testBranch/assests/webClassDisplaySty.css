@@ -12,12 +12,10 @@ body {
 
 .card-container {
     display: flex;
-    overflow-x: auto; /* Enable horizontal scrolling */
+    overflow-x: hidden; /* Prevent horizontal scrolling */
     gap: 16px;
     padding: 16px;
     white-space: nowrap; /* Prevent cards from wrapping */
-    border-right: 50px solid transparent;
-    border-left: 50px solid transparent;
 }
 
 .card {
@@ -31,15 +29,11 @@ body {
     box-sizing: border-box;
 }
 
-.pagination-container {
-    text-align: center;
-    margin: 16px 0;
-}
-
-.pagination-btn {
-    display: inline-block;
+.pagination-nav-btn {
+    position: absolute;
+    top: 50%;
+    transform: translateY(-50%);
     padding: 8px 16px;
-    margin: 0 4px;
     background-color: #007bff;
     color: white;
     text-decoration: none;
@@ -47,27 +41,15 @@ body {
     cursor: pointer;
 }
 
-.pagination-btn.disabled {
+.pagination-nav-btn.disabled {
     background-color: #cccccc;
     cursor: not-allowed;
 }
 
-.pagination-nav-btn {
-    position: absolute;
-    top: 45%;
-    transform: translateY(-50%);
-    padding: 8px 10px;
-    background-color: #4286cf;
-    color: white;
-    text-decoration: none;
-    border-radius: 6px;
-    cursor: pointer;
-}
-
 .prev-btn {
-    left: 12px;
+    left: 0;
 }
 
 .next-btn {
-    right: 12px;
+    right: 0;
 }
