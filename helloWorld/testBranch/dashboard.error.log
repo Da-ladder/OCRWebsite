@@ -1,0 +1,460 @@
+[Sun Jun 30 20:17:49.433181 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52120] mod_wsgi (pid=29704, process='', application='localhost|'): Could not read/compile source file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:17:49.433181 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52120] mod_wsgi (pid=29704): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:17:49.478152 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52120]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 11\r
+[Sun Jun 30 20:17:49.478152 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52120]     sys.path.append('C:\\Users\\zcody\\OneDrive\\Documents\\Coding Club\\OCRWebsite-1\\helloWorld\\testBranch')\r
+[Sun Jun 30 20:17:49.478152 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52120]                                                                                                       ^\r
+[Sun Jun 30 20:17:49.478152 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52120] SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \\UXXXXXXXX escape\r
+::1 - - [30/Jun/2024:20:17:49 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:17:49.562788 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52121] mod_wsgi (pid=29704, process='', application='localhost|'): Could not read/compile source file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:17:49.562788 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52121] mod_wsgi (pid=29704): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:17:49.563791 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52121]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 11\r, referer: http://localhost/
+[Sun Jun 30 20:17:49.563791 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52121]     sys.path.append('C:\\Users\\zcody\\OneDrive\\Documents\\Coding Club\\OCRWebsite-1\\helloWorld\\testBranch')\r, referer: http://localhost/
+[Sun Jun 30 20:17:49.563791 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52121]                                                                                                       ^\r, referer: http://localhost/
+[Sun Jun 30 20:17:49.563791 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52121] SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \\UXXXXXXXX escape\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:17:49 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:20:12.962407 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52275] mod_wsgi (pid=29704, process='', application='localhost|'): Could not read/compile source file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:20:12.962407 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52275] mod_wsgi (pid=29704): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:20:12.962407 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52275]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 11\r
+[Sun Jun 30 20:20:12.962407 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52275]     sys.path.append('C:\\Users\\zcody\\OneDrive\\Documents\\Coding Club\\OCRWebsite-1\\helloWorld\\testBranch')\r
+[Sun Jun 30 20:20:12.962407 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52275]                                                                                                       ^\r
+[Sun Jun 30 20:20:12.962407 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52275] SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \\UXXXXXXXX escape\r
+::1 - - [30/Jun/2024:20:20:12 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:20:13.054920 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52276] mod_wsgi (pid=29704, process='', application='localhost|'): Could not read/compile source file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:20:13.055917 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52276] mod_wsgi (pid=29704): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:20:13.055917 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52276]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 11\r, referer: http://localhost/
+[Sun Jun 30 20:20:13.055917 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52276]     sys.path.append('C:\\Users\\zcody\\OneDrive\\Documents\\Coding Club\\OCRWebsite-1\\helloWorld\\testBranch')\r, referer: http://localhost/
+[Sun Jun 30 20:20:13.055917 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52276]                                                                                                       ^\r, referer: http://localhost/
+[Sun Jun 30 20:20:13.055917 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52276] SyntaxError: (unicode error) 'unicodeescape' codec can't decode bytes in position 2-3: truncated \\UXXXXXXXX escape\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:20:13 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:22:16.002907 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400] mod_wsgi (pid=29704): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:22:16.002907 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400] mod_wsgi (pid=29704): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400] Traceback (most recent call last):\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 19, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     application = get_wsgi_application()\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     app_config.ready()\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     registry.load()\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     import jwt\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:22:16.071593 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52400] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:22:13 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404] mod_wsgi (pid=29704): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404] mod_wsgi (pid=29704): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 19, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:22:16.113164 2024] [wsgi:error] [pid 29704:tid 1084] [client ::1:52404] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:22:16 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:30:18.411556 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861] mod_wsgi (pid=27856): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:30:18.411556 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861] mod_wsgi (pid=27856): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861] Traceback (most recent call last):\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 19, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     application = get_wsgi_application()\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     app_config.ready()\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     registry.load()\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     import jwt\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:30:18.414109 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52861] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:30:18 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863] mod_wsgi (pid=27856): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863] mod_wsgi (pid=27856): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 19, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:30:18.457752 2024] [wsgi:error] [pid 27856:tid 1120] [client ::1:52863] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:30:18 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:35:59.007698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53176] mod_wsgi (pid=26120): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:35:59.007698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53176] mod_wsgi (pid=26120): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:35:59.007698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53176] Traceback (most recent call last):\r
+[Sun Jun 30 20:35:59.007698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53176]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 13, in <module>\r
+[Sun Jun 30 20:35:59.007698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53176]     with open(venv_path) as f:\r
+[Sun Jun 30 20:35:59.007698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53176] OSError: [Errno 22] Invalid argument: 'C:\\\\Users\\\\zcody\\\\OneDrive\\\\Documents\\\\Coding Club\\\\OCRWebsite-1\\\\venv\\\\Scripts\\x07ctivate'\r
+::1 - - [30/Jun/2024:20:35:58 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:35:59.037698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53177] mod_wsgi (pid=26120): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:35:59.037698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53177] mod_wsgi (pid=26120): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:35:59.037698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53177] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:35:59.037698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53177]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 13, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:35:59.037698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53177]     with open(venv_path) as f:\r, referer: http://localhost/
+[Sun Jun 30 20:35:59.037698 2024] [wsgi:error] [pid 26120:tid 1088] [client ::1:53177] OSError: [Errno 22] Invalid argument: 'C:\\\\Users\\\\zcody\\\\OneDrive\\\\Documents\\\\Coding Club\\\\OCRWebsite-1\\\\venv\\\\Scripts\\x07ctivate'\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:35:59 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:37:26.208853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256] mod_wsgi (pid=15376): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:37:26.208853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256] mod_wsgi (pid=15376): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256] Traceback (most recent call last):\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 22, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     application = get_wsgi_application()\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     app_config.ready()\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     registry.load()\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     import jwt\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:37:26.210853 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53256] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:37:25 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:37:26.242432 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258] mod_wsgi (pid=15376): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:37:26.242432 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258] mod_wsgi (pid=15376): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 22, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:37:26.243433 2024] [wsgi:error] [pid 15376:tid 1120] [client ::1:53258] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:37:26 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:40:02.807496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408] mod_wsgi (pid=6364): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:40:02.807496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408] mod_wsgi (pid=6364): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408] Traceback (most recent call last):\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 35, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     application = get_wsgi_application()\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     app_config.ready()\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     registry.load()\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     import jwt\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:40:02.809496 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53408] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:40:02 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410] mod_wsgi (pid=6364): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410] mod_wsgi (pid=6364): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 35, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:40:02.840501 2024] [wsgi:error] [pid 6364:tid 1084] [client ::1:53410] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:40:02 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:45:39.135510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713] mod_wsgi (pid=18728): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:45:39.135510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713] mod_wsgi (pid=18728): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713] Traceback (most recent call last):\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 35, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     application = get_wsgi_application()\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     app_config.ready()\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     registry.load()\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     import jwt\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:45:39.138510 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53713] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:45:38 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:45:39.172513 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715] mod_wsgi (pid=18728): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:45:39.172513 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715] mod_wsgi (pid=18728): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 35, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:45:39.173520 2024] [wsgi:error] [pid 18728:tid 1120] [client ::1:53715] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:45:39 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:49:43.433643 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023] mod_wsgi (pid=2428): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:49:43.433643 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023] mod_wsgi (pid=2428): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023] Traceback (most recent call last):\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 35, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     application = get_wsgi_application()\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     app_config.ready()\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     registry.load()\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     import jwt\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:49:43.436641 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54023] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:49:43 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025] mod_wsgi (pid=2428): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025] mod_wsgi (pid=2428): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 35, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:49:43.472858 2024] [wsgi:error] [pid 2428:tid 1120] [client ::1:54025] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:49:43 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393] mod_wsgi (pid=29124): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393] mod_wsgi (pid=29124): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393] Traceback (most recent call last):\r
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 17, in <module>\r
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393]     exec(f.read(), globals())\r
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393]   File "<string>", line 1\r
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393]     @echo off\r
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393]           ^^^\r
+[Sun Jun 30 20:55:31.169764 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54393] SyntaxError: invalid syntax\r
+::1 - - [30/Jun/2024:20:55:30 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399] mod_wsgi (pid=29124): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399] mod_wsgi (pid=29124): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 17, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399]     exec(f.read(), globals())\r, referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399]   File "<string>", line 1\r, referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399]     @echo off\r, referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399]           ^^^\r, referer: http://localhost/
+[Sun Jun 30 20:55:31.214762 2024] [wsgi:error] [pid 29124:tid 1120] [client ::1:54399] SyntaxError: invalid syntax\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:55:31 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489] mod_wsgi (pid=6744): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489] mod_wsgi (pid=6744): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489] Traceback (most recent call last):\r
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 17, in <module>\r
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489]     exec(f.read(), globals())\r
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489]   File "<string>", line 4\r
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489]     deactivate () {\r
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489]                   ^\r
+[Sun Jun 30 20:57:02.890461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54489] SyntaxError: invalid syntax\r
+::1 - - [30/Jun/2024:20:57:02 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490] mod_wsgi (pid=6744): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490] mod_wsgi (pid=6744): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 17, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490]     exec(f.read(), globals())\r, referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490]   File "<string>", line 4\r, referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490]     deactivate () {\r, referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490]                   ^\r, referer: http://localhost/
+[Sun Jun 30 20:57:02.920461 2024] [wsgi:error] [pid 6744:tid 1120] [client ::1:54490] SyntaxError: invalid syntax\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:57:02 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:59:18.583097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614] mod_wsgi (pid=29764): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:59:18.583097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614] mod_wsgi (pid=29764): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'.
+[Sun Jun 30 20:59:18.585097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614] Traceback (most recent call last):\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 40, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     application = get_wsgi_application()\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     django.setup(set_prefix=False)\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     apps.populate(settings.INSTALLED_APPS)\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 124, in populate\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     app_config.ready()\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\apps.py", line 15, in ready\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     registry.load()\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\__init__.py", line 41, in load\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     provider_module = importlib.import_module(module_name)\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\importlib\\__init__.py", line 126, in import_module\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     return _bootstrap._gcd_import(name[level:], package, level)\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "<frozen importlib._bootstrap>", line 1050, in _gcd_import\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "<frozen importlib._bootstrap>", line 1027, in _find_and_load\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "<frozen importlib._bootstrap>", line 1006, in _find_and_load_unlocked\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "<frozen importlib._bootstrap>", line 688, in _load_unlocked\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "<frozen importlib._bootstrap_external>", line 883, in exec_module\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "<frozen importlib._bootstrap>", line 241, in _call_with_frames_removed\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\provider.py", line 7, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     from allauth.socialaccount.providers.google.views import GoogleOAuth2Adapter\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\providers\\google\\views.py", line 13, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     from allauth.socialaccount.internal import jwtkit\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\allauth\\socialaccount\\internal\\jwtkit.py", line 3, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     import jwt\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\__init__.py", line 1, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     from .api_jwk import PyJWK, PyJWKSet\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\api_jwk.py", line 7, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     from .algorithms import get_default_algorithms, has_crypto, requires_cryptography\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\jwt\\algorithms.py", line 65, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     from cryptography.hazmat.primitives.serialization import (\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\__init__.py", line 25, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     from cryptography.hazmat.primitives.serialization.ssh import (\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\cryptography\\hazmat\\primitives\\serialization\\ssh.py", line 101, in <module>\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614]     b"aes256-ctr": _SSHCipher(\r
+[Sun Jun 30 20:59:18.586096 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54614] TypeError: _SSHCipher() takes no arguments\r
+::1 - - [30/Jun/2024:20:59:18 -0400] "GET / HTTP/1.1" 500 530 "-" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616] mod_wsgi (pid=29764): Failed to exec Python script file 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616] mod_wsgi (pid=29764): Exception occurred processing WSGI script 'C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py'., referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616] Traceback (most recent call last):\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]   File "C:/Users/zcody/OneDrive/Documents/Coding Club/OCRWebsite-1/helloWorld/testBranch/wsgi_windows.py", line 40, in <module>\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]     application = get_wsgi_application()\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\core\\wsgi.py", line 12, in get_wsgi_application\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]     django.setup(set_prefix=False)\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\__init__.py", line 24, in setup\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]     apps.populate(settings.INSTALLED_APPS)\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]   File "C:\\Users\\zcody\\AppData\\Local\\Programs\\Python\\Python310\\lib\\site-packages\\django\\apps\\registry.py", line 83, in populate\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616]     raise RuntimeError("populate() isn't reentrant")\r, referer: http://localhost/
+[Sun Jun 30 20:59:18.648097 2024] [wsgi:error] [pid 29764:tid 1120] [client ::1:54616] RuntimeError: populate() isn't reentrant\r, referer: http://localhost/
+::1 - - [30/Jun/2024:20:59:18 -0400] "GET /favicon.ico HTTP/1.1" 500 530 "http://localhost/" "Mozilla/5.0 (Windows NT 10.0; Win64; x64) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/126.0.0.0 Safari/537.36"
