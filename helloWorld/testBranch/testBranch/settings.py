@@ -25,7 +25,7 @@ SECRET_KEY = 'django-insecure-8^q3js-217(_4to#r5_uc-vpe%^m3c329%f#vk96zrxep7-i^n
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # will not serve static files automatically in debug
-DEBUG = False
+DEBUG = True
 
 ALLOWED_HOSTS = ["127.0.0.1","*","localhost"]
 
