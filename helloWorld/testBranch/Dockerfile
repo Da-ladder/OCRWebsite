@@ -1,25 +1,15 @@
-# Dockerfile
+FROM python:3.12.3
 
-# Use Python Alpine Linux base image
-FROM python:3.11.4-alpine
+ENV PYTHONUNBUFFERED=1
 
-# Set working directory
-WORKDIR /usr/src/app
+WORKDIR /code
 
-# Prevent Python from writing .pyc files
-ENV PYTHONDONTWRITEBYTECODE 1
-# Ensure Python output is sent directly to the terminal without buffering
-ENV PYTHONUNBUFFERED 1
+COPY requirements.txt .
 
-# Copy requirements.txt and install Python dependencies
-COPY ./requirements.txt /usr/src/app/requirements.txt
-RUN python3 -m pip install -r requirements.txt
+RUN pip install -r requirements.txt
 
-# Copy entrypoint script
-COPY ./entrypoint.sh /usr/src/app/entrypoint.sh
+COPY . .
 
-# Copy application code
-COPY . /usr/src/app/
+EXPOSE 8000
 
-# Set entrypoint
-ENTRYPOINT ["/usr/src/app/entrypoint.sh"]
+CMD ["python3", "manage.py", "runserver", "0.0.0.0:8000"]
