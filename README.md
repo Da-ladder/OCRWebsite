@@ -1,3 +1,2 @@
-# OCRWebsite
-This is a test repo </br>
-Explore the file structure!
+# Club Website
+Main Branch that can be launched using linux </br>
