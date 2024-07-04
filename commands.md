@@ -1,3 +1,5 @@
+FOR WINDOWS ONLY
+
 Save pip versions to a .txt file
 pip freeze > requirements.txt
 
@@ -5,7 +7,7 @@ Website to see stuff
 localhost:8001/
 
 Activate virtual environment
-.\venv\Scripts\activate
+.\WindowsVenv\Scripts\activate
 
 Start docker container
 docker-compose up -d --build
