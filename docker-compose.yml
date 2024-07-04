@@ -13,7 +13,7 @@ services:
         ports:
          - 8001:8000
         environment:
-         - DEBUG=1
-         - SECRET_KEY=sigmasigmasigma
+         - DEBUG=1 #Debug won't turn off idk why
+         - SECRET_KEY=nf+p_x8jq)u(6apg9ji@&()(=t**34(hm9%+z$ys$&c)!s*x4s
          - ALLOWED_HOSTS=localhost, 127.0.0.1
     

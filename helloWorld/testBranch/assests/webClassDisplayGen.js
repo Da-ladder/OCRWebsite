@@ -12,6 +12,13 @@ function getCardsPerPage(containerWidth) {
 
 function renderCards(wrapper, currentPage) {
     const cardContainer = wrapper.querySelector('.card-container');
+
+    // Make hide button disapper when any navigation pages are clicked
+    const showButton = document.getElementById('show' + cardContainer.id);
+    const hideButton = document.getElementById('hide' + cardContainer.id);
+    showButton.style.display = "inline";
+    hideButton.style.display = "none";
+
     cardContainer.style.borderLeft = 65 + "px solid transparent";
     cardContainer.style.borderRight = 65 + "px solid transparent";
     const cards = Array.from(cardContainer.children);
@@ -103,6 +110,32 @@ document.querySelectorAll('.card').forEach(card => {
         }
     });
 });
+
+function showAll(cat) {
+    // Makes the card container able to be manipulated
+    const contain = document.getElementById(cat);
+    contain.style.whiteSpace = "wrap";
+    contain.style.flexWrap = "wrap";
+
+    const showButton = document.getElementById('show' + cat);
+    const hideButton = document.getElementById('hide' + cat);
+    showButton.style.display = "none";
+    hideButton.style.display = "inline";
+
+    for (var child of contain.children) {
+        child.style.display = "inline-block";
+    }
+
+}
+
+function hideExtra(cat) {
+    // Makes the card container able to be manipulated
+    const contain = document.getElementById(cat);
+    contain.style.whiteSpace = "nowrap";
+    contain.style.flexWrap = "nowrap";
+
+    renderCards(contain.parentNode, 1);
+}
 
 window.addEventListener('resize', initializePagination);
 window.addEventListener('DOMContentLoaded', initializePagination);

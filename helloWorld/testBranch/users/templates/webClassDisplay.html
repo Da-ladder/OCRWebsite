@@ -25,10 +25,12 @@
     <!-- Main content with auto pager-->
     <div class="container" id="clubLayoutTag">
         {% for category, clubs in clubs_by_category.items %}
-            <h2>{{ category }}</h2>
+            <h2>{{ category }} <button onclick="showAll('{{ category }}')" id = 'show{{ category }}'>Show All</button> 
+                <button onclick="hideExtra('{{ category }}')" id = 'hide{{ category }}' style="display: none;">Hide Extra</button> </h2>
+            
             <div class="card-wrapper">
                 <div class="pagination-nav-btn prev-btn">&lt;</div>
-                <div class="card-container">
+                <div class="card-container" id = '{{ category }}'>
                     {% for club in clubs %}
                         <div class="card" data-url="{{ club.url }}">
                             <h3 class="class-name">{{ club.name }}</h3>

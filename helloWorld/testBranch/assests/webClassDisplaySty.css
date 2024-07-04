@@ -32,7 +32,7 @@ h2 {
     padding-top: 16px;
     padding-bottom: 16px;
     white-space: nowrap; /* Prevent cards from wrapping */
-
+    flex-wrap: nowrap;
 }
 
 .card {
