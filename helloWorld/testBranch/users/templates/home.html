@@ -16,11 +16,14 @@
         <div class="nav-items">
             <a href="/myClubs">My Clubs</a>
             <a href="/clubs">Explore</a>
-            {% if user.is_authenticated %}
-                <a href="/" style='color:#FF0000'>My Account</a>
-            {% else %}
-                <a href="/" style='color:#FF0000'>Sign In</a>
-            {% endif %}
+            <div class="account-link">
+                {% if user.is_authenticated %}
+                    <a href="/" style='color:#FF0000'>Hello {{ user.username }}</a>
+                    <img class="avatar" src="{{ pic }}" alt="Avatar">
+                {% else %}
+                    <a href="/" style='color:#FF0000'>Sign In</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
 

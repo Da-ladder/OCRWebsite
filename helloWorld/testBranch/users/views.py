@@ -3,11 +3,15 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from .models import *
-from .models import Club
 from django.dispatch import receiver
+from allauth.account.signals import user_signed_up
 
 def home(request):
-    return render(request, "home.html")
+    if request.user.is_authenticated:
+        pic_url = Users.objects.get(email = request.user.email).picURL
+        return render(request, 'home.html', {'pic': pic_url})
+    else:
+        return render(request, "home.html")
 
 def logout_view(request):
     logout(request)
@@ -33,16 +37,23 @@ def club_display(request):
     for category in categories:
         clubs_by_category[category] = Club.objects.filter(tagOrTags__name=category)
     
-    context = {
-        'clubs_by_category': clubs_by_category
-    }
+    if request.user.is_authenticated:
+        context = {
+            'clubs_by_category': clubs_by_category,
+            'pic': Users.objects.get(email = request.user.email).picURL,
+        }
+    else:
+        context = {
+            'clubs_by_category': clubs_by_category
+        }
     
     return render(request, 'webClassDisplay.html', context)
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
-        clubs = Club.objects.filter(users=User.objects.get(email = request.user.email))
-        return render(request, 'myClubs.html', {'classes': clubs})
+        clubs = Club.objects.filter(users=Users.objects.get(email = request.user.email))
+        pic_url = Users.objects.get(email = request.user.email).picURL
+        return render(request, 'myClubs.html', {'classes': clubs, 'pic': pic_url})
     else:
         return redirect("/")
 
@@ -73,27 +84,14 @@ def club_home_default(request):
 
     return render(request, "clubHomeDefault.html", context)
 
-def registerUser(request):
-    if request.user.is_authenticated:
-        user, created = User.objects.get_or_create(
-        name = request.user.first_name,
-        email = request.user.email
-        )
-
-        if created:
-            # redirects user to a certain page if the account was just created
-            return redirect("/clubs") # change this to a success screen or something
-        else:
-            # gets user to the primary club page if they already have an account
-            return redirect("/clubs")
-
-    else:
-        return redirect(request, "/")
+def registerUserAs(request):
+    # can be removed in the future
+    return redirect("/clubs")
 
 def joinClub(request):
     if request.user.is_authenticated:
         className = request.GET.get('clubName')
-        Club.objects.get(name = className).users.add(User.objects.get(email = request.user.email))
+        Club.objects.get(name = className).users.add(Users.objects.get(email = request.user.email))
         return redirect("/clubs")
     else:
         return redirect("/")
@@ -101,30 +99,25 @@ def joinClub(request):
 def leaveClub(request):
     if request.user.is_authenticated:
         className = request.GET.get('clubName')
-        Club.objects.get(name = className).users.remove(User.objects.get(email = request.user.email))
+        Club.objects.get(name = className).users.remove(Users.objects.get(email = request.user.email))
         return redirect("/myClubs")
     else:
         return redirect("/")  
 
 
 
-@receiver
+@receiver(user_signed_up)
 def populate_profile(sociallogin, user, **kwargs):      
 
     if sociallogin.account.provider == 'google':
         user_data = user.socialaccount_set.filter(provider='google')[0].extra_data
         picture_url = user.socialaccount_set.filter(provider='google')[0].extra_data['picture']           
         email = user_data['email']
-        first_name = user_data['first_name']
+        first_name = user.first_name
 
-    user, created = User.objects.get_or_create(
+    Users.objects.create(
     name = first_name,
-    email = email
-    
+    email = email,
+    picURL = picture_url,
+    extraData = user_data
     )
-
-
-    user.profile.avatar_url = picture_url
-    user.profile.email_address = email
-    user.profile.first_name = first_name
-    user.profile.save()      

@@ -2,7 +2,7 @@ from django.db import models
 
 # Create your models here.
 
-class User(models.Model):
+class Users(models.Model):
     name = models.CharField(max_length=150) # just to be safe
     email = models.CharField(max_length=255) # just to be safe
     picURL = models.URLField(max_length=200, blank=True, null=True)
@@ -25,7 +25,7 @@ class Club(models.Model):
     generalMeets = models.TextField(blank=True)
     location = models.CharField(max_length=255, blank=True)
     active = models.BooleanField(default=False) 
-    users = models.ManyToManyField(User, blank=True)
+    users = models.ManyToManyField(Users, blank=True)
     tagOrTags = models.ManyToManyField(ClubTag, blank=True)
 
     url = models.URLField(max_length=150, blank=True, null=True)

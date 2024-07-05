@@ -95,16 +95,8 @@ nav a {
   text-decoration: none;
   color: #ffffff;
   padding: 0 1.5rem;
-}
+  align-items: center; /* Center items horizontally */
 
-
-.nav-items input[type="text"], .nav-items button {
-  margin-left: 10px; /* Add spacing between input and button */
-  height: 30px; /* Adjust height as needed */
-  padding: 0 10px; /* Adjust padding as needed */
-  font-size: 14px; /* Adjust font size as needed */
-  border: none;
-  border-radius: 4px;
 }
 
 /* top text bar active config */
@@ -166,6 +158,47 @@ nav a:hover {
   justify-content: center;
   align-items: center;
   padding: 0rem 2rem;
+}
+
+.nav-items input[type="text"], .nav-items button {
+  margin-left: 10px; /* Add spacing between input and button */
+  height: 30px; /* Adjust height as needed */
+  padding: 0 10px; /* Adjust padding as needed */
+  font-size: 1  4px; /* Adjust font size as needed */
+  border: none;
+  border-radius: 4px;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly along the main axis */
+  align-items: center; /* Center items vertically */
+}
+
+.nav-items a {
+  margin: 5px; /* Adjust spacing between links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.account-link {
+  text-align: center; /* Center text and image horizontally */
+  display: flex;
+
+}
+
+.account-link a {
+  display: block; /* Display as block to take full width */
+  margin-bottom: 5px; /* Adjust margin below text */
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+}
+
+.account-link .avatar {
+  width: 30px; /* Adjust image width */
+  height: 30px; /* Adjust image height */
+  border-radius: 50%;
+  margin-right: 15px;
 }
 
 @media screen and (max-width: 750px){
