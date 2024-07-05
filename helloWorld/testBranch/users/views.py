@@ -4,6 +4,7 @@ from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from .models import *
 from .models import Club
+from django.dispatch import receiver
 
 def home(request):
     return render(request, "home.html")
@@ -103,5 +104,27 @@ def leaveClub(request):
         Club.objects.get(name = className).users.remove(User.objects.get(email = request.user.email))
         return redirect("/myClubs")
     else:
-        return redirect("/")
+        return redirect("/")  
 
+
+
+@receiver
+def populate_profile(sociallogin, user, **kwargs):      
+
+    if sociallogin.account.provider == 'google':
+        user_data = user.socialaccount_set.filter(provider='google')[0].extra_data
+        picture_url = user.socialaccount_set.filter(provider='google')[0].extra_data['picture']           
+        email = user_data['email']
+        first_name = user_data['first_name']
+
+    user, created = User.objects.get_or_create(
+    name = first_name,
+    email = email
+    
+    )
+
+
+    user.profile.avatar_url = picture_url
+    user.profile.email_address = email
+    user.profile.first_name = first_name
+    user.profile.save()      

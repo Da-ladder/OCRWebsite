@@ -14,7 +14,11 @@
         <div class="nav-items">
             <a href="/myClubs" style='color:#FF0000'>My Clubs</a>
             <a href="/clubs">Explore</a>
-            <a href="/">Account</a>
+            {% if user.is_authenticated %}
+                <a href="/">My Account</a>
+            {% else %}
+                <a href="/">Sign In</a>
+            {% endif %}
         </div>
     </nav>
     <div class="container" id = "clubLayotTag">

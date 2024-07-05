@@ -13,17 +13,27 @@ function getCardsPerPage(containerWidth) {
 function renderCards(wrapper, currentPage) {
     const cardContainer = wrapper.querySelector('.card-container');
 
-    // Make hide button disapper when any navigation pages are clicked
-    const showButton = document.getElementById('show' + cardContainer.id);
-    const hideButton = document.getElementById('hide' + cardContainer.id);
-    showButton.style.display = "inline";
-    hideButton.style.display = "none";
-
+    
     cardContainer.style.borderLeft = 65 + "px solid transparent";
     cardContainer.style.borderRight = 65 + "px solid transparent";
     const cards = Array.from(cardContainer.children);
     const containerWidth = cardContainer.clientWidth + 10; // Magic # does it look like I care? 4 hrs
     const cardsPerPage = getCardsPerPage(containerWidth);
+
+    if (cardsPerPage >= cards.length) {
+        // Hide all buttons it is able to accommodate it
+        const showButton = document.getElementById('show' + cardContainer.id);
+        const hideButton = document.getElementById('hide' + cardContainer.id);
+        showButton.style.display = "none";
+        hideButton.style.display = "none";
+    } else {
+        // Make hide button disapper when any navigation pages are clicked
+        const showButton = document.getElementById('show' + cardContainer.id);
+        const hideButton = document.getElementById('hide' + cardContainer.id);
+        showButton.style.display = "inline";
+        hideButton.style.display = "none";
+    }
+
     const start = (currentPage - 1) * cardsPerPage;
     const end = Math.min(start + cardsPerPage, cards.length);
     const containerSize = (cardWidth + cardMargin) * cardsPerPage + cardMargin;
@@ -76,18 +86,6 @@ function renderPaginationControls(wrapper, currentPage, cardsPerPage, totalCards
     };
 }
 
-function initializePagination() {
-    cardWrappers.forEach(wrapper => {
-        let currentPage = 1;
-        wrapper.dataset.currentPage = currentPage;
-
-        renderCards(wrapper, currentPage);
-    });
-
-
-
-}
-
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
         const url = card.getAttribute('data-url');
@@ -111,6 +109,7 @@ document.querySelectorAll('.card').forEach(card => {
     });
 });
 
+// TODO make hide button at the end of the club cards as well
 function showAll(cat) {
     // Makes the card container able to be manipulated
     const contain = document.getElementById(cat);
@@ -135,6 +134,94 @@ function hideExtra(cat) {
     contain.style.flexWrap = "nowrap";
 
     renderCards(contain.parentNode, 1);
+}
+
+// Search functions are below
+function searchClubs() {
+    resetQuery();
+    var input = document.getElementById('searchInput').value.toLowerCase(); // Get input value and convert to lowercase
+    var cards = document.querySelectorAll('.card'); // Select all club cards
+
+    cards.forEach(card => {
+        var name = card.querySelector('.class-name').innerText.toLowerCase(); // Get club name and convert to lowercase
+        var discription = card.querySelector('.class-description').innerText.toLowerCase(); // Get club name and convert to lowercase
+
+        // Check if input matches club name or descriptiona
+        if (name.includes(input) || discription.includes(input)) {
+            card.style.display = ""; // Show club card
+        } else {
+            card.style.display = "none"; // Hide club card
+        }
+    });
+
+    var cats = document.querySelectorAll('.card-container');
+    cats.forEach(cat => {
+        var containsCard = false
+            for (var child of cat.children) {
+                if (child.style.display == "none") {
+
+                } else {
+                    containsCard = true
+                    break;
+                }
+            }
+        if (!containsCard) {
+            cat.style.display = "none"
+            cat.parentNode.style.display = "none"
+        }
+        
+    });
+
+
+    toggleCategories(true);
+}
+
+function clearSearch() {
+    resetQuery();
+    document.getElementById('searchInput').value = '';
+}
+
+function resetQuery(){
+    var cards = document.querySelectorAll('.card');
+
+    cards.forEach(card => {
+        card.style.display = ""; // Show all club cards
+    });
+
+    // Shows everything
+    var cats = document.querySelectorAll('.card-container');
+    cats.forEach(cat => {
+        cat.style.display = ""
+        cat.parentNode.style.display = ""
+    });
+
+    toggleCategories(false);
+}
+
+function toggleCategories(hidden) {
+    var categoryNames = document.querySelectorAll('.category-name');
+
+    categoryNames.forEach(name => {
+        if (hidden) {
+            name.classList.add('hidden'); // Add a class to hide the category name
+        } else {
+            name.classList.remove('hidden'); // Remove the class to show the category name
+        }
+    });
+}
+
+function initializePagination() {
+    cardWrappers.forEach(wrapper => {
+        let currentPage = 1;
+        wrapper.dataset.currentPage = currentPage;
+
+        renderCards(wrapper, currentPage);
+    });
+
+    // attaches event listener
+    const inputElement = document.getElementById('searchInput');
+    inputElement.addEventListener('input', searchClubs);
+
 }
 
 window.addEventListener('resize', initializePagination);

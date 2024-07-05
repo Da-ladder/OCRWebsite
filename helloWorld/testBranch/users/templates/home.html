@@ -16,7 +16,11 @@
         <div class="nav-items">
             <a href="/myClubs">My Clubs</a>
             <a href="/clubs">Explore</a>
-            <a href="/" style='color:#FF0000'>Account</a>
+            {% if user.is_authenticated %}
+                <a href="/" style='color:#FF0000'>My Account</a>
+            {% else %}
+                <a href="/" style='color:#FF0000'>Sign In</a>
+            {% endif %}
         </div>
     </nav>
 
@@ -26,6 +30,12 @@
                     <h1>DHS Extracurriculars</h1>
                     <p>Explore a diverse array of enriching extracurricular activities tailored to your interests, ranging from STEM clubs to arts and community service initiatives.</p>
                     {% if user.is_authenticated %}
+                        {% if profile_picture_url %}
+                            <img src="{{ profile_picture_url}}" alt="Profile Picture">
+                        {% else %}
+                            <p>No profile picture found.</p>
+                        {% endif %}
+
                         <p>Welcome, {{ user.username }}!</p>
                         <a href="{% provider_login_url 'google' %}" class="btn-google-login">
                             <i class="fab fa-google"></i> Sign in With a Different Account

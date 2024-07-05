@@ -58,7 +58,7 @@ h2 {
     margin-top: 10px;
     font-size: 1em;
     color: #666;
-    max-height: 60px; /* Adjust the maximum height as needed */
+    max-height: 70px; /* Adjust the maximum height as needed */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
