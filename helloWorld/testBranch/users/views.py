@@ -95,7 +95,10 @@ def club_default(request):
         'club': Club.objects.get(name = className)
     }
 
-    return render(request, "clubDefault.html", context)
+    if mobile(request):
+        return render(request, "mobileDisplay/mobileClubFrontDefault.html", context)
+    else:
+        return render(request, "clubDefault.html", context)
 
 # Triggered when no custom club redirect for their homepage exists
 # TODO make custom 404 page
@@ -108,7 +111,10 @@ def club_home_default(request):
         'club': Club.objects.get(name = className)
     }
 
-    return render(request, "clubHomeDefault.html", context)
+    if mobile(request):
+        return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
+    else:
+        return render(request, "clubHomeDefault.html", context)
 
 def registerUserAs(request):
     # can be removed in the future
