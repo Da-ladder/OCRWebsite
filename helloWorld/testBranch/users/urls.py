@@ -13,4 +13,4 @@ urlpatterns = [
     path("myClubs/", views.dis_my_clubs),
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),
-]
+] 

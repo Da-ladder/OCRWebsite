@@ -5,13 +5,30 @@ from django.contrib.auth.models import User
 from .models import *
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
+import re
+
+def mobile(request):
+    #Return True if the request comes from a mobile device.
+    MOBILE_AGENT_RE=re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+
+    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+        return True
+    else:
+        return False
 
 def home(request):
     if request.user.is_authenticated:
         pic_url = Users.objects.get(email = request.user.email).picURL
-        return render(request, 'home.html', {'pic': pic_url})
+        if mobile(request):
+            return render(request, 'mobileDisplay/mobileLogIn.html', {'pic': pic_url})
+        else:
+            return render(request, 'home.html', {'pic': pic_url})
+
     else:
-        return render(request, "home.html")
+        if mobile(request):
+            return render(request, 'mobileDisplay/mobileLogIn.html')
+        else:
+            return render(request, 'home.html')
 
 def logout_view(request):
     logout(request)
@@ -46,14 +63,23 @@ def club_display(request):
         context = {
             'clubs_by_category': clubs_by_category
         }
+
+    if mobile(request):
+        return render(request, 'mobileDisplay/mobileClassDisplay.html', context)
+    else:
+        return render(request, 'webClassDisplay.html', context)
     
-    return render(request, 'webClassDisplay.html', context)
+    
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
         clubs = Club.objects.filter(users=Users.objects.get(email = request.user.email))
         pic_url = Users.objects.get(email = request.user.email).picURL
-        return render(request, 'myClubs.html', {'classes': clubs, 'pic': pic_url})
+
+        if mobile(request):
+            return render(request, 'mobileDisplay/mobileHome.html', {'classes': clubs, 'pic': pic_url})
+        else:
+            return render(request, 'myClubs.html', {'classes': clubs, 'pic': pic_url})
     else:
         return redirect("/")
 
