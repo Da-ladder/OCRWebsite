@@ -48,7 +48,7 @@ body {
     margin-top: 10px;
     font-size: 1em;
     color: #666;
-    max-height: 55px; /* Adjust the maximum height as needed */
+    max-height: 80px; /* Adjust the maximum height as needed */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
