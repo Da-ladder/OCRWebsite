@@ -25,9 +25,11 @@ class Club(models.Model):
     generalMeets = models.TextField(blank=True)
     location = models.CharField(max_length=255, blank=True)
     active = models.BooleanField(default=False) 
-    users = models.ManyToManyField(Users, blank=True)
+    users = models.ManyToManyField(Users, blank=True, related_name='club_users')
     tagOrTags = models.ManyToManyField(ClubTag, blank=True)
 
+    advisors = models.ManyToManyField(Users, blank=True, related_name='club_advisors')
+    leaders = models.ManyToManyField(Users, blank=True, related_name='club_leaders')
     url = models.URLField(max_length=150, blank=True, null=True)
     homeURL = models.URLField(max_length=150, blank=True, null=True)
 

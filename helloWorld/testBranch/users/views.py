@@ -61,15 +61,13 @@ def club_display(request):
         }
     else:
         context = {
-            'clubs_by_category': clubs_by_category
+            'clubs_by_category': clubs_by_category  
         }
 
     if mobile(request):
         return render(request, 'mobileDisplay/mobileClassDisplay.html', context)
     else:
         return render(request, 'webClassDisplay.html', context)
-    
-    
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
@@ -90,10 +88,18 @@ def club_default(request):
 
     # Assumes each club has its own name
     className = request.GET.get('className')
+    club = Club.objects.get(name = className)
 
-    context = {
-        'club': Club.objects.get(name = className)
-    }
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
+        context = {
+            'club': club,
+            'edit' : True,
+        }
+    else:
+        context = {
+            'club': club,
+            'edit': False,
+        }
 
     if mobile(request):
         return render(request, "mobileDisplay/mobileClubFrontDefault.html", context)
@@ -135,6 +141,43 @@ def leaveClub(request):
         return redirect("/myClubs")
     else:
         return redirect("/")  
+
+def club_edit(request):
+    className = request.GET.get('clubName')
+
+    club = Club.objects.get(name = className)
+
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
+        context = {
+            'club': club,
+            'edit' : True,
+        }
+        return render(request, "clubEditDefault.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
+def changeClub(request):
+    className = request.POST.get('clubName')
+    classAbout = request.POST.get('about')
+    classSchedule = request.POST.get('schedule')
+    classLoc = request.POST.get('location')
+    classContact = request.POST.get('contacts')
+    classAdvisor = request.POST.get('advisors')
+    picURL = request.POST.get("picURL")
+
+    club = Club.objects.get(name = className)
+
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists(): #change this later
+        club.discription = classAbout
+        club.contact = classContact
+        club.generalMeets = classSchedule
+        club.location = classLoc
+        club.advisorOrAdvisors = classAdvisor
+        club.homeURL = picURL
+        club.save()
+        return redirect("/clubs")
+    else:
+        return render(request, "NuhUh.html")
 
 
 

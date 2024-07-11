@@ -34,8 +34,8 @@ ALLOWED_HOSTS = os.getenv("ALLOWED_HOSTS").split(', ')
 
 SITE_ID = 3
 
-# most secure way is to set to false rather thazn true. POST requests are much more secure (eh for now)
-SOCIALACCOUNT_LOGIN_ON_GET=True
+# most secure way is to set to false rather than true. POST requests are much more secure (eh for now)
+SOCIALACCOUNT_LOGIN_ON_GET = True #FIX THIS
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -158,5 +158,6 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-LOGIN_REDIRECT_URL = "/loggedIn"
+ACCOUNT_ADAPTER = 'users.authConfig.MyAccountAdapter'
+LOGIN_REDIRECT_URL = "/clubs"
 LOGOUT_REDIRECT_URL = "/"

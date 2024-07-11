@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Explore</title>
-    <link rel="stylesheet" href="/static/webClassDisplaySty.css">
+    <link rel="stylesheet" href="/static/desktop/webClassDisplaySty.css">
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
 <body>
@@ -37,9 +37,13 @@
                 <div class="pagination-nav-btn prev-btn">&lt;</div>
                 <div class="card-container" id = '{{ category }}'>
                     {% for club in clubs %}
-                        <div class="card" data-url="{{ club.url }}">
-                            <h3 class="class-name">{{ club.name }}</h3>
-                            <p class="class-description">{{ club.discription }}</p>
+                        <div class="card" data-url="{{ club.url }}" data-tags="{{club.tagOrTags}}">
+                            <div class="card-text">
+                                <div class="club-name"> {{ club.name }} </div>
+                                <p class="card-description">{{ club.discription }}</p>
+                            </div>
+                            <img src="{{club.homeURL}}" class="card-image">
+                            <div class="color-overlay"></div>
                         </div>
                     {% endfor %}
                 </div>
@@ -48,6 +52,6 @@
         {% endfor %}
     </div>
 
-    <script src="/static/webClassDisplayGen.js"></script>
+    <script src="/static/desktop/webClassDisplayGen.js"></script>
 </body>
 </html>

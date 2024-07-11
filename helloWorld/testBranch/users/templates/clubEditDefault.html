@@ -1,0 +1,99 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{club.name}}</title>
+    <link rel="stylesheet" href="/static/clubEditDefaultSty.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <form action="/clubs/" method="get">
+            <button type="submit" class="join-button">Back</button>
+        </form>
+        <div class="club-name">Editing {{club.name}}</div>
+        <form id="editForm" action="/editClub" method="post">
+            {% csrf_token %}
+            <input type="hidden" name="clubName" value="{{club.name}}">
+            <input type="hidden" id = "clubAbout" name="about" value="">
+            <input type="hidden" id = "clubSchedule" name="schedule" value="">
+            <input type="hidden" id = "clubLocation" name="location" value="">
+            <input type="hidden" id = "clubContacts" name="contacts" value="">
+            <input type="hidden" id = "clubadvisors" name="advisors" value="">
+            <input type="hidden" id = "pictureURL" name="picURL" value="">
+            <button type="submit" class="join-button" onclick="submitForm()">Submit Changes</button>
+        </form>
+    </div>
+
+    <!--Cards can be added as needed. One is commented out as reference-->
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2>About</h2>
+                <textarea id="about" class="user-input">{{club.discription}}</textarea>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>General Schedule</h3>
+                <textarea id="schedule" class="user-input" rows="1">{{club.generalMeets}}</textarea>
+            </div>
+            <div class="sidebar-section">
+                <h3>Meeting Location</h3>
+                <textarea id="location" class="user-input" rows="1">{{club.location}}</textarea>
+            </div>
+            <div class="sidebar-section">
+                <h3>Contact(s)</h3>
+                <textarea id="contacts" class="user-input" rows="1">{{club.contact}}</textarea>
+            </div>
+            <div class="sidebar-section">
+                <h3>Advisor(s)</h3>
+                <textarea id="advisors" class="user-input" rows="1">{{club.advisorOrAdvisors}}</textarea>
+            </div>
+            <div class="sidebar-section">
+                <h3>Google Drive Picture Link</h3>
+                <p>First Time? Watch video for directions:</p>
+                <textarea id="picURL" class="user-input" rows="1">{{club.homeURL}}</textarea>
+            </div>
+        </div>
+    </div>
+    <script>
+        // Function to auto expand textarea
+        function autoExpand(field) {
+            // Reset the height of the field to auto to calculate the new scroll height
+            field.style.height = 'auto';
+            // Set the height of the field to the scroll height
+            field.style.height = field.scrollHeight + 'px';
+        }
+
+        // Add input event listener to all textareas
+        document.addEventListener('input', function (event) {
+            if (event.target.tagName.toLowerCase() === 'textarea') {
+                autoExpand(event.target);
+            }
+        });
+
+        function submitForm() {
+            // Get the value from textarea1
+            const aboutSect = document.getElementById('about').value;
+            const scheduleSect = document.getElementById('schedule').value;
+            const locationSect = document.getElementById('location').value;
+            const contactSect = document.getElementById('contacts').value;
+            const advisorSect = document.getElementById('advisors').value;
+            const newPicURL = document.getElementById('picURL').value;
+            
+            // Set the value to the hidden input field in the form
+            document.getElementById('clubAbout').value = aboutSect;
+            document.getElementById('clubSchedule').value = scheduleSect;
+            document.getElementById('clubLocation').value = locationSect;
+            document.getElementById('clubContacts').value = contactSect;
+            document.getElementById('clubadvisors').value = advisorSect;
+            document.getElementById('pictureURL').value = newPicURL;
+            
+            // Submit the form
+            document.getElementById('myForm').submit();
+        }
+    </script>
+</body>
+</html>
