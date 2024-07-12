@@ -48,7 +48,7 @@ body {
     margin-top: 10px;
     font-size: 1em;
     color: #666;
-    max-height: 55px; /* Adjust the maximum height as needed */
+    max-height: 80px; /* Adjust the maximum height as needed */
     overflow: hidden;
     text-overflow: ellipsis;
     display: -webkit-box;
@@ -102,6 +102,38 @@ nav {
     font-size: 14px; /* Adjust font size as needed */
     border: none;
     border-radius: 4px;
+  }
+
+  .nav-items {
+    display: flex;
+    justify-content: space-between; /* Distribute items evenly along the main axis */
+    align-items: center; /* Center items vertically */
+  }
+  
+  .nav-items a {
+    margin: 5px; /* Adjust spacing between links */
+    text-decoration: none; /* Remove underline from links */
+  }
+  
+  .account-link {
+    text-align: center; /* Center text and image horizontally */
+    display: flex;
+  
+  }
+  
+  .account-link a {
+    display: block; /* Display as block to take full width */
+    margin-bottom: 5px; /* Adjust margin below text */
+    padding-left: 5px;
+    padding-right: 5px;
+    padding-top: 1px;
+  }
+  
+  .account-link .avatar {
+    width: 30px; /* Adjust image width */
+    height: 30px; /* Adjust image height */
+    border-radius: 50%;
+    margin-right: 15px;
   }
   
   /* top text bar active config */

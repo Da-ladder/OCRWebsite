@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Classroom Interface</title>
+    <link rel="stylesheet" href="/static/mobile/mobileHomeSty.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+</head>
+<body>
+     <!-- Navigation bar -->
+     <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <a href="/myClubs" style='color:#FF0000'>Home</a>
+            <a href="/clubs">Explore</a>
+            <div class="account-link">
+                {% if user.is_authenticated %}
+                    <a href="/"><img class="avatar" src="{{ pic }}" alt="Avatar"></a>
+                {% else %}
+                    <a href="/"><img class="avatar" src="/static/missingProfile.png" alt="Avatar"></a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+    <div class="container" id = "clubLayotTag">
+        {% for class in classes %}
+            <div class="class-card" data-url="{{ class.homeURL }}">
+                <h3 class="class-name" font-family: 'Source Sans Pro'>{{ class.name }}</h3>
+            </div>
+        {% endfor %}
+    </div>
+    <script src="/static/myClubCards.js"></script>
+</body>
+</html>

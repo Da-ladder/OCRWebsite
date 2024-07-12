@@ -3,10 +3,32 @@ from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from .models import *
-from .models import Club
+from django.dispatch import receiver
+from allauth.account.signals import user_signed_up
+import re
+
+def mobile(request):
+    #Return True if the request comes from a mobile device.
+    MOBILE_AGENT_RE=re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
+
+    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+        return True
+    else:
+        return False
 
 def home(request):
-    return render(request, "home.html")
+    if request.user.is_authenticated:
+        pic_url = Users.objects.get(email = request.user.email).picURL
+        if mobile(request):
+            return render(request, 'mobileDisplay/mobileLogIn.html', {'pic': pic_url})
+        else:
+            return render(request, 'home.html', {'pic': pic_url})
+
+    else:
+        if mobile(request):
+            return render(request, 'mobileDisplay/mobileLogIn.html')
+        else:
+            return render(request, 'home.html')
 
 def logout_view(request):
     logout(request)
@@ -32,16 +54,30 @@ def club_display(request):
     for category in categories:
         clubs_by_category[category] = Club.objects.filter(tagOrTags__name=category)
     
-    context = {
-        'clubs_by_category': clubs_by_category
-    }
-    
-    return render(request, 'webClassDisplay.html', context)
+    if request.user.is_authenticated:
+        context = {
+            'clubs_by_category': clubs_by_category,
+            'pic': Users.objects.get(email = request.user.email).picURL,
+        }
+    else:
+        context = {
+            'clubs_by_category': clubs_by_category  
+        }
+
+    if mobile(request):
+        return render(request, 'mobileDisplay/mobileClassDisplay.html', context)
+    else:
+        return render(request, 'webClassDisplay.html', context)
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
-        clubs = Club.objects.filter(users=User.objects.get(email = request.user.email))
-        return render(request, 'myClubs.html', {'classes': clubs})
+        clubs = Club.objects.filter(users=Users.objects.get(email = request.user.email))
+        pic_url = Users.objects.get(email = request.user.email).picURL
+
+        if mobile(request):
+            return render(request, 'mobileDisplay/mobileHome.html', {'classes': clubs, 'pic': pic_url})
+        else:
+            return render(request, 'myClubs.html', {'classes': clubs, 'pic': pic_url})
     else:
         return redirect("/")
 
@@ -52,12 +88,23 @@ def club_default(request):
 
     # Assumes each club has its own name
     className = request.GET.get('className')
+    club = Club.objects.get(name = className)
 
-    context = {
-        'club': Club.objects.get(name = className)
-    }
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
+        context = {
+            'club': club,
+            'edit' : True,
+        }
+    else:
+        context = {
+            'club': club,
+            'edit': False,
+        }
 
-    return render(request, "clubDefault.html", context)
+    if mobile(request):
+        return render(request, "mobileDisplay/mobileClubFrontDefault.html", context)
+    else:
+        return render(request, "clubDefault.html", context)
 
 # Triggered when no custom club redirect for their homepage exists
 # TODO make custom 404 page
@@ -70,29 +117,19 @@ def club_home_default(request):
         'club': Club.objects.get(name = className)
     }
 
-    return render(request, "clubHomeDefault.html", context)
-
-def registerUser(request):
-    if request.user.is_authenticated:
-        user, created = User.objects.get_or_create(
-        name = request.user.first_name,
-        email = request.user.email
-        )
-
-        if created:
-            # redirects user to a certain page if the account was just created
-            return redirect("/clubs") # change this to a success screen or something
-        else:
-            # gets user to the primary club page if they already have an account
-            return redirect("/clubs")
-
+    if mobile(request):
+        return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
     else:
-        return redirect(request, "/")
+        return render(request, "clubHomeDefault.html", context)
+
+def registerUserAs(request):
+    # can be removed in the future
+    return redirect("/clubs")
 
 def joinClub(request):
     if request.user.is_authenticated:
         className = request.GET.get('clubName')
-        Club.objects.get(name = className).users.add(User.objects.get(email = request.user.email))
+        Club.objects.get(name = className).users.add(Users.objects.get(email = request.user.email))
         return redirect("/clubs")
     else:
         return redirect("/")
@@ -100,8 +137,62 @@ def joinClub(request):
 def leaveClub(request):
     if request.user.is_authenticated:
         className = request.GET.get('clubName')
-        Club.objects.get(name = className).users.remove(User.objects.get(email = request.user.email))
+        Club.objects.get(name = className).users.remove(Users.objects.get(email = request.user.email))
         return redirect("/myClubs")
     else:
-        return redirect("/")
+        return redirect("/")  
 
+def club_edit(request):
+    className = request.GET.get('clubName')
+
+    club = Club.objects.get(name = className)
+
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
+        context = {
+            'club': club,
+            'edit' : True,
+        }
+        return render(request, "clubEditDefault.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
+def changeClub(request):
+    className = request.POST.get('clubName')
+    classAbout = request.POST.get('about')
+    classSchedule = request.POST.get('schedule')
+    classLoc = request.POST.get('location')
+    classContact = request.POST.get('contacts')
+    classAdvisor = request.POST.get('advisors')
+    picURL = request.POST.get("picURL")
+
+    club = Club.objects.get(name = className)
+
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists(): #change this later
+        club.discription = classAbout
+        club.contact = classContact
+        club.generalMeets = classSchedule
+        club.location = classLoc
+        club.advisorOrAdvisors = classAdvisor
+        club.homeURL = picURL
+        club.save()
+        return redirect("/clubs")
+    else:
+        return render(request, "NuhUh.html")
+
+
+
+@receiver(user_signed_up)
+def populate_profile(sociallogin, user, **kwargs):      
+
+    if sociallogin.account.provider == 'google':
+        user_data = user.socialaccount_set.filter(provider='google')[0].extra_data
+        picture_url = user.socialaccount_set.filter(provider='google')[0].extra_data['picture']           
+        email = user_data['email']
+        first_name = user.first_name
+
+    Users.objects.create(
+    name = first_name,
+    email = email,
+    picURL = picture_url,
+    extraData = user_data
+    )

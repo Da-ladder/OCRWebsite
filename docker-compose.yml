@@ -1,0 +1,18 @@
+# FOR WINDOWS ONLY
+version: '3.11'
+
+services:
+
+    django:
+        container_name: django
+        build:
+            context: ./
+        command: python manage.py runserver 0.0.0.0:8000
+        volumes: 
+         - ./helloWorld/testBranch:/usr/src/app/
+        ports:
+         - 8001:8000
+        environment:
+         - DEBUG=1 #Debug won't turn off idk why
+         - SECRET_KEY=nf+p_x8jq)u(6apg9ji@&()(=t**34(hm9%+z$ys$&c)!s*x4s
+         - ALLOWED_HOSTS=localhost, 127.0.0.1

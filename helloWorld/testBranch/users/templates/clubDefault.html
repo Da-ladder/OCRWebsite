@@ -44,6 +44,14 @@
                 <h3>Advisor(s)</h3>
                 <p>{{club.advisorOrAdvisors}}</p>
             </div>
+            {% if edit %}
+                <div class="sidebar-section">
+                    <form action="/edit" method="get">
+                        <input type="hidden" name="clubName" value="{{club.name}}">
+                        <button type="submit" class="join-button">Edit Club Information</button>
+                    </form>
+                </div>
+            {% endif %}
         </div>
     </div>
 </body>

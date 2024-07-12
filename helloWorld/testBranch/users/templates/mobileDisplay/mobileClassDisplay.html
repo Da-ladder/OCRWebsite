@@ -1,0 +1,55 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Auto-scaling Paginator</title>
+    <link rel="stylesheet" href="/static/mobile/mobileClassDisplaySty.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <a href="/myClubs">Home</a> 
+            <a href="/clubs" style='color:#FF0000'>Explore</a>
+            <div class="account-link">
+                {% if user.is_authenticated %}
+                    <a href="/"><img class="avatar" src="{{ pic }}" alt="Avatar"></a>
+                {% else %}
+                <a href="/"><img class="avatar" src="/static/missingProfile.png" alt="Avatar"></a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content with left and right scrolling functionality-->
+    <div class="container" id="clubLayoutTag">
+        <div class="search-box">
+            <input type="text" id="searchInput" placeholder="Search clubs">
+            <button onclick="clearSearch()">Reset</button>
+        </div>
+
+        {% for category, clubs in clubs_by_category.items %}
+
+        <div class="dropdown">
+            <button onclick="toggleDropdown('dropdown{{ category }}', 'arrow{{ category }}')">
+                {{ category }}
+                <span class = 'arrow' id="arrow{{ category }}">&#9656;</span>
+            </button>
+            <div class="dropdown-content" id="dropdown{{ category }}">
+                {% for club in clubs %}
+                    <div class="card" data-url="{{ club.url }}">
+                        <h3 class="class-name">{{ club.name }}</h3>
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+        {% endfor %}
+    </div>
+
+    <script src="/static/mobile/mobileClassDisplayGen.js"></script>
+</body>
+</html>

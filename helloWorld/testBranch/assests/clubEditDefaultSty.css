@@ -1,0 +1,150 @@
+/* styles.css */
+body {
+    font-family: Arial, sans-serif;
+    background-color: #f5f7fa;
+    margin: 0;
+    padding: 0;
+}
+
+.top-bar {
+    width: 100%;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 10px 20px;
+    box-sizing: border-box;
+    position: fixed;
+    top: 0;
+    left: 0;
+    z-index: 1000;
+}
+
+.club-name {
+    font-size: 24px;
+    font-weight: bold;
+}
+
+.join-button {
+    background-color: #d50000;
+    color: white;
+    border: none;
+    padding: 10px 20px;
+    font-size: 16px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
+.main-content {
+    display: flex;
+    justify-content: center;
+    align-items: flex-start;
+    width: 100%;
+    margin-top: 80px; /* To make space for the fixed top bar */
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.container {
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+    width: 60%;
+    max-width: 800px;
+    margin-right: 40px; /* Add space between the container and the sidebar */
+}
+
+.sidebar {
+    width: 25%;
+    max-width: 300px;
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+    box-sizing: border-box;
+}
+
+.card {
+    background-color: white;
+    border-radius: 10px;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 20px;
+}
+
+.card h2, .sidebar h3 {
+    margin-top: 0;
+}
+
+.video img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.partner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.partner img {
+    width: 40px;
+    height: 40px;
+}
+
+/* top bar config */
+nav {
+    height: 80px;
+    width:100%;
+    top: 0;
+    overflow:hidden;
+    position:fixed;
+    background: #000000;
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    padding: 0rem calc((100vw - 1300px) / 2);
+    margin-bottom:100px;
+    z-index: 1000; /* Ensure navbar is on top of other content */
+  }
+  
+  /* top left logo config */
+  .logo {
+    color: rgb(255, 255, 255);
+    font-size: 1.5rem;
+    font-weight: bold;
+    font-style: italic;
+    padding: 0 2rem;
+  }
+  
+  /* top text bar inactive config */
+  nav a {
+    text-decoration: none;
+    color: #ffffff;
+    padding: 0 1.5rem;
+  }
+  
+  
+  .nav-items input[type="text"], .nav-items button {
+    margin-left: 10px; /* Add spacing between input and button */
+    height: 30px; /* Adjust height as needed */
+    padding: 0 10px; /* Adjust padding as needed */
+    font-size: 14px; /* Adjust font size as needed */
+    border: none;
+    border-radius: 4px;
+  }
+  
+  /* top text bar active config */
+  nav a:hover {
+    color: #dbaf00;
+  }
+ 
+  input {
+    width: 100%;
+  }
+
+  textarea {
+    width: 100%;
+    overflow: hidden;
+    resize: none; /* Prevents manual resizing */
+  }

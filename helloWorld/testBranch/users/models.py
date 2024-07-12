@@ -2,9 +2,11 @@ from django.db import models
 
 # Create your models here.
 
-class User(models.Model):
+class Users(models.Model):
     name = models.CharField(max_length=150) # just to be safe
     email = models.CharField(max_length=255) # just to be safe
+    picURL = models.URLField(max_length=200, blank=True, null=True)
+    extraData = models.TextField(blank=True, null=True)
 
     def __str__(self):
         return self.email  # as not to confuse two ppl with the same first & last name
@@ -23,9 +25,11 @@ class Club(models.Model):
     generalMeets = models.TextField(blank=True)
     location = models.CharField(max_length=255, blank=True)
     active = models.BooleanField(default=False) 
-    users = models.ManyToManyField(User, blank=True)
+    users = models.ManyToManyField(Users, blank=True, related_name='club_users')
     tagOrTags = models.ManyToManyField(ClubTag, blank=True)
 
+    advisors = models.ManyToManyField(Users, blank=True, related_name='club_advisors')
+    leaders = models.ManyToManyField(Users, blank=True, related_name='club_leaders')
     url = models.URLField(max_length=150, blank=True, null=True)
     homeURL = models.URLField(max_length=150, blank=True, null=True)
 

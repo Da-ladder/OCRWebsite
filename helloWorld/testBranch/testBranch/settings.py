@@ -165,5 +165,6 @@ AUTHENTICATION_BACKENDS = (
     "allauth.account.auth_backends.AuthenticationBackend",
 )
 
-LOGIN_REDIRECT_URL = "/loggedIn"
+ACCOUNT_ADAPTER = 'users.authConfig.MyAccountAdapter'
+LOGIN_REDIRECT_URL = "/clubs"
 LOGOUT_REDIRECT_URL = "/"

@@ -14,7 +14,14 @@
         <div class="nav-items">
             <a href="/myClubs" style='color:#FF0000'>My Clubs</a>
             <a href="/clubs">Explore</a>
-            <a href="/">Account</a>
+            <div class="account-link">
+                {% if user.is_authenticated %}
+                    <a href="/">Hello {{ user.username }}</a>
+                    <img class="avatar" src="{{ pic }}" alt="Avatar">
+                {% else %}
+                    <a href="/">Sign In</a>
+                {% endif %}
+            </div>
         </div>
     </nav>
     <div class="container" id = "clubLayotTag">
