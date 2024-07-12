@@ -6,9 +6,9 @@ RUN pip install --upgrade pip
 COPY ./requirements.txt .
 RUN pip install -r requirements.txt
 
-COPY ./testBranch /app
+COPY ./testBranch /testBranch
 
-WORKDIR /app
+WORKDIR /testBranch
 
 COPY ./entrypoint.sh /
 ENTRYPOINT ["sh", "/entrypoint.sh"]

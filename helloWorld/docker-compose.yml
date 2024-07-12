@@ -4,6 +4,7 @@ services:
   django_gunicorn:
     volumes:
       - static:/static
+      - db_data:/testBranch
     env_file:
       - .env
     build:
@@ -23,3 +24,4 @@ services:
 
 volumes:
   static:
+  db_data:

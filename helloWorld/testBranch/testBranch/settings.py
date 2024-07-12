@@ -37,7 +37,7 @@ CSRF_TRUSTED_ORIGINS = ['http://dhsclubs.org', 'http://192.168.1.230']
 
 # Application definition
 
-SITE_ID = 3
+SITE_ID = 4
 
 # most secure way is to set to false rather thazn true. POST requests are much more secure (eh for now)
 SOCIALACCOUNT_LOGIN_ON_GET=True
