@@ -34,6 +34,55 @@ def logout_view(request):
     logout(request)
     return redirect("/")
 
+def club_display_new(request):
+    # get all clubs and put them in a dictionary where each club will have tags related to them seperated
+    # by ",  " for easy deciper on the js side
+    clubsWithCategory = {}
+    
+    clubs = Club.objects.all()
+    for club in clubs:
+        ClubTagStr = ""
+
+        # Gets the tag field
+        field_object = Club._meta.get_field('tagOrTags')
+        field_value = field_object.value_from_object(club)
+
+        # Breaks it down into a single string 
+        for val in field_value:
+            if (len(ClubTagStr) != 0):
+                ClubTagStr += ",  "  # seperated by two spaces after comma
+            ClubTagStr += str(val)
+        
+        clubsWithCategory[club] = ClubTagStr
+
+    # Buttons are dynamically added so all tags are taken from the database
+    tags = ClubTag.objects.all()
+
+
+    if request.user.is_authenticated:
+        context = {
+            'clubsWithCategory': clubsWithCategory,
+            'tags' : tags,
+            'pic': Users.objects.get(email = request.user.email).picURL,
+        }
+    else:
+        context = {
+            'clubsWithCategory': clubsWithCategory,
+            'tags' : tags,
+        }
+
+    if mobile(request):
+        #ignore mobile for now
+        return club_display(request)
+    else:
+        return render(request, 'desktopDisplay/explore.html', context)
+    
+    
+    
+
+
+    
+
 def club_display(request):
     categories = [
         'STEM',
@@ -48,11 +97,11 @@ def club_display(request):
         'Language & Culture/Food',
         'Honor Societies',
     ]
-    
     # Create a dictionary to store clubs filtered by each category
     clubs_by_category = {}
     for category in categories:
         clubs_by_category[category] = Club.objects.filter(tagOrTags__name=category)
+    
     
     if request.user.is_authenticated:
         context = {
@@ -180,7 +229,7 @@ def changeClub(request):
         return render(request, "NuhUh.html")
 
 
-
+# TODO: fix issue with always trigger upon signing in
 @receiver(user_signed_up)
 def populate_profile(sociallogin, user, **kwargs):      
 
@@ -190,7 +239,7 @@ def populate_profile(sociallogin, user, **kwargs):
         email = user_data['email']
         first_name = user.first_name
 
-    Users.objects.create(
+    Users.objects.get_or_create(
     name = first_name,
     email = email,
     picURL = picture_url,

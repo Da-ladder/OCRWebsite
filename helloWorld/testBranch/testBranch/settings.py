@@ -29,7 +29,7 @@ SECRET_KEY = "dekjuedyjwejhew"#os.getenv('SECRET_KEY')
 DEBUG = True #os.getenv('DEBUG')S
 
 ALLOWED_HOSTS = ["http://127.0.0.1","*","localhost"]
-CSRF_TRUSTED_ORIGINS = ['http://dhsclubs.org']
+CSRF_TRUSTED_ORIGINS = ['http://dhsclubs.org', "http://127.0.0.1"]
 
 
 # Application definition
@@ -37,6 +37,7 @@ SITE_ID = 4
 
 # most secure way is to set to false rather thazn true. POST requests are much more secure (eh for now)
 SOCIALACCOUNT_LOGIN_ON_GET=True
+#FIX
 
 INSTALLED_APPS = [
     'django.contrib.admin',
@@ -60,7 +61,7 @@ SOCIALACCOUNT_PROVIDERS = {
             "email"
         ],
         "AUTH_PARAMS": {"access_type": "online", 
-                        "include_granted_scopes": "true",
+                        "include_granted_scopes": "false",
                         },
         "VERIFIED_EMAIL": True,
         'OAUTH2_PARAMS': {
@@ -164,6 +165,11 @@ AUTHENTICATION_BACKENDS = (
     "django.contrib.auth.backends.ModelBackend",
     "allauth.account.auth_backends.AuthenticationBackend",
 )
+
+#SECURE_PROXY_SSL_HEADER = ("HTTP_X_FORWARDED_PROTO", "https")
+
+#ACCOUNT_ADAPTER = 'users.adapters.MyAccountAdapter'
+#SOCIALACCOUNT_ADAPTER = 'users.adapters.MySocialAccountAdapter'
 
 #ACCOUNT_ADAPTER = 'users.authConfig.MyAccountAdapter'
 LOGIN_REDIRECT_URL = "/clubs/"

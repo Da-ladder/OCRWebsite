@@ -1,0 +1,324 @@
+/* styles.css */
+
+body {
+    font-family: Arial, sans-serif;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    margin: 0;
+    background-color: #f4f4f4;
+}
+
+body {
+    font-family: Arial, sans-serif;
+    margin: 0;
+    padding: 0;
+}
+
+.card {
+    position: relative; /* Ensure overlay is positioned correctly  TEST */
+    display: flex; /* Ensure cards are in a single row */
+    flex: 0 0 auto;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    text-align: center;
+    white-space: normal;
+    min-width: 240px;
+    max-width: 240px;
+    min-height: 240px;
+    max-height: 240px;
+    background-color: #fff;
+    border-radius: 8px;
+    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+    box-sizing: border-box; 
+    overflow: hidden;
+}
+
+.card .card-text {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 95%;
+  transform: translateX(-50%);
+  color: white;
+  z-index: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 2; /* Number of lines to show before truncating */
+  -webkit-box-orient: vertical;
+}
+
+.card .card-text .card-description {
+    font-size: 1em;
+    color: white;
+    width: 95%;
+    max-height: 70px; /* Adjust the maximum height as needed */
+    overflow: hidden;
+    text-overflow: ellipsis;
+    display: -webkit-box;
+    -webkit-line-clamp: 3; /* Number of lines to show before truncating */
+    -webkit-box-orient: vertical;
+    font-family: 'Source Sans Pro';
+}
+
+.card .card-image {
+  width: 100%;  
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  object-fit: cover; /* Ensure image covers the card space */
+  filter: brightness(90%); /* Darken the image */
+  position: relative;
+  z-index: 1;
+}
+
+.card .color-overlay {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.3); /* Black tint with 20% opacity */
+  z-index: 2;
+  border-radius: 8px;
+  mix-blend-mode: multiply;
+}
+
+.card:hover {
+    transform: translateY(-10px);
+    background-color: #ffcfa2;
+}
+
+.container {
+    margin-top:120px; /* Lowers by set amount from the top */
+    display: flex;
+    justify-content: center;
+    padding: 2% 2% 2% 2%; /* Added top padding for spacing */
+    gap: 20px;
+    flex-wrap: wrap;
+    max-width: 100%; /* Ensure the container does not exceed screen width */
+}
+
+/* top bar config */
+nav {
+  width:100%;
+  top: 0;
+  overflow:hidden;
+  position:fixed;
+  display: column;
+  align-items: space;
+  padding: 0rem calc((100vw - 1300px) / 2);
+  height:120px; /* Should be same as margin-top and vice versa */
+  z-index: 1000; /* Ensure navbar is on top of other content */
+}
+
+.topNav {
+    display: flex;
+    background: #000000;
+    justify-content: space-between;
+    height: 80px;
+    border-bottom: 1mm ridge gray;
+
+}
+
+.bottomNav {
+    width:100%;
+    height: 40px;
+    
+}
+
+.blankButton {
+    color: black;
+    background-color: #000;
+}
+
+/* category navigator */
+.catNav {
+    height: 40px;
+    padding-left: 20px;
+    padding-right: 20px;
+    line-height: 30px;
+    flex-wrap: wrap;
+    overflow-y: hidden;
+    overflow-x: auto;
+    white-space: nowrap;
+    background: black;
+    justify-content: center;
+    text-align: center;
+    -ms-overflow-style: none;
+    scrollbar-width: none;
+    scroll-behavior: smooth;
+}
+
+.catNav::-webkit-scrollbar {
+    display: none;
+  }
+
+.catNav button {
+    margin-top: auto;
+    margin-bottom: auto;
+    height: fit-content;
+    color: white;
+    background-color: transparent;
+    border: none;
+}
+
+.catNav button:hover {
+    color: red;
+}
+
+/* top left logo config */
+.logo {
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+  margin-top: auto;
+  margin-bottom: auto;
+  padding: 0 2rem;
+}
+
+/* top text bar inactive config */
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 0 1.5rem;
+}
+
+.nav-items{
+    align-items: right;
+}
+
+.nav-items input[type="text"], .nav-items button {
+  margin-left: 10px; /* Add spacing between input and button */
+  height: 30px; /* Adjust height as needed */
+  padding: 0 10px; /* Adjust padding as needed */
+  font-size: 14px; /* Adjust font size as needed */
+  border: none;
+  border-radius: 4px;
+}
+
+/* top text bar active config */
+nav a:hover {
+  color: #dbaf00;
+}
+
+.hero {
+  background: #f4f4f4;
+
+}
+
+.hero-container {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  height: 95vh;
+  padding: 0rem calc((100vw - 1399px) / 2);
+}
+
+.column-left {
+  margin-top: 50px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: flex-start;
+  color: rgb(0, 0, 0);
+  padding: 0rem 2rem;
+}
+
+.column-left h1 {
+  margin-bottom: 1rem;
+  font-size: 3rem;
+}
+
+.column-left p {
+  margin-bottom: 2rem;
+  font-size: 1.5rem;
+  line-height: 1.5;
+}
+
+.button-primary {
+  padding: 1rem 3rem;
+  font-size: 1rem;
+  border: none;
+  color: #ffffff;
+  background: rgb(0, 0, 0);
+  cursor: pointer;
+  border-radius: 50px;
+}
+
+.button-primary:hover {
+  background-color: #fff;
+  color: #000;
+}
+
+.column-right {
+  margin-top: 50px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  padding: 0rem 2rem;
+}
+
+.nav-items {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly along the main axis */
+  align-items: center; /* Center items vertically */
+}
+
+.nav-items a {
+  margin: 5px; /* Adjust spacing between links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.pagination-nav-btn {
+    position: absolute;
+    top: 82%; /* Magic # figure out how to fix this later */
+    transform: translateY(-50%);
+    padding: 3px 3px;
+    background-color: black;
+    color: white;
+    text-decoration: none;
+    border-radius: 4px;
+    cursor: pointer;
+}
+
+.pagination-nav-btn.disabled {
+    color: transparent;
+    background-color: transparent;
+    cursor: not-allowed;
+}
+
+.prev-btn {
+    left: 0px;
+}
+
+.next-btn {
+    right: 0px;
+}
+
+.account-link {
+  text-align: center; /* Center text and image horizontally */
+  display: flex;
+
+}
+
+.account-link a {
+  display: block; /* Display as block to take full width */
+  margin-bottom: 5px; /* Adjust margin below text */
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+}
+
+.account-link .avatar {
+  width: 30px; /* Adjust image width */
+  height: 30px; /* Adjust image height */
+  border-radius: 50%;
+  margin-right: 15px;
+}
+@media screen and (max-width: 750px){
+  .hero-container{
+      grid-template-columns: 1fr;
+  }
+}

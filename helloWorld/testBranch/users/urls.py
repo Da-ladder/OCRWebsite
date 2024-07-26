@@ -7,7 +7,7 @@ urlpatterns = [
     path("", views.home),
     path("loggedIn", views.registerUserAs),
     path("logout", views.logout_view),
-    path("clubs/", views.club_display),
+    path("clubs/", views.club_display_new),
     path("clubs/default", views.club_default),
     path("edit", views.club_edit),
     path("editClub", views.changeClub),
@@ -15,4 +15,5 @@ urlpatterns = [
     path("myClubs/", views.dis_my_clubs),
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),
+    path("test", views.club_display_new)
 ] 
