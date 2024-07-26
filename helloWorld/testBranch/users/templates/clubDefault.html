@@ -9,9 +9,8 @@
 <body>
 
     <div class="top-bar">
-        <form action="/clubs/" method="get">
-            <button type="submit" class="join-button">Back</button>
-        </form>
+        <button class="join-button" onclick="history.back()">Back</button>
+    
         <div class="club-name">{{club.name}}</div>
         <form action="/joinClub" method="get">
             <input type="hidden" name="clubName" value="{{club.name}}">
