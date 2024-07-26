@@ -237,11 +237,12 @@ def changeClub(request):
         club.location = classLoc
         club.advisorOrAdvisors = classAdvisor
         club.homeURL = picURL
-
         # setting the many to many field using the tag names directly
         tags = tags.split(",  ")
         tags = ClubTag.objects.filter(name__in=tags)
         club.tagOrTags.set(tags)
+
+        club.save()
         return redirect("/clubs")
     else:
         return render(request, "NuhUh.html")
