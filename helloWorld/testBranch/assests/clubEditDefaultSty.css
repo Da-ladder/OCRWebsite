@@ -148,3 +148,11 @@ nav {
     overflow: hidden;
     resize: none; /* Prevents manual resizing */
   }
+
+  dd {
+    margin-inline-start: 0px;
+  }
+
+  .checkbox {
+    max-width: 20px;
+  }

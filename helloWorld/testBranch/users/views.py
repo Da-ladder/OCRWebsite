@@ -196,8 +196,21 @@ def club_edit(request):
 
     club = Club.objects.get(name = className)
 
+    # gets all the tags that the club is tagged to (get it?)
+    ClubTagStr = ""
+
+    # Gets the tag field
+    field_object = Club._meta.get_field('tagOrTags')
+    currTags = field_object.value_from_object(club)
+    
+
+    # get all tags from the database
+    tags = ClubTag.objects.all()
+
     if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
         context = {
+            'tags': tags,
+            'currTags': currTags,
             'club': club,
             'edit' : True,
         }
@@ -213,6 +226,7 @@ def changeClub(request):
     classContact = request.POST.get('contacts')
     classAdvisor = request.POST.get('advisors')
     picURL = request.POST.get("picURL")
+    tags = request.POST.get("tags")
 
     club = Club.objects.get(name = className)
 
@@ -223,7 +237,11 @@ def changeClub(request):
         club.location = classLoc
         club.advisorOrAdvisors = classAdvisor
         club.homeURL = picURL
-        club.save()
+
+        # setting the many to many field using the tag names directly
+        tags = tags.split(",  ")
+        tags = ClubTag.objects.filter(name__in=tags)
+        club.tagOrTags.set(tags)
         return redirect("/clubs")
     else:
         return render(request, "NuhUh.html")

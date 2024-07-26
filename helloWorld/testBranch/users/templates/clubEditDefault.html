@@ -22,6 +22,8 @@
             <input type="hidden" id = "clubContacts" name="contacts" value="">
             <input type="hidden" id = "clubadvisors" name="advisors" value="">
             <input type="hidden" id = "pictureURL" name="picURL" value="">
+            <input type="hidden" id = "selectedTags" name="tags" value="">
+
             <button type="submit" class="join-button" onclick="submitForm()">Submit Changes</button>
         </form>
     </div>
@@ -56,6 +58,18 @@
                 <p>First Time? Watch video for directions:</p>
                 <textarea id="picURL" class="user-input" rows="1">{{club.homeURL}}</textarea>
             </div>
+            <div class="sidebar-section">
+                <h3>Select Categories Applicable to Your Club <br>(All is always tagged)</h3>
+                <dl id="checkboxes">
+                    {% for tag in tags %}
+                        {% if tag in currTags %}
+                            <dd><input class = "checkbox" type="checkbox" checked="True" id="{{tag}}" /><label for="{{tag}}">{{tag}}</label></dd>
+                        {% else %}
+                            <dd><input class = "checkbox" type="checkbox" id="{{tag}}" /><label for="{{tag}}">{{tag}}</label></dd>
+                        {% endif %}
+                    {% endfor %}
+              </dl>
+            </div>
         </div>
     </div>
     <script>
@@ -82,7 +96,18 @@
             const contactSect = document.getElementById('contacts').value;
             const advisorSect = document.getElementById('advisors').value;
             const newPicURL = document.getElementById('picURL').value;
-            
+
+            // obtain all cats that they picked
+            var allTags = ""
+            document.querySelectorAll('.checkbox').forEach(box => {
+                if (box.checked) {
+                    if (allTags != "") {
+                        allTags += ",  " //backend code will parse by splitting ",  "
+                    }
+                    allTags += box.id;
+                }
+            });
+
             // Set the value to the hidden input field in the form
             document.getElementById('clubAbout').value = aboutSect;
             document.getElementById('clubSchedule').value = scheduleSect;
@@ -90,6 +115,7 @@
             document.getElementById('clubContacts').value = contactSect;
             document.getElementById('clubadvisors').value = advisorSect;
             document.getElementById('pictureURL').value = newPicURL;
+            document.getElementById('selectedTags').value = allTags;
             
             // Submit the form
             document.getElementById('myForm').submit();
