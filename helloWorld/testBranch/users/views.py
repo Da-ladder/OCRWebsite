@@ -161,15 +161,21 @@ def club_home_default(request):
 
     # Assumes each club has its own name
     className = request.GET.get('className')
+    club = Club.objects.get(name = className)
 
     context = {
-        'club': Club.objects.get(name = className)
+        'club': club
     }
 
-    if mobile(request):
-        return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+        if mobile(request):
+            return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
+        else:
+            return render(request, "clubHomeDefault.html", context)
     else:
-        return render(request, "clubHomeDefault.html", context)
+        return render(request, "NuhUh.html")
+    
 
 def registerUserAs(request):
     # can be removed in the future
