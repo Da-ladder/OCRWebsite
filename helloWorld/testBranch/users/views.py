@@ -254,6 +254,27 @@ def changeClub(request):
         return render(request, "NuhUh.html")
 
 
+# custom club homepages are created below
+# change from localhost to dhsclubs.org when pushing updates
+def nehsInternalHome(request):
+    club = Club.objects.get(name = "National English Honor Society (NEHS)")
+
+    context = {
+        'club': club
+    }
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+        if mobile(request):
+            # ignore mobile layout for now
+            return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
+        else:
+            return render(request, "desktopDisplay/Nehs/internalHome.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
+
+
 # TODO: fix issue with always trigger upon signing in
 @receiver(user_signed_up)
 def populate_profile(sociallogin, user, **kwargs):      

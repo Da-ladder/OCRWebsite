@@ -13,7 +13,7 @@ urlpatterns = [
     path("editClub", views.changeClub),
     path("joinClub", views.joinClub),
     path("myClubs/", views.dis_my_clubs),
+    path("myClubs/nehs", views.nehsInternalHome),
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),
-    path("test", views.club_display_new)
 ] 

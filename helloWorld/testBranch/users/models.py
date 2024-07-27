@@ -36,5 +36,11 @@ class Club(models.Model):
     def __str__(self):
         return self.name
 
+class LiveFeed(models.Model):
+    title = models.CharField(max_length=255, blank=True, null=True) # DO NOT let users type more than 255 for the title
+    text = models.TextField(blank=True, null=True)
+    club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubFeed')
 
+    def __str__(self):
+        return self.club + self.title
 
