@@ -72,24 +72,19 @@ body {
     padding: 20px;
 }
 
+.userManagement {
+  display: flex;
+  flex-direction: column;
+  border: solid 1.5px gray;
+  padding: 10px;
+  border-radius: 5px;
+  margin-bottom: 5px;
+}
+
+
+
 .card h2, .sidebar h3 {
     margin-top: 0;
-}
-
-.video img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.partner {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.partner img {
-    width: 40px;
-    height: 40px;
 }
 
 /* top bar config */

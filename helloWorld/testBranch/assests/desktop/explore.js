@@ -159,7 +159,7 @@ function moveRight(){
 document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
         const url = card.getAttribute('data-url');
-        if (url != "None") {
+        if (1 == 2) { //url != "None" FIX THIS LATER
             window.location.href = url;
         } else {
             // only occurs when there is no webpage setup with the club. It is the default page that all clubs will start with

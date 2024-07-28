@@ -140,16 +140,31 @@ nav {
   }
 
 /* Post button configs */
-.post-button {
+
+.addPost {
     display: flex;
-    width: 100%;
     border: solid 1px lightgray;
-    padding: 10px 20px;
     background-color: transparent;
-    padding: 10px 20px;
+    padding: 5px 10px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
+    flex-direction: column;
+}
+.post-button {
+    border: none;
+    display: flex;
+    width: 100%;
+    background-color: transparent;
+    font-size: 16px;
+    cursor: pointer;
+    flex-direction: column;
+}
+
+.postButtonText {
+    display: flex;
+    background-color: transparent;
+    font-size: 16px;
     flex-direction: row;
 }
 
@@ -158,10 +173,44 @@ nav {
     margin-left: 0px;
 }
 
+.submitCancel {
+    margin-top: 5px;
+    display: flex;
+    gap: 5px;
+    justify-content: right;
+}
+
+.createPost {
+    margin-top: 5px;
+    width: 100%;
+    display: flex;
+    background-color: transparent;
+    font-size: 16px;
+    gap: 5px;
+    flex-direction: column;
+}
+
+.userError {
+    color: red;
+}
+
+textarea {
+    width: 100%;
+    overflow: hidden;
+    background-color: whitesmoke;
+    resize: none; /* Prevents manual resizing */
+    border-radius: 5px;
+}
+
 .creater {
     display: flex;
     width: 100%;
     flex-direction: row;
+}
+
+.allPosts {
+    display: flex;
+    flex-direction: column-reverse;
 }
 
 .post {
@@ -182,12 +231,7 @@ nav {
 }
 
 .postTitle {
-    border: solid 1.5px whitesmoke;
-    border-left: none;
-    border-right: none;
-    border-top: none;
-
-    margin-top: 3px;
+    margin-top: 5px;
     font-weight: bold;
     margin-bottom: 5px;
 }
@@ -195,6 +239,17 @@ nav {
 .postDate {
     font-size: small;
     color: gray;
+}
+
+.postText {
+    color: gray;
+}
+
+.postData {
+    display: flex;
+    flex-direction: row;
+    gap: 10px;
+
 }
 
 .post .creater .avatar {

@@ -11,6 +11,7 @@ urlpatterns = [
     path("clubs/default", views.club_default),
     path("edit", views.club_edit),
     path("editClub", views.changeClub),
+    path("addPost", views.addClubPost),
     path("joinClub", views.joinClub),
     path("myClubs/", views.dis_my_clubs),
     path("myClubs/nehs", views.nehsInternalHome),

@@ -253,6 +253,35 @@ def changeClub(request):
     else:
         return render(request, "NuhUh.html")
 
+def addClubPost(request):
+    
+    # Grab information
+    currentPage = request.POST.get('curPage')
+
+    club = Club.objects.get(name = request.POST.get("clubName"))
+    postTitle = request.POST.get("title")
+    postBody = request.POST.get("body")
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+        # Make the post
+        LiveFeed.objects.create(
+        title = postTitle,
+        text = postBody,
+        club = club,
+        edited = False,
+        creator = Users.objects.get(email = request.user.email)
+        )
+
+        # return them to the page they were on
+        return redirect(currentPage)
+    else:
+        # if they do not have access, deny them
+        return render(request, "NuhUh.html")
+
+
+
+
 
 # custom club homepages are created below
 # change from localhost to dhsclubs.org when pushing updates
@@ -274,11 +303,12 @@ def nehsInternalHome(request):
 
         if mobile(request):
             # ignore mobile layout for now
-            return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
+            return render(request, "mobileDisplay/Nehs/internalHome.html", context)
         else:
             return render(request, "desktopDisplay/Nehs/internalHome.html", context)
     else:
         return render(request, "NuhUh.html")
+
 
 
 
