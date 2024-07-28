@@ -259,12 +259,19 @@ def changeClub(request):
 def nehsInternalHome(request):
     club = Club.objects.get(name = "National English Honor Society (NEHS)")
 
-    context = {
-        'club': club
-    }
 
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # gets all posts for the club
+        posts = LiveFeed.objects.filter(club = club)
+
+        context = {
+            'posts': posts,
+            'club': club,
+            'userPic': Users.objects.get(email = request.user.email).picURL,
+        }
+
         if mobile(request):
             # ignore mobile layout for now
             return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)

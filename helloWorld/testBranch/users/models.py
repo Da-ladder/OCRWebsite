@@ -1,4 +1,5 @@
 from django.db import models
+from django.utils import timezone
 
 # Create your models here.
 
@@ -36,11 +37,16 @@ class Club(models.Model):
     def __str__(self):
         return self.name
 
+
 class LiveFeed(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True) # DO NOT let users type more than 255 for the title
     text = models.TextField(blank=True, null=True)
     club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubFeed')
+    edited = models.BooleanField(default=False)
+    creationTime = models.DateTimeField(default=timezone.now)
+    creator = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='op', null=True) # op as in original poster
 
     def __str__(self):
-        return self.club + self.title
+        return self.club.name + ": " + self.title
+
 

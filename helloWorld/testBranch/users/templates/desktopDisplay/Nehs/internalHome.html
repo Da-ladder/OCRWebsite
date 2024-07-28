@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{club.name}}</title>
-    <link rel="stylesheet" href="/static/clubDefault.css">
+    <link rel="stylesheet" href="/static/desktop/Nehs/internalHome.css">
 </head>
 <body>
 
@@ -24,8 +24,38 @@
         <div class="container">
             <div class="card">
                 <h2>Live Feed (Testing in progress)</h2>
-                <p>This is a test
-                </p>
+                <button onclick="" class="post-button">
+                    {% if userPic != None %}
+                        <img class="avatar" src="{{userPic}}" alt="pic">
+                    {% else %}
+                        <img class="avatar" src="/static/missingProfile.png" alt="pic">
+                    {% endif %}
+                    <div class="button-text">Make a post here</div>
+                </button>
+                {% for post in posts %}
+                    <div class="post">
+                        <div class="creater">
+                            <img class="avatar" src="{{post.creator.picURL}}" alt="pic">
+                            <div class="nameDate">
+                                <div class="postName">
+                                    {{post.creator.name}}
+                                </div>
+                                <div class="postDate">
+                                    {{post.creationTime}}
+                                </div>
+                            </div>
+                        </div>
+                        <!-- make the abilty for users to reply -->
+                        <div class="postTitle">
+                            {{post.title}}
+                        </div>
+
+                        <div class="postText">
+                            {{post.text}}
+                        </div>
+                    </div>
+                    
+                {% endfor %}
             </div>
         </div>
         <div class="sidebar">
