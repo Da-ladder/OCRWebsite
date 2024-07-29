@@ -55,22 +55,43 @@
                             <input type="hidden" id = "newPostBody" name="body" value="">
                         </form>
 
+                        <form id="deletePost" action="/deletePost" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "postKey" name="postKey" value="">
+                        </form>
+
                 </div>
                 
                 <div class="allPosts">
                     {% for post in posts %}
                         <div class="post" onclick="">
-                            <div class="creater">
-                                <img class="avatar" src="{{post.creator.picURL}}" alt="pic">
-                                <div class="nameDate">
-                                    <div class="postName">
-                                        {{post.creator.name}}
-                                    </div>
-                                    <div class="postDate">
-                                        {{post.creationTime}}
+                            <div class="postTopBar">
+                                <div class="creater">
+                                    <img class="avatar" src="{{post.creator.picURL}}" alt="pic">
+                                    <div class="nameDate">
+                                        <div class="postName">
+                                            {{post.creator.name}}
+                                        </div>
+                                        <div class="postDate">
+                                            {{post.creationTime}}
+                                        </div>
                                     </div>
                                 </div>
+                                <div class="options" onclick="openDropdown('{{post.pk}}')" onmouseleave="closeDropdown('{{post.pk}}')">
+                                    <div class="ButtonOptions">
+                                        ⋮
+                                    </div>
+                                    <div class="dropDownOptions" id="{{post.pk}}">
+                                        <div class="dropDownSelections" onclick="deletePost('{{post.pk}}')">Delete</div>
+                                        <div class="dropDownSelections">Placeholder</div>
+                                    </div>
+                                </div>
+                                
+                                
                             </div>
+                            
                             <!-- make the abilty for users to reply -->
                             <div class="postTitle">
                                 {{post.title}}
@@ -117,6 +138,16 @@
         </div>
     </div>
     <script>
+        // TODO: get new posts when they appear from the server
+
+        function openDropdown(postID) {
+            document.getElementById(postID).style.display = "flex";
+        }
+
+        function closeDropdown(postID) {
+            document.getElementById(postID).style.display = "none";
+        }
+
         // Function to auto expand textarea
         function autoExpand(field) {
             // Reset the height of the field to auto to calculate the new scroll height
@@ -146,6 +177,11 @@
 
             postMakerOpener.style.display = "";
             postMaker.style.display = "none";
+        }
+
+        function deletePost(postID) {
+            document.getElementById("postKey").value = postID;
+            document.getElementById("deletePost").submit();
         }
 
         function submitForm() {

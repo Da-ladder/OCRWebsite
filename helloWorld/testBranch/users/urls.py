@@ -12,6 +12,7 @@ urlpatterns = [
     path("edit", views.club_edit),
     path("editClub", views.changeClub),
     path("addPost", views.addClubPost),
+    path("deletePost", views.deleteClubPost),
     path("joinClub", views.joinClub),
     path("myClubs/", views.dis_my_clubs),
     path("myClubs/nehs", views.nehsInternalHome),

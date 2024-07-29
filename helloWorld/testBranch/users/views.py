@@ -306,6 +306,37 @@ def addClubPost(request):
         # if they do not have access, deny them
         return render(request, "NuhUh.html")
 
+def deleteClubPost(request):
+    
+    # get required information to delete post
+    currentPage = request.POST.get("curPage")
+
+    # We will get the club by tracing back from the post in order to ensure that
+    # malicious actors can not delete posts from other clubs
+    club = Club.objects.get(name = request.POST.get("clubName"))
+    postKey = request.POST.get("postKey")
+
+    # get the post to be deleted
+    post = LiveFeed.objects.get(id=postKey)
+
+    # where we get the verifed club
+    club = Club.objects.get(name = post.club.name)
+
+    # users will be able to delete their own posts
+    # advisors and leaders will be able to delete any posts
+    if request.user.is_authenticated and (post.creator.email == request.user.email 
+        or club.advisors.filter(email = request.user.email).exists() 
+        or club.leaders.filter(email = request.user.email).exists()):
+        # Delete the post
+        post.delete()
+
+        # return them to the page they were on
+        return redirect(currentPage)
+    else:
+        # if they do not have access, deny them
+        return render(request, "NuhUh.html")
+
+
 
 
 
