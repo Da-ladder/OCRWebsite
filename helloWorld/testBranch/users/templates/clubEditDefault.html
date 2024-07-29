@@ -23,6 +23,8 @@
             <input type="hidden" id = "clubadvisors" name="advisors" value="">
             <input type="hidden" id = "pictureURL" name="picURL" value="">
             <input type="hidden" id = "selectedTags" name="tags" value="">
+            <input type="hidden" id = "selectedUsers" name="users" value="">
+            <input type="hidden" id = "selectedLeaders" name="leaders" value="">
 
             <button type="submit" class="join-button" onclick="submitForm()">Submit Changes</button>
         </form>
@@ -38,22 +40,43 @@
             <div class="card" id="leaderEditor">
                 <h2>Add or Remove Leaders</h2>
                 <div id="potentialLeaders" class="userManagement">
-                    Potential Leaders
-                    <div id="potentialLeadersSearch" class="userSearch">
-                        Search by Email
+                    <div class="userManagementTitle">
+                        Add Leaders (must be a member of the club)
                     </div>
+
+                    <div id="potentialLeadersSearch" class="userSearch">
+                        <textarea id="potentialLeadersSearchInput" class="search" rows="1" placeholder="Search by Email"></textarea>
+                    </div>
+
                     <div id="potentialLeadersList" class="userList">
-                        emails appear here
+                        {% for user in users %}
+                        <div class="user" onmouseover="showButton('{{user.email}}')" onmouseout="hideButton('{{user.email}}')" id = '{{user.email}}'>
+                            {{user.email}}⠀<!-- Blank Unicode to line up the marks -->
+                            <div id="{{user.email}}button" style="display: none;" class="addRemoveButton" onclick="addLeader('{{user.email}}')">
+                                ✅
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
 
                 <div id="Leaders" class="userManagement">
-                    Leaders
+                    <div class="userManagementTitle">
+                        Remove Leaders
+                    </div>
+
                     <div id="LeadersSearch" class="userSearch">
-                        Search by Email
+                        <textarea id="LeadersSearchInput" class="search" rows="1" placeholder="Search by Email"></textarea>
                     </div>
                     <div id="LeadersList" class="userList">
-                        emails appear here
+                        {% for leader in leaders %}
+                        <div class="user" onmouseover="showButton('{{leader.email}}')" onmouseout="hideButton('{{leader.email}}')" id = "{{leader.email}}"> 
+                            {{leader.email}}⠀<!-- Blank Unicode to line up the marks -->
+                            <div id="{{leader.email}}button" style="display: none;" class="addRemoveButton" onclick="removeLeader('{{leader.email}}')">
+                                ❎
+                            </div>
+                        </div>
+                        {% endfor %}
                     </div>
                 </div>
 
@@ -96,6 +119,66 @@
         </div>
     </div>
     <script>
+        function searchList(list, inputID) {
+            var input = document.getElementById(inputID).value.toLowerCase();
+            var emails = document.getElementById(list).childNodes;
+
+            for(var i=0; i<emails.length; i++) {
+                // Makes sure that it is a div element being searched
+                if (emails[i].nodeName.toLowerCase() == 'div') {
+                    // iterate through each email in the list
+                    var email = emails[i].innerText.toLowerCase(); // Get email and convert to lowercase
+                            
+                    // Check if input matches email
+                    if (email.includes(input)) {
+                        emails[i].style.display = ""; // Show email
+                    } else {
+                        emails[i].style.display = "none"; // Hide email
+                    }
+                }
+            }
+        }
+
+        function showButton(email) {
+            // The entire "bar" where the email and check/x mark sits
+            const emailBar = document.getElementById(email);
+            const mark = document.getElementById(email + "button");
+
+            // Shows button and the bar is gray
+            emailBar.style.background = 'gray';
+            mark.style.display = '';
+            
+        }
+
+        function hideButton(email) {
+            // The entire "bar" where the email and check/x mark sits
+            const emailBar = document.getElementById(email);
+            const mark = document.getElementById(email + "button");
+
+            // Hides button and the bar is transparent
+            emailBar.style.background = 'transparent';
+            mark.style.display = 'none';
+        }
+
+        // moves user from member to leader
+        function addLeader(email) {
+            const promotion = document.getElementById(email);
+            const promotionButton = document.getElementById(email + 'button');
+            promotionButton.onclick = function () { removeLeader(email); };
+            promotionButton.innerHTML = "❎";
+            document.getElementById('LeadersList').appendChild(promotion);
+
+        }
+
+        // moves user from leader to member
+        function removeLeader(email) {
+            const demotion = document.getElementById(email);
+            const demotionButton = document.getElementById(email + 'button');
+            demotionButton.onclick = function () { addLeader(email); };
+            demotionButton.innerHTML = "✅";
+            document.getElementById('potentialLeadersList').appendChild(demotion);
+        }
+
         // Function to auto expand textarea
         function autoExpand(field) {
             // Reset the height of the field to auto to calculate the new scroll height
@@ -106,9 +189,16 @@
 
         // Add input event listener to all textareas
         document.addEventListener('input', function (event) {
-            if (event.target.tagName.toLowerCase() === 'textarea') {
+
+            if (event.target.id.toLowerCase() === 'potentialleaderssearchinput') {
+                searchList('potentialLeadersList', 'potentialLeadersSearchInput')
                 autoExpand(event.target);
-            }
+            } else if (event.target.id.toLowerCase() === 'leaderssearchinput') {
+                searchList('LeadersList', 'LeadersSearchInput')
+                autoExpand(event.target);
+            } else if (event.target.tagName.toLowerCase() === 'textarea') {
+                autoExpand(event.target);
+            } else {}
         });
 
         function submitForm() {
@@ -121,7 +211,8 @@
             const newPicURL = document.getElementById('picURL').value;
 
             // obtain all cats that they picked
-            var allTags = ""
+            var allTags = "";
+            
             document.querySelectorAll('.checkbox').forEach(box => {
                 if (box.checked) {
                     if (allTags != "") {
@@ -131,6 +222,25 @@
                 }
             });
 
+            // obtain all leaders and obtain all users
+            var leaders = "";
+            var users = "";
+            
+            document.querySelectorAll('.user').forEach(person => {
+                if (person.parentElement.id == "potentialLeadersList") {
+                    if (users != "") {
+                        users += ",  " //backend code will parse by splitting ",  "
+                    }
+                    users += person.id;
+                } else if (person.parentElement.id == "LeadersList") {
+                    if (leaders != "") {
+                        leaders += ",  " //backend code will parse by splitting ",  "
+                    }
+                    leaders += person.id;
+                } else {}
+            });
+
+
             // Set the value to the hidden input field in the form
             document.getElementById('clubAbout').value = aboutSect;
             document.getElementById('clubSchedule').value = scheduleSect;
@@ -139,10 +249,13 @@
             document.getElementById('clubadvisors').value = advisorSect;
             document.getElementById('pictureURL').value = newPicURL;
             document.getElementById('selectedTags').value = allTags;
+            document.getElementById('selectedUsers').value = users;
+            document.getElementById('selectedLeaders').value = leaders;
             
             // Submit the form
             document.getElementById('myForm').submit();
         }
+
     </script>
 </body>
 </html>

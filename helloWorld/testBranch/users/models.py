@@ -6,7 +6,7 @@ from django.utils import timezone
 class Users(models.Model):
     name = models.CharField(max_length=150) # just to be safe
     email = models.CharField(max_length=255) # just to be safe
-    picURL = models.URLField(max_length=200, blank=True, null=True)
+    picURL = models.URLField(max_length=255, blank=True, null=True)
     extraData = models.TextField(blank=True, null=True)
 
     def __str__(self):
@@ -31,8 +31,8 @@ class Club(models.Model):
 
     advisors = models.ManyToManyField(Users, blank=True, related_name='club_advisors')
     leaders = models.ManyToManyField(Users, blank=True, related_name='club_leaders')
-    url = models.URLField(max_length=150, blank=True, null=True)
-    homeURL = models.URLField(max_length=150, blank=True, null=True)
+    url = models.URLField(max_length=255, blank=True, null=True)
+    homeURL = models.URLField(max_length=255, blank=True, null=True)
 
     def __str__(self):
         return self.name

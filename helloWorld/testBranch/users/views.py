@@ -213,12 +213,27 @@ def club_edit(request):
     # get all tags from the database
     tags = ClubTag.objects.all()
 
+    # gets current leaders and users
+    users = club.users.all()
+
+    leaders = club.leaders.all()
+
     if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
+        context = {
+            'tags': tags,
+            'users': users,
+            'leaders': leaders,
+            'currTags': currTags,
+            'club': club,
+            'editUsers' : True,
+        }
+        return render(request, "clubEditDefault.html", context)
+    elif request.user.is_authenticated and club.leaders.filter(email = request.user.email).exists():
         context = {
             'tags': tags,
             'currTags': currTags,
             'club': club,
-            'edit' : True,
+            'editUsers' : False, # to be implemented
         }
         return render(request, "clubEditDefault.html", context)
     else:
@@ -233,6 +248,8 @@ def changeClub(request):
     classAdvisor = request.POST.get('advisors')
     picURL = request.POST.get("picURL")
     tags = request.POST.get("tags")
+    clubUsers = request.POST.get("users")
+    clubLeaders = request.POST.get("leaders")
 
     club = Club.objects.get(name = className)
 
@@ -245,8 +262,18 @@ def changeClub(request):
         club.homeURL = picURL
         # setting the many to many field using the tag names directly
         tags = tags.split(",  ")
-        tags = ClubTag.objects.filter(name__in=tags)
+        tags = ClubTag.objects.filter(name__in = tags)
         club.tagOrTags.set(tags)
+
+        # setting the many to many field using the user emails directly
+        clubUsers = clubUsers.split(",  ")
+        clubUsers = Users.objects.filter(email__in = clubUsers)
+        club.users.set(clubUsers)
+
+        # setting the many to many field using the leaders emails directly
+        clubLeaders = clubLeaders.split(",  ")
+        clubLeaders = Users.objects.filter(email__in = clubLeaders)
+        club.leaders.set(clubLeaders)
 
         club.save()
         return redirect("/clubs")

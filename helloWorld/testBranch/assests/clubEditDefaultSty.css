@@ -76,12 +76,40 @@ body {
   display: flex;
   flex-direction: column;
   border: solid 1.5px gray;
-  padding: 10px;
+  padding-top: 5px;
+  padding-bottom: 5px;
   border-radius: 5px;
   margin-bottom: 5px;
 }
 
+.userManagementTitle {
+  padding-left: 5px;
+}
 
+.userSearch {
+  border: solid 1.5px gray;
+  padding-left: 15px;
+  padding-right: 5px;
+  border-left: none;
+  border-top: none;
+  border-right: none;
+}
+
+.search {
+  margin-top: 5px;
+  width: -webkit-fill-available;
+}
+
+.user {
+  display: flex;
+  padding-left: 5px;
+  padding-right: 5px;
+  justify-content: space-between;
+}
+
+.addRemoveButton:hover {
+  cursor: pointer;
+}
 
 .card h2, .sidebar h3 {
     margin-top: 0;
