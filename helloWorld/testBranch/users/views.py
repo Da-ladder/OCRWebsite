@@ -317,7 +317,7 @@ def deleteClubPost(request):
     postKey = request.POST.get("postKey")
 
     # get the post to be deleted
-    post = LiveFeed.objects.get(id=postKey)
+    post = LiveFeed.objects.get(id = postKey)
 
     # where we get the verifed club
     club = Club.objects.get(name = post.club.name)
