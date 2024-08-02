@@ -51,7 +51,7 @@ services:
       - django_gunicorn
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.nginx.rule=Host(`www.dhsclubs.org`)"
+      - "traefik.http.routers.nginx.rule=Host(`www.dhsclubs.org`) || Host(`dhsclubs.org`)"
       - "traefik.http.routers.nginx.entrypoints=websecure"
       - "traefik.http.routers.nginx.tls.certresolver=myresolver"
     networks:
@@ -62,7 +62,7 @@ services:
     container_name: "simple-service"
     labels:
       - "traefik.enable=true"
-      - "traefik.http.routers.whoami.rule=Host(`www.dhsclubs.org`)"
+      - "traefik.http.routers.whoami.rule=Host(`www.dhsclubs.org`) || Host(`dhsclubs.org`)"
       - "traefik.http.routers.whoami.entrypoints=websecure"
       - "traefik.http.routers.whoami.tls.certresolver=myresolver"
     networks:
