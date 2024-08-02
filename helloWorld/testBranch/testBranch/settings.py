@@ -29,7 +29,7 @@ SECRET_KEY = "dekjuedyjwejhew"#os.getenv('SECRET_KEY')
 DEBUG = True #os.getenv('DEBUG')S
 
 ALLOWED_HOSTS = ["http://127.0.0.1","*","localhost"]
-CSRF_TRUSTED_ORIGINS = ['http://dhsclubs.org', "http://127.0.0.1", "https://dhsclubs.org"]
+CSRF_TRUSTED_ORIGINS = ['http://dhsclubs.org', "http://127.0.0.1", "https://www.dhsclubs.org"]
 
 
 # Application definition
