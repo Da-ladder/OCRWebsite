@@ -21,23 +21,24 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-#SECRET_KEY = 'django-insecure-8^q3js-217(_4to#r5_uc-vpe%^m3c329%f#vk96zrxep7-i^n'
 SECRET_KEY = "dekjuedyjwejhew"#os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # will not serve static files automatically without debug
 DEBUG = True #os.getenv('DEBUG')S
 
-ALLOWED_HOSTS = ["http://127.0.0.1","*","localhost"]
-CSRF_TRUSTED_ORIGINS = ['http://dhsclubs.org', "http://127.0.0.1", "https://www.dhsclubs.org"]
+ALLOWED_HOSTS = ["http://127.0.0.1", "https://dhsclubs.org", "https://www.dhsclubs.org", "localhost"]
+CSRF_TRUSTED_ORIGINS = ['https://dhsclubs.org', "https://www.dhsclubs.org", "http://127.0.0.1", "localhost"]
+
+ADMINS = [("Cody", "zcody007@gmail.com")]
 
 
 # Application definition
 SITE_ID = 4
 
-# most secure way is to set to false rather thazn true. POST requests are much more secure (eh for now)
-SOCIALACCOUNT_LOGIN_ON_GET=True
-#FIX
+# most secure way is to set to false rather than true. POST requests are much more secure.
+# Not high priority because we don't store sensitive data
+SOCIALACCOUNT_LOGIN_ON_GET = True
 
 INSTALLED_APPS = [
     'django.contrib.admin',

@@ -1,5 +1,4 @@
-# Not in use for linux
-
+# Not in use for linux (local use ONLY)
 version: "3.12.3"
 
 services:
@@ -11,5 +10,6 @@ services:
      - "8000:8000"
     environment:
       - DEBUG=1
-      - SECRET_KEY=sigmasigmasigma
+      - SECRET_KEY=development-key-exposedEUkm398278sunL98e89
       - ALLOWED_HOSTS=localhost,127.0.0.1
+      - CSRF_TRUSTED_ORIGINS=localhost,127.0.0.1

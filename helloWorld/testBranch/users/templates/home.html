@@ -38,7 +38,7 @@
                             <i class="fab fa-google"></i> Sign in With a Different Account
                         </a>
                     {% else %}
-                        <a href="{% url 'account_login' %}" class="btn-google-login">
+                        <a href="{% provider_login_url 'google' %}" class="btn-google-login">
                             <i class="fab fa-google"></i> Get Started
                         </a>    
                     {% endif %}
