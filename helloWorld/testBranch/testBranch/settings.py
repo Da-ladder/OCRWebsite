@@ -21,14 +21,14 @@ BASE_DIR = Path(__file__).resolve().parent.parent
 # See https://docs.djangoproject.com/en/5.0/howto/deployment/checklist/
 
 # SECURITY WARNING: keep the secret key used in production secret!
-SECRET_KEY = "dekjuedyjwejhew"#os.getenv('SECRET_KEY')
+SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # will not serve static files automatically without debug
-DEBUG = True #os.getenv('DEBUG')S
+DEBUG = os.getenv('DEBUG')
 
-ALLOWED_HOSTS = ["http://127.0.0.1", "https://dhsclubs.org", "https://www.dhsclubs.org", "localhost"]
-CSRF_TRUSTED_ORIGINS = ['https://dhsclubs.org', "https://www.dhsclubs.org", "http://127.0.0.1", "localhost"]
+ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
+CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
 
 ADMINS = [("Cody", "zcody007@gmail.com")]
 
