@@ -25,10 +25,13 @@ SECRET_KEY = os.getenv('SECRET_KEY')
 
 # SECURITY WARNING: don't run with debug turned on in production!
 # will not serve static files automatically without debug
-DEBUG = os.getenv('DEBUG')
+if os.getenv('DEBUG') == "false":
+    DEBUG = False
+else:
+    DEBUG = True
 
-ALLOWED_HOSTS = os.getenv('ALLOWED_HOSTS').split(',')
-CSRF_TRUSTED_ORIGINS = os.getenv('CSRF_TRUSTED_ORIGINS').split(',')
+ALLOWED_HOSTS = ["https://dhsclubs.org", "https://www.dhsclubs.org", "http://127.0.0.1", "http://dhsclubs.org", "http://www.dhsclubs.org", "*"]
+CSRF_TRUSTED_ORIGINS = ["https://dhsclubs.org", "https://www.dhsclubs.org", "http://127.0.0.1", "http://dhsclubs.org", "http://www.dhsclubs.org"]
 
 ADMINS = [("Cody", "zcody007@gmail.com")]
 
