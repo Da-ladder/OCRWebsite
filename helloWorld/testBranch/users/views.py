@@ -113,10 +113,8 @@ def club_display(request):
             'clubs_by_category': clubs_by_category  
         }
 
-    if mobile(request):
-        return render(request, 'mobileDisplay/mobileClassDisplay.html', context)
-    else:
-        return render(request, 'webClassDisplay.html', context)
+    
+    return render(request, 'mobileDisplay/mobileClassDisplay.html', context)
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
@@ -126,7 +124,7 @@ def dis_my_clubs(request):
         if mobile(request):
             return render(request, 'mobileDisplay/mobileHome.html', {'classes': clubs, 'pic': pic_url})
         else:
-            return render(request, 'myClubs.html', {'classes': clubs, 'pic': pic_url})
+            return render(request, 'desktopDisplay/myClubs.html', {'classes': clubs, 'pic': pic_url})
     else:
         return redirect("/")
 
@@ -153,7 +151,7 @@ def club_default(request):
     if mobile(request):
         return render(request, "mobileDisplay/mobileClubFrontDefault.html", context)
     else:
-        return render(request, "clubDefault.html", context)
+        return render(request, "desktopDisplay/clubDefault.html", context)
 
 # Triggered when no custom club redirect for their homepage exists
 # TODO make custom 404 page
