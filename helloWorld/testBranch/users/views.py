@@ -118,13 +118,23 @@ def club_display(request):
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
+        # if club list is blank, give context so that it is known to be empty
+        empty = False
         clubs = Club.objects.filter(users=Users.objects.get(email = request.user.email))
-        pic_url = Users.objects.get(email = request.user.email).picURL
+        if len(clubs) == 0:
+            empty = True
+
+        # give needed context to templates
+        context = {
+            'classes': clubs,
+            'pic': Users.objects.get(email = request.user.email).picURL,
+            'empty': empty,
+        }
 
         if mobile(request):
-            return render(request, 'mobileDisplay/mobileHome.html', {'classes': clubs, 'pic': pic_url})
+            return render(request, 'mobileDisplay/mobileHome.html', context)
         else:
-            return render(request, 'desktopDisplay/myClubs.html', {'classes': clubs, 'pic': pic_url})
+            return render(request, 'desktopDisplay/myClubs.html', context)
     else:
         return redirect("/")
 

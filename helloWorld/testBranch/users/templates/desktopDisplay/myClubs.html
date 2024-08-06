@@ -25,12 +25,19 @@
         </div>
     </nav>
     <div class="container" id = "clubLayotTag">
-        {% for class in classes %}
-            <div class="class-card" data-url="{{ class.url }}">
-                <h3 class="class-name" font-family: 'Source Sans Pro'>{{ class.name }}</h3>
-                <p class="class-description" font-family: 'Source Sans Pro'>{{ class.discription }}</p>
+        {% if empty %}
+            <div class="class-card" data-url="demo">
+                <h3 class="class-name" font-family: 'Source Sans Pro'>Your Club Name</h3>
+                <p class="class-description" font-family: 'Source Sans Pro'>Join a club and have them appear here!</p>
             </div>
-        {% endfor %}
+        {% else %}
+            {% for class in classes %}
+                <div class="class-card" data-url="{{ class.url }}">
+                    <h3 class="class-name" font-family: 'Source Sans Pro'>{{ class.name }}</h3>
+                    <p class="class-description" font-family: 'Source Sans Pro'>{{ class.discription }}</p>
+                </div>
+            {% endfor %}
+        {% endif %}
     </div>
     <script src="/static/myClubCards.js"></script>
 </body>
