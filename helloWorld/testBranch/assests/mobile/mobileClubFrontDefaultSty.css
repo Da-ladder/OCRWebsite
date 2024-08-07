@@ -10,13 +10,21 @@ body {
     width: 100%;
     background-color: #ffffff;
     box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px 20px;
+    box-sizing: border-box;
+}
+
+.bottom-bar {
+    width: 100%;
+    box-sizing: border-box;
+    background-color: #ffffff;
+    box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+    padding: 10px;
     display: flex;
     justify-content: space-between;
     align-items: center;
-    padding: 10px 20px;
-    box-sizing: border-box;
     position: fixed;
-    top: 0;
+    bottom: 0;
     left: 0;
     z-index: 1000;
 }
@@ -24,6 +32,8 @@ body {
 .club-name {
     font-size: 24px;
     font-weight: bold;
+    align-items: center;
+    text-align: center;
 }
 
 .join-button {
@@ -41,8 +51,8 @@ body {
     justify-content: center;
     align-items: flex-start;
     width: 100%;
-    margin-top: 80px; /* To make space for the fixed top bar */
     padding: 20px;
+    padding-bottom: 80px;
     box-sizing: border-box;
 }
 
