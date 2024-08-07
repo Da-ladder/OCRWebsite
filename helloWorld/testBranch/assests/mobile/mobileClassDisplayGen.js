@@ -10,7 +10,7 @@ document.querySelectorAll('.card').forEach(card => {
             // only occurs when there is no webpage setup with the club. It is the default page that all clubs will start with
             // Additional information to send with the GET request
             const additionalInfo = {
-                className: card.querySelector('.class-name').innerText,
+                className: card.querySelector('.club-name').innerText,
             };
 
             // Construct query parameters
@@ -27,12 +27,13 @@ document.querySelectorAll('.card').forEach(card => {
 function searchClubs() {
     resetQuery();
     toggleAll(false);
+    toggleDropdown('dropdown', 'arrow')
     var input = document.getElementById('searchInput').value.toLowerCase(); // Get input value and convert to lowercase
 
     var cards = document.querySelectorAll('.card'); // Select all club cards
 
     cards.forEach(card => {
-        var name = card.querySelector('.class-name').innerText.toLowerCase(); // Get club name and convert to lowercase
+        var name = card.querySelector('.card-text').innerText.toLowerCase(); // Get club name and convert to lowercase
 
         // Check if input matches club name or descriptiona
         if (name.includes(input)) {
@@ -62,6 +63,27 @@ function searchClubs() {
 
 
     toggleCategories(true);
+}
+
+function filterClubs(catName) {
+    // Makes all clubs in that category show up
+    document.getElementById("searchInput").value = catName;
+    toggleDropdown('dropdown', 'arrow')
+
+    document.querySelectorAll('.card').forEach(card => {
+        var categories = Array.from(card.getAttribute("data-tags").split(",  "))
+        for (var i = 0; i < categories.length; i++) {
+            // could be optimized as it is changing the diplay every tag it runs but eh
+            if (categories[i] == catName || catName == "All") {
+                card.style.display = "";
+                break;
+            } else {
+                card.style.display = "none";
+            }
+        }
+    });
+
+    
 }
 
 function clearSearch() {

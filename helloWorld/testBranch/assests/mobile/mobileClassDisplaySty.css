@@ -1,12 +1,12 @@
 /* styles.css */
 
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background-color: #f4f4f4;
+  font-family: "Roboto", sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  margin: 0;
+  background-color: #f4f4f4;
 }
 
 h2 {
@@ -14,28 +14,103 @@ h2 {
     margin-bottom: 0px;
 }
 
+input {
+  width: 85%;
+  background-color: transparent;
+  border: none;
+  outline: none;
+}
+
+
 .card {
-    flex: 0 0 auto;
-    flex-direction: column;
-    white-space: normal;
+    position: relative; /* Ensure overlay is positioned correctly  TEST */
     min-width: 18rem;
     max-width: 18rem;
     min-height: 100px;
     max-height: 100px;
     background-color: #fff;
-    padding: 20px;
     border-radius: 8px;
     box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
     box-sizing: border-box;
     margin: 4px;
 }
 
+.card .color-overlay {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background-color: rgba(0, 0, 0, 0.5); /* Black tint with 20% opacity */
+  z-index: 2;
+  border-radius: 8px;
+  mix-blend-mode: multiply;
+}
+
+.categories {
+  width: 100%;
+}
+
+.clear-arrow {
+  display: flex;
+  flex-direction: row;
+}
+
+.clear {
+  margin-top: auto;
+  margin-bottom: auto;
+}
+
+.divider {
+  margin-left: 5px;
+  min-width: 1.5px;
+  max-width: 1.5px;
+  background-color: lightgray;
+}
+
 .card .class-name {
+    height: 80px;
+    line-height: 80px;
+    text-align: center;
     margin: 0;
     font-size: 1.3em;
     color: rgb(100, 87, 87);
     -webkit-text-stroke-color: rgb(16, 16, 19);
     -webkit-text-stroke-width: 0.5px;
+}
+
+.card .card-text {
+  position: absolute;
+  top: 10px;
+  left: 50%;
+  width: 95%;
+  transform: translateX(-50%);
+  color: white;
+  z-index: 3;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-box-orient: vertical;
+}
+
+.card .card-image {
+  position: absolute; 
+  top: 0;
+  left: 0;
+  width: 100%;  
+  height: 100%;
+  object-fit: cover;
+  object-position: center;
+  border-radius: 8px;
+  object-fit: cover; /* Ensure image covers the card space */
+  filter: brightness(90%); /* Darken the image */
+  z-index: 1;
+}
+
+span {
+  display: inline-block;
+  vertical-align: middle;
+  line-height: normal;
 }
 
 .card:hover {
@@ -46,12 +121,25 @@ h2 {
 .container {    
     justify-content: center;
     align-items: center;
-    margin-top: 4rem; 
+    padding-top: 4.5rem;  
+    padding-left: 0.5rem;
+    padding-right: 0.5rem;
     display: flex;
     flex-direction: column; /* Display categories in a column */
     overflow-x: auto; /* Allow horizontal scrolling if needed */
     overflow-y: hidden; /* Hide vertical overflow */
     max-width: 100%; /* Ensure the container does not exceed screen width */
+}
+
+.clubContainer {
+  justify-content: center;
+  align-items: center;
+  padding-top: 0.5rem;
+  display: flex;
+  flex-direction: column; /* Display categories in a column */
+  overflow-x: auto; /* Allow horizontal scrolling if needed */
+  overflow-y: hidden; /* Hide vertical overflow */
+  max-width: 100%;
 }
 
 /* top bar config */
@@ -198,30 +286,28 @@ nav a {
 
 .dropdown {
     padding-top: 10px;
-    margin: 20px;
 }
+
 .dropdown button {
-    background-color: #999;
-    color: white;
+    border-style: solid;
+    border-color: gray;
+    border-radius: 5px;
     padding: 10px;
     font-size: 16px;
-    border: none;
-    cursor: pointer;
     width: 20rem;
     text-align: left;
     display: flex;
     justify-content: space-between;
     align-items: center;
 }
-.dropdown-content {
-    display: none;
-    align-items: center;
-    flex-direction: column;
-    background-color: transparent;
-    padding: 10px;
-    border: none;
-}
 
-.container .search-box {
-    padding-top: 10px;
+.dropdown-content {
+  gap: 2px;
+  background-color: lightgray;
+  display: none;
+  align-items: center;
+  flex-direction: column; 
+  border-radius: 5px;
+  padding: 10px;
+  border: none;
 }

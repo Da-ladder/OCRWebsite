@@ -73,7 +73,7 @@ def club_display_new(request):
 
     if mobile(request):
         #ignore mobile for now
-        return club_display(request)
+        return render(request, 'mobileDisplay/explore.html', context)
     else:
         return render(request, 'desktopDisplay/explore.html', context)
     

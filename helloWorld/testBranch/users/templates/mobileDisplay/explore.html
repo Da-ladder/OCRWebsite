@@ -1,0 +1,70 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Explore</title>
+    <link rel="stylesheet" href="/static/mobile/mobileClassDisplaySty.css">
+    <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
+</head>
+<body>
+
+    <!-- Navigation bar -->
+    <nav>   
+        <div class="logo">Club Website</div>
+        <div class="nav-items">
+            <a href="/myClubs">Home</a> 
+            <a href="/clubs" style='color:#FF0000'>Explore</a>
+            <div class="account-link">
+                {% if user.is_authenticated %}
+                    <a href="/"><img class="avatar" src="{{ pic }}" alt="Avatar"></a>
+                {% else %}
+                <a href="/"><img class="avatar" src="/static/missingProfile.png" alt="Avatar"></a>
+                {% endif %}
+            </div>
+        </div>
+    </nav>
+
+    <!-- Main content with left and right scrolling functionality-->
+    <div class="container" id="clubLayoutTag">
+        <div class="dropdown">
+            <button onclick="toggleDropdown('dropdown', 'arrow')">
+                <input type="text" id="searchInput" placeholder="Search clubs or categories" autocomplete="off" on>
+                <div class = "clear-arrow" >
+                    <svg class="clear" onclick="clearSearch()" xmlns="http://www.w3.org/2000/svg" width="14" height="14" viewBox="0 0 24 24"><path d="M23.954 21.03l-9.184-9.095 9.092-9.174-2.832-2.807-9.09 9.179-9.176-9.088-2.81 2.81 9.186 9.105-9.095 9.184 2.81 2.81 9.112-9.192 9.18 9.1z"/></svg>
+
+                    <div class = "divider"></div>
+                    <span class = 'arrow' id="arrow">&#9656;</span>
+                </div> 
+            </button>
+            <div class="dropdown-content" id="dropdown">
+                {% for tag in tags %}
+                    <div class="categories" onclick="filterClubs('{{tag}}')" id="{{tag}}">
+                        {{tag}}
+                    </div>
+                {% endfor %}
+            </div>
+        </div>
+
+
+
+        <div class="clubContainer">
+            {% for club, category in clubsWithCategory.items %}
+                <div class="card" data-url="{{ club.url }}" data-tags="{{category}}">
+                    <div class="card-text">
+                        <div class="club-name"> {{ club.name }} </div>
+                    </div>
+                    {% if club.homeURL == None %}
+                        <img src="https://lh3.googleusercontent.com/drive-viewer/AKGpihbMTr87gc6WSdCDspWQC59rJjSVxYELI3Nfk4INk1DNXrzAP97RlQ1g5owE0eBCyOWTbjVX-G-Pckn6gs5oX2eBJ5XNbMkTla0=s1600-rw-v1" class="card-image">
+                    {% else %}
+                        <img src="{{club.homeURL}}" class="card-image">
+                    {% endif %}
+                    <div class="color-overlay"></div>
+                </div>
+            {% endfor %}
+        </div>
+    </div>
+
+    <script src="/static/mobile/mobileClassDisplayGen.js"></script>
+</body>
+</html>
