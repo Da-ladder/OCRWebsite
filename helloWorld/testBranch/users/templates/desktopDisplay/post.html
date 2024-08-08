@@ -1,0 +1,137 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{club.name}}</title>
+    <link rel="stylesheet" href="/static/desktop/Nehs/internalHome.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <form action="/myClubs/" method="get">
+            <button type="submit" class="join-button">Back</button>
+        </form>
+        <div class="club-name">{{club.name}}</div>
+        <div class="club-name">Post #{{post.id}}</div>
+    </div>
+
+    <!--Cards can be added as needed. One is commented out as reference-->
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2>{{post.title}}</h2>
+                <p>{{post.text|linebreaks}}</p>
+                <div class="addPost">
+                    <button class="post-button" onclick="openPostCreator()" id="post-button">
+                        <div class="postButtonText">
+                            {% if userPic != None %}
+                                <img class="avatar" src="{{userPic}}" alt="pic">
+                            {% else %}
+                                <img class="avatar" src="/static/missingProfile.png" alt="pic">
+                            {% endif %}
+                            <div class="button-text">Make a post here</div>
+                        </div>
+                    </button>
+
+                        <div class="createPost" id="post-creator" style="display: none;">
+                            <textarea id="newPostTitleInput" class="user-input" rows="1" placeholder="Title"></textarea>
+                            <textarea id="newPostbodyInput" class="user-input" rows="1" placeholder="Message"></textarea>
+                            <div class="userError" id="userErrorMessage" style="display: none;">Both title and message fields must contain text</div>
+                            <div class="submitCancel">
+                                <button type="submit" class="join-button" onclick="closePostCreator()">Cancel</button>
+                                <button type="submit" class="join-button" onclick="submitForm()">Post</button>
+                            </div>
+                        </div>
+
+                        <form id="postCreateForm" action="/addPost" method="post">
+                            {% csrf_token %}
+                            <!-- Allows reuse in other clubs if needed-->
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "newPostTitle" name="title" value="">
+                            <input type="hidden" id = "newPostBody" name="body" value="">
+                        </form>
+
+                        <form id="deletePost" action="/deletePost" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "postKey" name="postKey" value="">
+                        </form>
+
+                </div>
+                
+                <div class="allPosts">  
+                </div>
+            </div>
+        </div>
+    </div>
+    <script>
+        // TODO: get new posts when they appear from the server
+
+        function openDropdown(postID) {
+            document.getElementById(postID).style.display = "flex";
+        }
+
+        function closeDropdown(postID) {
+            document.getElementById(postID).style.display = "none";
+        }
+
+        // Function to auto expand textarea
+        function autoExpand(field) {
+            // Reset the height of the field to auto to calculate the new scroll height
+            field.style.height = 'auto';
+            // Set the height of the field to the scroll height
+            field.style.height = field.scrollHeight + 'px';
+        }
+
+        // Add input event listener to all textareas
+        document.addEventListener('input', function (event) {
+            if (event.target.tagName.toLowerCase() === 'textarea') {
+                autoExpand(event.target);
+            }
+        });
+
+        function openPostCreator() {
+            const postMakerOpener = document.getElementById("post-button");
+            const postMaker = document.getElementById("post-creator");
+
+            postMakerOpener.style.display = "none";
+            postMaker.style.display = "";
+        }
+
+        function closePostCreator() {
+            const postMakerOpener = document.getElementById("post-button");
+            const postMaker = document.getElementById("post-creator");
+
+            postMakerOpener.style.display = "";
+            postMaker.style.display = "none";
+        }
+
+        function deletePost(postID) {
+            document.getElementById("postKey").value = postID;
+            document.getElementById("deletePost").submit();
+        }
+
+        function submitForm() {
+            // Verify that there is something in the title and body before submission
+            const title = document.getElementById("newPostTitleInput");
+            const body = document.getElementById("newPostbodyInput");
+
+            console.log(title.value)
+            console.log(body.value)
+
+            if (title.value == "" || body.value == "") {
+                document.getElementById("userErrorMessage").style.display = "";
+            } else {
+                // submit the form with the information provided
+                document.getElementById('newPostTitle').value = title.value;
+                document.getElementById('newPostBody').value = body.value;
+                // Submit the form
+                document.getElementById('postCreateForm').submit();
+            }
+        }
+    </script>
+</body>
+</html>

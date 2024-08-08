@@ -354,10 +354,12 @@ def viewClubPost(request):
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
         context = {
+            'post': post,
+            'club': club,
             'userPic': Users.objects.get(email = request.user.email).picURL,
         } 
 
-        return render(request, "NuhUh.html")
+        return render(request, "desktopDisplay/post.html", context)
     else:
         # no credentials no eyes
         return render(request, "NuhUh.html")

@@ -76,6 +76,22 @@ body {
     margin-top: 0;
 }
 
+.video img {
+    width: 100%;
+    border-radius: 10px;
+}
+
+.partner {
+    display: flex;
+    align-items: center;
+    gap: 10px;
+}
+
+.partner img {
+    width: 40px;
+    height: 40px;
+}
+
 /* top bar config */
 nav {
     height: 80px;
@@ -199,11 +215,6 @@ textarea {
     padding-left: 10px;
 }
 
-.postText p {
-    margin-top: 0px;
-    margin-bottom: 16px;
-}
-
 .options {
     min-width: 15px;
     max-height: 25px;
@@ -286,7 +297,7 @@ textarea {
     display: flex;
     flex-direction: row;
     gap: 10px;
-    padding-top: 0px;
+
 }
 
 .post .creater .avatar {
