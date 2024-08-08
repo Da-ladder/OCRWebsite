@@ -133,6 +133,7 @@ nav {
     cursor: pointer;
     border-radius: 5px;
     flex-direction: column;
+    padding: 5px 10px;
 }
 
 .user-input {
@@ -216,8 +217,50 @@ textarea {
     padding-top: 10px;
 }
 
+.ogPost {
+    display: flex;
+    flex-direction: row;
+    padding-left: 5px;
+    min-height: 27px;
+    max-height: 27px;
+    
+}
+
+.funnyLink {
+    display: flex;
+    align-items: flex-end;
+}
+
+.OPavatar {
+    width: 15px; /* Adjust image width */
+    height: 15px; /* Adjust image height */
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+.OPavatarName {
+    color: rgb(40, 40, 40);
+}
+
+.parentComment {
+    color: gray;
+    font-size: 12px;
+    padding-left: 3px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.commentContains {
+    font-size: 10px;
+}
+
 .postComment {
-    padding-left: 10px;
+    margin-left: 5px;
+    max-height: 15px;
+    padding-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
 }
 
 .options {
@@ -300,13 +343,16 @@ textarea {
 .postText p {
     color: black;
     margin-top: 5px;
+    margin-bottom: auto;
 }
 
 .postData {
+    padding-top: 0px;
     display: flex;
     flex-direction: row;
-    gap: 10px;
-
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .post .creater .avatar {
