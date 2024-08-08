@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{club.name}}</title>
-    <link rel="stylesheet" href="/static/desktop/Nehs/internalHome.css">
+    <link rel="stylesheet" href="/static/desktop/post.css">
 </head>
 <body>
 
@@ -25,22 +25,15 @@
                 <div class="addPost">
                     <button class="post-button" onclick="openPostCreator()" id="post-button">
                         <div class="postButtonText">
-                            {% if userPic != None %}
-                                <img class="avatar" src="{{userPic}}" alt="pic">
-                            {% else %}
-                                <img class="avatar" src="/static/missingProfile.png" alt="pic">
-                            {% endif %}
-                            <div class="button-text">Make a post here</div>
+                            <textarea class="user-input" rows="2" placeholder="Add a comment"></textarea>
                         </div>
                     </button>
 
                         <div class="createPost" id="post-creator" style="display: none;">
-                            <textarea id="newPostTitleInput" class="user-input" rows="1" placeholder="Title"></textarea>
-                            <textarea id="newPostbodyInput" class="user-input" rows="1" placeholder="Message"></textarea>
-                            <div class="userError" id="userErrorMessage" style="display: none;">Both title and message fields must contain text</div>
+                            <div class="userError" id="userErrorMessage" style="display: none;">message field must contain text</div>
                             <div class="submitCancel">
-                                <button type="submit" class="join-button" onclick="closePostCreator()">Cancel</button>
-                                <button type="submit" class="join-button" onclick="submitForm()">Post</button>
+                                <button type="submit" class="postUtil-button" onclick="closePostCreator()">Cancel</button>
+                                <button type="submit" class="postUtil-button" onclick="submitForm()">Post</button>
                             </div>
                         </div>
 
@@ -62,7 +55,39 @@
 
                 </div>
                 
-                <div class="allPosts">  
+                <div class="allPosts"> 
+                    {% for post in replies %}
+                        <div class="post" onclick="">
+                            <div class="postTopBar">
+                                <div class="creater">
+                                    <img class="avatar" src="{{post.creator.picURL}}" alt="pic">
+                                    <div class="nameDate">
+                                        <div class="postName">
+                                            {{post.creator.name}}
+                                        </div>
+                                        <div class="postDate">
+                                            {{post.creationTime}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options" onclick="openDropdown('{{post.pk}}')" onmouseleave="closeDropdown('{{post.pk}}')">
+                                    <div class="ButtonOptions">
+                                        ⋮
+                                    </div>
+                                    <div class="dropDownOptions" id="{{post.pk}}">
+                                        <div class="dropDownSelections" onclick="deletePost('{{post.pk}}')">Delete</div>
+                                        <div class="dropDownSelections">Placeholder</div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+
+                            <div class="postText">
+                                {{post.text|linebreaks}}
+                            </div>
+                        </div>
+                    {% endfor %}
                 </div>
             </div>
         </div>
@@ -96,8 +121,6 @@
         function openPostCreator() {
             const postMakerOpener = document.getElementById("post-button");
             const postMaker = document.getElementById("post-creator");
-
-            postMakerOpener.style.display = "none";
             postMaker.style.display = "";
         }
 

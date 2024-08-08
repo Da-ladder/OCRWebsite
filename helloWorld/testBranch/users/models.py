@@ -59,7 +59,7 @@ class Replies(models.Model):
     edited = models.BooleanField(default=False)
     creationTime = models.DateTimeField(default=timezone.now)
     linkToOtherReply = models.BooleanField(default=False)
-    replyLink = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='OriginalPost', null=True, blank=True)
+    replyLink = models.ForeignKey('self', on_delete=models.SET_NULL, related_name='OriginalReply', null=True, blank=True)
     creator = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='ReplyOp', null=True) # op as in original poster
 
     def __str__(self):

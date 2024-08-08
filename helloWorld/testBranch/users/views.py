@@ -349,12 +349,14 @@ def viewClubPost(request):
     postKey = request.GET.get("postKey")
     post = LiveFeed.objects.get(id = postKey)
     club = Club.objects.get(name = post.club.name)
+    replies = Replies.objects.filter(post=post)
 
     # Make sure they have proper credentials
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
         context = {
             'post': post,
+            'replies': replies,
             'club': club,
             'userPic': Users.objects.get(email = request.user.email).picURL,
         } 

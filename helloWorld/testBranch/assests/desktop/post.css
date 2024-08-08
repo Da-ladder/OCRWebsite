@@ -52,7 +52,7 @@ body {
     gap: 20px;
     width: 60%;
     max-width: 800px;
-    margin-right: 40px; /* Add space between the container and the sidebar */
+    padding-bottom: 200px;
 }
 
 .sidebar {
@@ -74,22 +74,6 @@ body {
 
 .card h2, .sidebar h3 {
     margin-top: 0;
-}
-
-.video img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.partner {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.partner img {
-    width: 40px;
-    height: 40px;
 }
 
 /* top bar config */
@@ -145,15 +129,26 @@ nav {
     display: flex;
     border: solid 1px lightgray;
     background-color: transparent;
-    padding: 5px 10px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     flex-direction: column;
 }
+
+.user-input {
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    
+}
+
 .post-button {
     border: none;
-    display: flex;
+    padding-left: 1px;
+    padding-right: 5px;
     width: 100%;
     background-color: transparent;
     font-size: 16px;
@@ -161,11 +156,22 @@ nav {
     flex-direction: column;
 }
 
+.postUtil-button {
+    background-color: #d50000;
+    max-width: fit-content;
+    max-height: fit-content;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 .postButtonText {
-    display: flex;
+    width: 100%;
     background-color: transparent;
     font-size: 16px;
-    flex-direction: row;
 }
 
 .button-text {
@@ -181,7 +187,6 @@ nav {
 }
 
 .createPost {
-    margin-top: 5px;
     width: 100%;
     display: flex;
     background-color: transparent;
@@ -266,7 +271,6 @@ textarea {
     border-left: none;
     border-right: none;
     border-top: none;
-    padding-bottom: 10px;
     padding-top: 10px;
 }
 
@@ -290,7 +294,12 @@ textarea {
 }
 
 .postText {
-    color: gray;
+    color: black;
+}
+
+.postText p {
+    color: black;
+    margin-top: 5px;
 }
 
 .postData {
