@@ -207,6 +207,14 @@ textarea {
     flex-direction: row;
 }
 
+.postData {
+    padding-top: 10px;
+}
+
+.postComment {
+    padding-left: 10px;
+}
+
 .options {
     min-width: 15px;
     max-height: 25px;

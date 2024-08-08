@@ -21,6 +21,7 @@ class ClubAdmin(admin.ModelAdmin):
 admin.site.register(Club, ClubAdmin)
 admin.site.register(ClubTag)
 admin.site.register(LiveFeed)
+admin.site.register(Replies)
 
 
 

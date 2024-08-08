@@ -4,29 +4,22 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{club.name}}</title>
-    <link rel="stylesheet" href="/static/mobile/mobileClubJoinedDefaultSty.css">
+    <link rel="stylesheet" href="/static/mobile/ClubFront.css">
 </head>
 <body>
 
     <div class="top-bar">
-        <form action="/myClubs/" method="get">
-            <button type="submit" class="join-button">Back</button>
-        </form>
         <div class="club-name">{{club.name}}</div>
-        <form action="/leaveClub" method="get">
-            <input type="hidden" name="clubName" value="{{club.name}}">
-            <button type="submit" class="join-button">Leave</button>
-        </form>
     </div>
 
     <!--Cards can be added as needed. One is commented out as reference-->
     <div class="main-content">
         <div class="container">
             <div class="card">
-                <button class = "dropdown" id = "show">
-                    General Information
-                    <span class = 'arrow' id = 'arr'>&#9656;</span>
-                </button>
+                <h2>About</h2>
+                <p>{{club.discription}}</p>
+            </div>
+            <div class="card">
                 <div class="sidebar-section">
                     <h3>General Schedule</h3>
                     <p>{{club.generalMeets}}</p>
@@ -43,19 +36,18 @@
                     <h3>Advisor(s)</h3>
                     <p>{{club.advisorOrAdvisors}}</p>
                 </div>
-                <div class="sidebar-section">
-                    <h3>About</h3>
-                    <p>{{club.discription}}</p>
-                </div>
-            </div>
-            <div class="card">
-                <h2>Live Feed</h2>
-                <p>This part of the website is still under developement. Please direct feedback 
-                    about the website or suggestions to czhu5059@danbury.k12.ct.us
-                </p>
             </div>
         </div>
     </div>
-    <script src="/static/mobile/mobileClubJoinedDefaultScr.js"></script>
+
+    <div class="bottom-bar">
+        <form action="/clubs/" method="get">
+            <button type="submit" class="join-button">Back</button>
+        </form>
+        <form action="/joinClub" method="get">
+            <input type="hidden" name="clubName" value="{{club.name}}">
+            <button type="submit" class="join-button">Join</button>
+        </form>
+    </div>
 </body>
 </html>

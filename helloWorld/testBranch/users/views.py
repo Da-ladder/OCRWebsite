@@ -159,7 +159,7 @@ def club_default(request):
         }
 
     if mobile(request):
-        return render(request, "mobileDisplay/mobileClubFrontDefault.html", context)
+        return render(request, "mobileDisplay/ClubFront.html", context)
     else:
         return render(request, "desktopDisplay/clubDefault.html", context)
 
@@ -178,7 +178,7 @@ def club_home_default(request):
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
         if mobile(request):
-            return render(request, "mobileDisplay/mobileClubJoinedDefault.html", context)
+            return render(request, "mobileDisplay/ClubJoined.html", context)
         else:
             return render(request, "clubHomeDefault.html", context)
     else:
@@ -343,6 +343,27 @@ def deleteClubPost(request):
     else:
         # if they do not have access, deny them
         return render(request, "NuhUh.html")
+
+def viewClubPost(request):
+    # get the postkey along with the club with the post
+    postKey = request.GET.get("postKey")
+    post = LiveFeed.objects.get(id = postKey)
+    club = Club.objects.get(name = post.club.name)
+
+    # Make sure they have proper credentials
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+        context = {
+            'userPic': Users.objects.get(email = request.user.email).picURL,
+        } 
+
+        return render(request, "NuhUh.html")
+    else:
+        # no credentials no eyes
+        return render(request, "NuhUh.html")
+
+    
+
 
 
 
