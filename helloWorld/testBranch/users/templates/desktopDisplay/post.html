@@ -30,6 +30,7 @@
                     </button>
 
                         <div class="createPost" id="post-creator" style="display: none;">
+                            
                             <div class="userError" id="userErrorMessage" style="display: none;">message field must contain text</div>
                             <div class="submitCancel">
                                 <button type="submit" class="postUtil-button" onclick="closePostCreator()">Cancel</button>
@@ -37,12 +38,11 @@
                             </div>
                         </div>
 
-                        <form id="postCreateForm" action="/addPost" method="post">
+                        <form id="postCreateForm" action="/addComment" method="post">
                             {% csrf_token %}
                             <!-- Allows reuse in other clubs if needed-->
                             <input type="hidden" name="curPage" value="{{request.path}}">
-                            <input type="hidden" name="clubName" value="{{club.name}}">
-                            <input type="hidden" id = "newPostTitle" name="title" value="">
+                            <input type="hidden" name="postNumber" value="{{post.id}}">
                             <input type="hidden" id = "newPostBody" name="body" value="">
                         </form>
 
@@ -125,6 +125,9 @@
     </div>
     <script>
         // TODO: get new posts when they appear from the server
+        function sleep(ms) {
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }
 
         function openDropdown(postID) {
             document.getElementById(postID).style.display = "flex";
@@ -175,13 +178,22 @@
             if (body.value == "") {
                 document.getElementById("userErrorMessage").style.display = "";
             } else {
-                // submit the form with the information provided
-                document.getElementById('newPostTitle').value = title.value;
                 document.getElementById('newPostBody').value = body.value;
                 // Submit the form
                 document.getElementById('postCreateForm').submit();
+                
+
             }
         }
+
+        const form = document.getElementById('postCreateForm'); 
+ 
+        form.addEventListener('submit', function(event) { 
+            alert("attempt to stop!")
+          event.preventDefault(); 
+          location.reload();
+          // Your form submission logic here 
+        }); 
     </script>
 </body>
 </html>

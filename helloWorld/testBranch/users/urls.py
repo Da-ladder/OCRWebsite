@@ -19,4 +19,5 @@ urlpatterns = [
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),
     path("test", views.viewClubPost),
+    path("addComment", views.addComment)
 ] 

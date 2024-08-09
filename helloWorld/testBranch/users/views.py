@@ -344,9 +344,13 @@ def deleteClubPost(request):
         # if they do not have access, deny them
         return render(request, "NuhUh.html")
 
-def viewClubPost(request):
+def viewClubPost(request, postKey=-4):
     # get the postkey along with the club with the post
-    postKey = request.GET.get("postKey")
+    if postKey == -4:
+        postKey = request.GET.get("postKey")
+    else:
+        # did not feel like putting pass here tbh
+        postKey = postKey
     post = LiveFeed.objects.get(id = postKey)
     club = Club.objects.get(name = post.club.name)
     replies = Replies.objects.filter(post=post)
@@ -366,6 +370,38 @@ def viewClubPost(request):
         # no credentials no eyes
         return render(request, "NuhUh.html")
 
+def addComment(request):
+    postKey = request.POST.get("postNumber")
+    commentText = request.POST.get("body")
+
+    # does not work for our uses
+    currentPage = request.POST.get('curPage')
+
+    # get club by checking what club the org post comes from & get the post
+    post = LiveFeed.objects.get(id = postKey)
+    club = Club.objects.get(name = post.club.name)
+
+    # Check if they are authed to make comments on the post
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # Make the post with all fields filled out
+        Replies.objects.create(
+        text = commentText,
+        post = post,
+        edited = False,
+        linkToOtherReply = False,
+        creator = Users.objects.get(email = request.user.email)
+        )
+        sleep(4)
+        return viewClubPost(request, 15)
+    else:
+        return render(request, "NuhUh.html")
+
+
+
+
+    
     
 
 
