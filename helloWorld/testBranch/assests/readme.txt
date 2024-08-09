@@ -1,0 +1,1 @@
+The sitemap is for google to crawl other club pages properly submit to google via https://domainName.org/static/sitemap.txt
