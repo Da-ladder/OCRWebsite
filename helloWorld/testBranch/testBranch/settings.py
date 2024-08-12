@@ -40,6 +40,11 @@ CSRF_TRUSTED_ORIGINS = ["https://dhsclubs.org", "https://www.dhsclubs.org", "htt
 
 ADMINS = [("Cody", "zcody007@gmail.com")]
 
+EMAIL_BACKEND = 'django.core.mail.backends.smtp.EmailBackend'
+EMAIL_HOST = 'smtp.gmail.com'
+EMAIL_USE_TLS = True
+EMAIL_PORT = 587
+
 
 # Application definition
 SITE_ID = 4

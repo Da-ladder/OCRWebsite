@@ -253,14 +253,28 @@ textarea {
 
 .commentContains {
     font-size: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Number of lines to show before truncating */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
 }
 
 .postComment {
-    margin-left: 5px;
     max-height: 15px;
     padding-right: 4px;
     margin-top: auto;
     margin-bottom: auto;
+}
+
+.commentReply {
+    padding-bottom: 5px;
+}
+
+.commentReply-input {
+    background-color: whitesmoke;
+    overflow: hidden;
+    resize: none;
+    outline: black;
 }
 
 .options {

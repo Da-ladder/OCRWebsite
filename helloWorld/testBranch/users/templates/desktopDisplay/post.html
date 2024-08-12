@@ -9,7 +9,7 @@
 <body>
 
     <div class="top-bar">
-        <form action="/myClubs/" method="get">
+        <form action="/myClubs/nehs" method="get">
             <button type="submit" class="join-button">Back</button>
         </form>
         <div class="club-name">{{club.name}}</div>
@@ -46,11 +46,18 @@
                             <input type="hidden" id = "newPostBody" name="body" value="">
                         </form>
 
-                        <form id="deletePost" action="/deletePost" method="post">
+                        <!-- Does not work inside of post.html currently TODO: FIX -->
+                        <form id="deletePost" action="/deleteComment" method="post">
                             {% csrf_token %}
-                            <input type="hidden" name="curPage" value="{{request.path}}">
-                            <input type="hidden" name="clubName" value="{{club.name}}">
-                            <input type="hidden" id = "postKey" name="postKey" value="">
+                            <input type="hidden" name="postNumber" value="{{post.id}}">
+                            <input type="hidden" id = "postKey" name="replyKey" value="">
+                        </form>
+
+                        <form id="replyComment" action="/addReplyToComment" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="postNumber" value="{{post.id}}">
+                            <input type="hidden" id = "commentPK" name="replyNumber" value="">
+                            <input type="hidden" id = "newCommentBody" name="body" value="">
                         </form>
 
                 </div>
@@ -70,10 +77,18 @@
                                     <img class="OPavatar" src="{{post.replyLink.creator.picURL}}" alt="pic">
                                     <div class="OGcomment">
                                         <div class="OPavatarName">
-                                            {{post.replyLink.creator.name}}
+                                            {% if post.replyLink.creator.name == None %}
+                                                Deleted
+                                            {% else %}
+                                                {{post.replyLink.creator.name}}
+                                            {% endif %}
                                         </div>
                                         <div class="commentContains">
-                                            {{post.replyLink.text}}
+                                            {% if post.replyLink.text == None %}
+                                                Deleted
+                                            {% else %}
+                                                {{post.replyLink.text}}
+                                            {% endif %}
                                         </div>
                                     </div>
                                 </div>
@@ -112,10 +127,26 @@
                             </div>
 
                             <div class="postData">
-                                <div class="postComment">
+                                <div class="postComment" onclick="opencommentReply('{{post.pk}}')">
                                     <svg rpl="" aria-hidden="true" class="icon-comment" fill="currentColor" height="15" icon-name="comment-outline" viewBox="0 0 20 20" width="15" xmlns="http://www.w3.org/2000/svg"><path d="M7.725 19.872a.718.718 0 0 1-.607-.328.725.725 0 0 1-.118-.397V16H3.625A2.63 2.63 0 0 1 1 13.375v-9.75A2.629 2.629 0 0 1 3.625 1h12.75A2.63 2.63 0 0 1 19 3.625v9.75A2.63 2.63 0 0 1 16.375 16h-4.161l-4 3.681a.725.725 0 0 1-.489.191ZM3.625 2.25A1.377 1.377 0 0 0 2.25 3.625v9.75a1.377 1.377 0 0 0 1.375 1.375h4a.625.625 0 0 1 .625.625v2.575l3.3-3.035a.628.628 0 0 1 .424-.165h4.4a1.377 1.377 0 0 0 1.375-1.375v-9.75a1.377 1.377 0 0 0-1.374-1.375H3.625Z"></path></svg>
+                        
                                 </div>
-                                Reply
+                                <div class="postCommentText" onclick="opencommentReply('{{post.pk}}')">
+                                    Reply
+                                </div>
+                                
+                            </div>
+
+                            <div class="commentReply" style="display: none;" id="commentReply{{post.pk}}">
+                                <textarea id="commentReplyText{{post.pk}}" class="commentReply-input" rows="1" placeholder="Reply to {{post.creator.name}}"></textarea>
+
+                                <div class="createPost">
+                                    <div class="userError" id="commentReplyError{{post.pk}}" style="display: none;">message field must contain text</div>
+                                    <div class="submitCancel">
+                                        <button type="submit" class="postUtil-button" onclick="closecommentReply('{{post.pk}}')">Cancel</button>
+                                        <button type="submit" class="postUtil-button" onclick="submitComment('{{post.pk}}')">Post</button>
+                                    </div>
+                                </div>
                             </div>
                         </div>
                     {% endfor %}
@@ -164,6 +195,37 @@
 
             postMakerOpener.style.display = "";
             postMaker.style.display = "none";
+        }
+
+        function opencommentReply(ID) {
+            // Hide all other commentReply sections when opening a new one
+            document.querySelectorAll('.commentReply').forEach(comReply => {
+                comReply.style.display = "none";
+            });
+
+            const reply = document.getElementById("commentReply" + ID);
+            
+            reply.style.display = "";
+        }
+
+        function closecommentReply(ID) {
+            const reply = document.getElementById("commentReply" + ID);
+            
+            reply.style.display = "none";
+        }
+
+        function submitComment(ID) {
+            const body = document.getElementById("commentReplyText" + ID);
+
+            if (body.value == "") {
+                document.getElementById("commentReplyError" + ID).style.display = "";
+            } else {
+                // Fills out form data needed to create the post and hands it off to the server as a post request
+                document.getElementById("newCommentBody").value = body.value;
+                document.getElementById("commentPK").value = ID;
+
+                document.getElementById("replyComment").submit();
+            }
         }
 
         function deletePost(postID) {

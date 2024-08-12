@@ -18,6 +18,8 @@ urlpatterns = [
     path("myClubs/nehs", views.nehsInternalHome),
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),
-    path("test", views.viewClubPost),
-    path("addComment", views.addComment)
+    path("viewPost", views.viewClubPost),
+    path("addComment", views.addComment),
+    path("addReplyToComment", views.addReplyToComment),
+    path("deleteComment", views.deleteComment)
 ] 

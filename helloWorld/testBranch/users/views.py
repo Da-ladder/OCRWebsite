@@ -1,10 +1,12 @@
 from time import sleep
+from django.http import HttpResponseRedirect
 from django.shortcuts import render, redirect
 from django.contrib.auth import logout
 from django.contrib.auth.models import User
 from .models import *
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
+from urllib.parse import urlencode  # Import urlencode
 import re
 
 def mobile(request):
@@ -344,16 +346,15 @@ def deleteClubPost(request):
         # if they do not have access, deny them
         return render(request, "NuhUh.html")
 
-def viewClubPost(request, postKey=-4):
+def viewClubPost(request):
     # get the postkey along with the club with the post
-    if postKey == -4:
-        postKey = request.GET.get("postKey")
-    else:
-        # did not feel like putting pass here tbh
-        postKey = postKey
+    postKey = request.GET.get("postKey")
+
     post = LiveFeed.objects.get(id = postKey)
     club = Club.objects.get(name = post.club.name)
     replies = Replies.objects.filter(post=post)
+
+    
 
     # Make sure they have proper credentials
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
@@ -374,9 +375,6 @@ def addComment(request):
     postKey = request.POST.get("postNumber")
     commentText = request.POST.get("body")
 
-    # does not work for our uses
-    currentPage = request.POST.get('curPage')
-
     # get club by checking what club the org post comes from & get the post
     post = LiveFeed.objects.get(id = postKey)
     club = Club.objects.get(name = post.club.name)
@@ -393,8 +391,91 @@ def addComment(request):
         linkToOtherReply = False,
         creator = Users.objects.get(email = request.user.email)
         )
-        sleep(4)
-        return viewClubPost(request, 15)
+        
+        # TODO USE AJAX INSTEAD OF THIS STUFF 
+        # Define GET parameters
+        params = {'postKey': postKey}
+
+        # Encode the parameters to a query string
+        query_string = urlencode(params)
+
+        # Construct the full URL with the parameters
+        url = f"{'viewPost'}?{query_string}"
+
+        # Create a HttpResponseRedirect object
+        return HttpResponseRedirect(url)
+    else:
+        return render(request, "NuhUh.html")
+
+def addReplyToComment(request):
+    postKey = request.POST.get("postNumber")
+    replyKey = request.POST.get("replyNumber")
+    commentText = request.POST.get("body")
+
+    # get club by checking what club the org post comes from & get the post
+    post = LiveFeed.objects.get(id = postKey)
+    club = Club.objects.get(name = post.club.name)
+
+    # Check if they are authed to make comments on the post
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+        
+        # Make the post with all fields filled out
+        Replies.objects.create(
+        text = commentText,
+        post = post,
+        edited = False,
+        linkToOtherReply = True,
+        replyLink = Replies.objects.get(id = replyKey),
+        creator = Users.objects.get(email = request.user.email)
+        )
+
+        # TODO USE AJAX INSTEAD OF THIS STUFF 
+        # Define GET parameters
+        params = {'postKey': postKey}
+
+        # Encode the parameters to a query string
+        query_string = urlencode(params)
+
+        # Construct the full URL with the parameters
+        url = f"{'viewPost'}?{query_string}"
+
+        # Create a HttpResponseRedirect object
+        return HttpResponseRedirect(url)
+    else:
+        return render(request, "NuhUh.html")
+
+def deleteComment(request):
+    replyKey = request.POST.get("replyKey")
+    postKey = request.POST.get("postNumber")
+
+    # get club by checking what club the org post comes from & get the post
+    post = LiveFeed.objects.get(id = postKey)
+    club = Club.objects.get(name = post.club.name)
+
+    # get the comment
+    reply = Replies.objects.get(id = replyKey)
+
+    if request.user.is_authenticated and (reply.creator.email == request.user.email 
+        or club.advisors.filter(email = request.user.email).exists() 
+        or club.leaders.filter(email = request.user.email).exists()):
+
+        # delete the comment if it passes auth check
+        reply.delete()
+
+
+        # TODO USE AJAX INSTEAD OF THIS STUFF 
+        # Define GET parameters
+        params = {'postKey': postKey}
+
+        # Encode the parameters to a query string
+        query_string = urlencode(params)
+
+        # Construct the full URL with the parameters
+        url = f"{'viewPost'}?{query_string}"
+
+        # Create a HttpResponseRedirect object
+        return HttpResponseRedirect(url)
     else:
         return render(request, "NuhUh.html")
 
@@ -420,7 +501,7 @@ def nehsInternalHome(request):
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
 
         # gets all posts for the club
-        posts = LiveFeed.objects.filter(club = club)
+        posts = reversed(LiveFeed.objects.filter(club = club))
 
         context = {
             'posts': posts,
