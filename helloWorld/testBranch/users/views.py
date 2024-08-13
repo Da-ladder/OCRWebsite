@@ -81,50 +81,17 @@ def club_display_new(request):
     else:
         return render(request, 'desktopDisplay/explore.html', context)
     
-    
-    
-
-
-    
-
-def club_display(request):
-    categories = [
-        'STEM',
-        'Chill & Relax',
-        'Journalism & English',
-        'Art',
-        'Music & Theater',
-        'Business, Finance & Medicine',
-        'Other',
-        'Debate & Other Humanities',
-        'Activism/Community Service',
-        'Language & Culture/Food',
-        'Honor Societies',
-    ]
-    # Create a dictionary to store clubs filtered by each category
-    clubs_by_category = {}
-    for category in categories:
-        clubs_by_category[category] = Club.objects.filter(tagOrTags__name=category)
-    
-    
-    if request.user.is_authenticated:
-        context = {
-            'clubs_by_category': clubs_by_category,
-            'pic': Users.objects.get(email = request.user.email).picURL,
-        }
-    else:
-        context = {
-            'clubs_by_category': clubs_by_category  
-        }
-
-    
-    return render(request, 'mobileDisplay/mobileClassDisplay.html', context)
 
 def dis_my_clubs(request):
     if request.user.is_authenticated:
         # if club list is blank, give context so that it is known to be empty
         empty = False
-        clubs = Club.objects.filter(users=Users.objects.get(email = request.user.email))
+
+        # adds all clubs that they are a user, leader, or advisor of
+        clubs = list(Club.objects.filter(users=Users.objects.get(email = request.user.email)))
+        clubs += list(Club.objects.filter(leaders=Users.objects.get(email = request.user.email)))
+        clubs += list(Club.objects.filter(advisors=Users.objects.get(email = request.user.email)))
+
         if len(clubs) == 0:
             empty = True
 
@@ -151,7 +118,7 @@ def club_default(request):
     className = request.GET.get('className')
     club = Club.objects.get(name = className)
 
-    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
+    if request.user.is_authenticated and (club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
         context = {
             'club': club,
             'edit' : True,
@@ -175,16 +142,32 @@ def club_home_default(request):
     className = request.GET.get('className')
     club = Club.objects.get(name = className)
 
-    context = {
-        'club': club
-    }
-
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # gets all posts for the club
+        posts = list(reversed(LiveFeed.objects.filter(club = club)))
+        empty = False
+
+        # will result in placeholder text if there is no posts
+        if len(posts) == 0:
+            empty = True
+
+
+        # limits posts to leaders & advisors
+        context = {
+            'posts': posts,
+            'club': club,
+            'userPic': Users.objects.get(email = request.user.email).picURL,
+            'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists(),
+            'empty': empty
+        }
+
         if mobile(request):
-            return render(request, "mobileDisplay/ClubJoined.html", context)
+            # ignore mobile layout for now
+            return render(request, "mobileDisplay/internalHomeDefault.html", context)
         else:
-            return render(request, "clubHomeDefault.html", context)
+            return render(request, "desktopDisplay/internalHomeDefault.html", context)
     else:
         return render(request, "NuhUh.html")
     
@@ -265,7 +248,7 @@ def changeClub(request):
 
     club = Club.objects.get(name = className)
 
-    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists(): #change this later
+    if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
         club.discription = classAbout
         club.contact = classContact
         club.generalMeets = classSchedule
@@ -286,6 +269,21 @@ def changeClub(request):
         clubLeaders = clubLeaders.split(",  ")
         clubLeaders = Users.objects.filter(email__in = clubLeaders)
         club.leaders.set(clubLeaders)
+
+        club.save()
+        return redirect("/clubs")
+    elif request.user.is_authenticated and club.leaders.filter(email = request.user.email).exists():
+        club.discription = classAbout
+        club.contact = classContact
+        club.generalMeets = classSchedule
+        club.location = classLoc
+        club.advisorOrAdvisors = classAdvisor
+        club.homeURL = picURL
+
+        # setting the many to many field using the tag names directly
+        tags = tags.split(",  ")
+        tags = ClubTag.objects.filter(name__in = tags)
+        club.tagOrTags.set(tags)
 
         club.save()
         return redirect("/clubs")
@@ -326,8 +324,23 @@ def addClubPost(request):
 
         send_mail( subject, message, email_from, emails)
 
-        # return them to the page they were on
-        return redirect(currentPage)
+        # Allows for default pages to work with get requests
+        if (currentPage == "/myClubs/default"):
+            # TODO USE AJAX INSTEAD OF THIS STUFF 
+            # Define GET parameters
+            params = {'className': club.name}
+
+            # Encode the parameters to a query string
+            query_string = urlencode(params)
+
+            # Construct the full URL with the parameters
+            url = f"{'myClubs/default'}?{query_string}"
+
+            # Create a HttpResponseRedirect object
+            return HttpResponseRedirect(url)
+        else:
+            # return them to the page they were on
+            return redirect(currentPage)
     else:
         # if they do not have access, deny them
         return render(request, "NuhUh.html")
@@ -357,7 +370,23 @@ def deleteClubPost(request):
         post.delete()
 
         # return them to the page they were on
-        return redirect(currentPage)
+        # Allows for default pages to work with get requests
+        if (currentPage == "/myClubs/default"):
+            # TODO USE AJAX INSTEAD OF THIS STUFF 
+            # Define GET parameters
+            params = {'className': club.name}
+
+            # Encode the parameters to a query string
+            query_string = urlencode(params)
+
+            # Construct the full URL with the parameters
+            url = f"{'myClubs/default'}?{query_string}"
+
+            # Create a HttpResponseRedirect object
+            return HttpResponseRedirect(url)
+        else:
+            # return them to the page they were on
+            return redirect(currentPage)
     else:
         # if they do not have access, deny them
         return render(request, "NuhUh.html")
@@ -476,7 +505,7 @@ def addReplyToComment(request):
 
         email = [post.creator.email, ]
         send_mail( subject, message, email_from, email)
-        
+
 
         # TODO USE AJAX INSTEAD OF THIS STUFF 
         # Define GET parameters
@@ -539,10 +568,12 @@ def nehsInternalHome(request):
         # gets all posts for the club
         posts = reversed(LiveFeed.objects.filter(club = club))
 
+        # limits posts to leaders & advisors
         context = {
             'posts': posts,
             'club': club,
             'userPic': Users.objects.get(email = request.user.email).picURL,
+            'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()
         }
 
         if mobile(request):

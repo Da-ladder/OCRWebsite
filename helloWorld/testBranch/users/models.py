@@ -21,6 +21,7 @@ class ClubTag(models.Model):
 class Club(models.Model):
     name = models.CharField(max_length=255)
     discription = models.TextField(blank = True) # will be used for placeholder as primary website layout is developed
+    applicationInfo = models.TextField(blank = True) # Extra info for applications (may not keep)
     advisorOrAdvisors = models.TextField(blank=True)  # just in case we can handle unlimited advisors seperated by ", " in database
     contact = models.TextField(blank=True) # pulling nothing will yeild a blank string ie "". Null not needed
     generalMeets = models.TextField(blank=True)

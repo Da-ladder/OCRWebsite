@@ -50,7 +50,7 @@
                     <div class="club-name"> {{ club.name }} </div>
                     <p class="card-description">{{ club.discription }}</p>
                 </div>
-                {% if club.homeURL == None %}
+                {% if club.homeURL == "None" or club.homeURL == None or club.homeURL == "" %}
                     <img src="https://lh3.googleusercontent.com/drive-viewer/AKGpihbMTr87gc6WSdCDspWQC59rJjSVxYELI3Nfk4INk1DNXrzAP97RlQ1g5owE0eBCyOWTbjVX-G-Pckn6gs5oX2eBJ5XNbMkTla0=s1600-rw-v1" class="card-image">
                 {% else %}
                     <img src="{{club.homeURL}}" class="card-image">

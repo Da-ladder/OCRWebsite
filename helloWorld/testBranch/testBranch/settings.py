@@ -45,7 +45,9 @@ EMAIL_HOST = 'smtp.gmail.com'
 EMAIL_USE_TLS = True
 EMAIL_PORT = 587
 EMAIL_HOST_USER = 'dhsclubs.org@gmail.com'
-EMAIL_HOST_PASSWORD = 
+
+# posting will fail without PASSWORD
+EMAIL_HOST_PASSWORD = os.getenv('EMAIL_PASS') # ONLY PERSON HOSTING SHOULD KNOW PASSWORD
 
 # Application definition
 SITE_ID = 4

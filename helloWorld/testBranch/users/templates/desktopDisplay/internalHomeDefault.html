@@ -4,7 +4,7 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{club.name}}</title>
-    <link rel="stylesheet" href="/static/desktop/Nehs/internalHome.css">
+    <link rel="stylesheet" href="/static/desktop/internalHomeDefault.css">
 </head>
 <body>
 
@@ -128,6 +128,12 @@
                         </div>
                         <div class="postSep"> <hr> </div>
                     {% endfor %}
+
+                    {% if empty %}
+                        <p>There are no posts for now. You will be emailed when new posts are posted. 
+                            Only advisors and leaders are able to post
+                        </p>
+                    {% endif %}
                 </div>
             </div>
         </div>
