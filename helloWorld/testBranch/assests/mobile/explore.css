@@ -113,11 +113,6 @@ span {
   line-height: normal;
 }
 
-.card:hover {
-    transform: translateY(-10px);
-    background-color: #ffcfa2;
-}
-
 .container {    
     justify-content: center;
     align-items: center;
@@ -229,11 +224,6 @@ nav a {
   background: rgb(0, 0, 0);
   cursor: pointer;
   border-radius: 50px;
-}
-
-.button-primary:hover {
-  background-color: #fff;
-  color: #000;
 }
 
 .column-right {

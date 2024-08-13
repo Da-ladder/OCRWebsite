@@ -9,14 +9,7 @@
 <body>
 
     <div class="top-bar">
-        <form action="/myClubs/" method="get">
-            <button type="submit" class="join-button">Back</button>
-        </form>
         <div class="club-name">{{club.name}}</div>
-        <form action="/leaveClub" method="get">
-            <input type="hidden" name="clubName" value="{{club.name}}">
-            <button type="submit" class="join-button">Leave</button>
-        </form>
     </div>
 
     <!--Cards can be added as needed. One is commented out as reference-->
@@ -50,11 +43,131 @@
             </div>
             <div class="card">
                 <h2>Live Feed</h2>
-                <p>This part of the website is still under developement. Please direct feedback 
-                    about the website or suggestions to czhu5059@danbury.k12.ct.us
-                </p>
+                {% if postAbility %}
+                <div class="addPost">
+                    
+                    <button class="post-button" onclick="openPostCreator()" id="post-button">
+                        <div class="postButtonText">
+                            {% if userPic != None %}
+                                <img class="avatar" src="{{userPic}}" alt="pic">
+                            {% else %}
+                                <img class="avatar" src="/static/missingProfile.png" alt="pic">
+                            {% endif %}
+                            <div class="button-text">Make a post here</div>
+                        </div>
+                    </button>
+
+                        <div class="createPost" id="post-creator" style="display: none;">
+                            <textarea id="newPostTitleInput" class="user-input" rows="1" placeholder="Title"></textarea>
+                            <textarea id="newPostbodyInput" class="user-input" rows="1" placeholder="Message"></textarea>
+                            <div class="userError" id="userErrorMessage" style="display: none;">Both title and message fields must contain text</div>
+                            <div class="submitCancel">
+                                <button type="submit" class="join-button" onclick="closePostCreator()">Cancel</button>
+                                <button type="submit" class="join-button" onclick="submitForm()">Post</button>
+                            </div>
+                        </div>
+
+                        <form id="postCreateForm" action="/addPost" method="post">
+                            {% csrf_token %}
+                            <!-- Allows reuse in other clubs if needed-->
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "newPostTitle" name="title" value="">
+                            <input type="hidden" id = "newPostBody" name="body" value="">
+                        </form>
+
+                    
+
+                        <form id="deletePost" action="/deletePost" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "postKey" name="postKey" value="">
+                        </form>
+
+                </div>
+                {% endif %}
+                
+                <div class="allPosts">
+                    {% for post in posts %}
+                        <div class="post">
+                            
+                            <a class="full-link" href="/viewPost?postKey={{post.pk}}"></a>
+                            <div class="postTopBar">
+                                <div class="creater">
+                                    <img class="avatar" src="{{post.creator.picURL}}" alt="pic">
+                                    <div class="nameDate">
+                                        <div class="postName">  
+                                            {{post.creator.name}}
+                                        </div>
+                                        <div class="postDate">
+                                            {{post.creationTime}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options" onclick="openDropdown('{{post.pk}}')" onmouseleave="closeDropdown('{{post.pk}}')">
+                                    <div class="ButtonOptions">
+                                        ⋮
+                                    </div>
+                                    <div class="dropDownOptions" id="{{post.pk}}">
+                                        <div class="dropDownSelections" onclick="deletePost('{{post.pk}}')">Delete</div>
+                                        <div class="dropDownSelections">Placeholder</div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            <!-- make the abilty for users to reply -->
+                            <div class="postTitle">
+                                {{post.title}}
+                            </div>
+
+                            <div class="postText">
+                                {{post.text|linebreaks}}
+                            </div>
+
+                            <div class="postData">
+                                <div class="arrowUp">
+                                    <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
+                                </div>
+                                <div class="likeNumber">
+                                    {{post.likes}}
+                                </div>
+                                <div class="arrowDown">
+                                    <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" transform="matrix(1, 0, 0, -1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
+                                </div>
+                                <div class="postComment">
+                                    <svg rpl="" aria-hidden="true" class="icon-comment" fill="currentColor" height="20" icon-name="comment-outline" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.725 19.872a.718.718 0 0 1-.607-.328.725.725 0 0 1-.118-.397V16H3.625A2.63 2.63 0 0 1 1 13.375v-9.75A2.629 2.629 0 0 1 3.625 1h12.75A2.63 2.63 0 0 1 19 3.625v9.75A2.63 2.63 0 0 1 16.375 16h-4.161l-4 3.681a.725.725 0 0 1-.489.191ZM3.625 2.25A1.377 1.377 0 0 0 2.25 3.625v9.75a1.377 1.377 0 0 0 1.375 1.375h4a.625.625 0 0 1 .625.625v2.575l3.3-3.035a.628.628 0 0 1 .424-.165h4.4a1.377 1.377 0 0 0 1.375-1.375v-9.75a1.377 1.377 0 0 0-1.374-1.375H3.625Z"></path></svg>
+                                </div>
+                                <div class="commentNumber">
+                                    {{post.comments}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="postSep"> <hr> </div>
+                    {% endfor %}
+
+                    {% if empty %}
+                        <p>There are no posts for now. You will be emailed when new posts are posted. 
+                            Only advisors and leaders are able to post
+                        </p>
+                    {% endif %}
+                </div>
             </div>
         </div>
+    </div>
+
+    <div class="bottom-bar">
+        
+        <form action="/myClubs/" method="get">
+            <button type="submit" class="join-button">Back</button>
+        </form>
+        
+        <form action="/leaveClub" method="get">
+            <input type="hidden" name="clubName" value="{{club.name}}">
+            <button type="submit" class="join-button">Leave</button>
+        </form>
     </div>
     <script src="/static/mobile/ClubJoined.js"></script>
 </body>

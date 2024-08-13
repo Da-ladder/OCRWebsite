@@ -56,11 +56,6 @@ body {
     font-family: 'Source Sans Pro'
 }
 
-.class-card:hover {
-    transform: translateY(-10px);
-    background-color: #ffcfa2
-}
-
 /* top bar config */
 nav {
     height: 4rem;

@@ -71,7 +71,6 @@
                 
                 <div class="allPosts">
                     {% for post in posts %}
-                        <!-- CHANGE TO dhsclubs.org when ALL tests are done-->
                         <div class="post">
                             
                             <a class="full-link" href="/viewPost?postKey={{post.pk}}"></a>
@@ -163,7 +162,6 @@
     </div>
     <script>
         // TODO: get new posts when they appear from the server
-
         function openDropdown(postID) {
             document.getElementById(postID).style.display = "flex";
         }

@@ -3,7 +3,7 @@
 <head>
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
-    <title>Classroom Interface</title>
+    <title>My Clubs</title>
     <link rel="stylesheet" href="/static/mobile/mobileHomeSty.css">
     <link href='https://fonts.googleapis.com/css?family=Source+Sans+Pro' rel='stylesheet' type='text/css'>
 </head>
@@ -25,7 +25,7 @@
     </nav>
     <div class="container" id = "clubLayotTag">
         {% for class in classes %}
-            <div class="class-card" data-url="{{ class.homeURL }}">
+            <div class="class-card" data-url="{{class.memberPage}}">
                 <h3 class="class-name" font-family: 'Source Sans Pro'>{{ class.name }}</h3>
             </div>
         {% endfor %}

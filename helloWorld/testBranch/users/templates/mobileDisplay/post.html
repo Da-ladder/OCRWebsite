@@ -4,15 +4,12 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>{{club.name}}</title>
-    <link rel="stylesheet" href="/static/desktop/post.css">
+    <link rel="stylesheet" href="/static/mobile/post.css">
 </head>
 <body>
 
     <div class="top-bar">
-        <button onclick= "history.back();" type="submit" class="join-button">Back</button>
-       
         <div class="club-name">{{club.name}}</div>
-        <div class="club-name">Post #{{post.id}}</div>
     </div>
 
     <!--Cards can be added as needed. One is commented out as reference-->
@@ -152,6 +149,12 @@
                 </div>
             </div>
         </div>
+    </div>
+    <div class="bottom-bar">
+        
+        <button onclick= "history.back();" type="submit" class="join-button">Back</button>
+        
+        <div class="club-name">Post #{{post.id}}</div>
     </div>
     <script>
         // TODO: get new posts when they appear from the server

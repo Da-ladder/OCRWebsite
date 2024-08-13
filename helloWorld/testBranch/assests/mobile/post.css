@@ -14,6 +14,14 @@ body {
     box-sizing: border-box;
 }
 
+
+.club-name {
+    font-size: 24px;
+    font-weight: bold;
+    align-items: center;
+    text-align: center;
+}
+
 .bottom-bar {
     width: 100%;
     box-sizing: border-box;
@@ -32,8 +40,6 @@ body {
 .club-name {
     font-size: 24px;
     font-weight: bold;
-    align-items: center;
-    text-align: center;
 }
 
 .join-button {
@@ -52,7 +58,7 @@ body {
     align-items: flex-start;
     width: 100%;
     padding: 20px;
-    padding-bottom: 80px;
+    padding-bottom: 60px;
     box-sizing: border-box;
 }
 
@@ -62,6 +68,7 @@ body {
     gap: 20px;
     width: 100%;
     max-width: 800px;
+    padding-bottom: 200px;
 }
 
 .sidebar {
@@ -74,10 +81,6 @@ body {
     box-sizing: border-box;
 }
 
-.sidebar-section {
-    display: none;
-}
-
 .card {
     background-color: white;
     border-radius: 10px;
@@ -87,22 +90,6 @@ body {
 
 .card h2, .sidebar h3 {
     margin-top: 0;
-}
-
-.video img {
-    width: 100%;
-    border-radius: 10px;
-}
-
-.partner {
-    display: flex;
-    align-items: center;
-    gap: 10px;
-}
-
-.partner img {
-    width: 40px;
-    height: 40px;
 }
 
 /* top bar config */
@@ -152,26 +139,33 @@ nav {
     color: #dbaf00;
   }
 
-  .main-content .container .card .dropdown{
-    background-color: transparent;
-    border-color: transparent;
-    font-size: 1.5rem;
-    font-weight: bold;
-  }
+/* Post button configs */
 
-  .addPost {
+.addPost {
     display: flex;
     border: solid 1px lightgray;
     background-color: transparent;
-    padding: 5px 10px;
     font-size: 16px;
     cursor: pointer;
     border-radius: 5px;
     flex-direction: column;
+    padding: 5px 10px;
 }
+
+.user-input {
+    width: 100%;
+    overflow: hidden;
+    resize: none;
+    background-color: transparent;
+    border: none;
+    outline: none;
+    
+}
+
 .post-button {
     border: none;
-    display: flex;
+    padding-left: 1px;
+    padding-right: 5px;
     width: 100%;
     background-color: transparent;
     font-size: 16px;
@@ -179,11 +173,22 @@ nav {
     flex-direction: column;
 }
 
+.postUtil-button {
+    background-color: #d50000;
+    max-width: fit-content;
+    max-height: fit-content;
+    color: white;
+    border: none;
+    padding: 5px 10px;
+    font-size: 15px;
+    cursor: pointer;
+    border-radius: 5px;
+}
+
 .postButtonText {
-    display: flex;
+    width: 100%;
     background-color: transparent;
     font-size: 16px;
-    flex-direction: row;
 }
 
 .button-text {
@@ -199,7 +204,6 @@ nav {
 }
 
 .createPost {
-    margin-top: 5px;
     width: 100%;
     display: flex;
     background-color: transparent;
@@ -229,13 +233,64 @@ textarea {
     padding-top: 10px;
 }
 
-.postComment {
-    padding-left: 10px;
+.ogPost {
+    display: flex;
+    flex-direction: row;
+    padding-left: 5px;
+    min-height: 27px;
+    max-height: 27px;
+    
 }
 
-.postText p {
-    margin-top: 0px;
-    margin-bottom: 16px;
+.funnyLink {
+    display: flex;
+    align-items: flex-end;
+}
+
+.OPavatar {
+    width: 15px; /* Adjust image width */
+    height: 15px; /* Adjust image height */
+    border-radius: 50%;
+    margin-right: 2px;
+}
+
+.OPavatarName {
+    color: rgb(40, 40, 40);
+}
+
+.parentComment {
+    color: gray;
+    font-size: 12px;
+    padding-left: 3px;
+    display: flex;
+    justify-content: flex-start;
+    align-items: flex-start;
+}
+
+.commentContains {
+    font-size: 10px;
+    display: -webkit-box;
+    -webkit-line-clamp: 1; /* Number of lines to show before truncating */
+    -webkit-box-orient: vertical;
+    overflow: hidden;
+}
+
+.postComment {
+    max-height: 15px;
+    padding-right: 4px;
+    margin-top: auto;
+    margin-bottom: auto;
+}
+
+.commentReply {
+    padding-bottom: 5px;
+}
+
+.commentReply-input {
+    background-color: whitesmoke;
+    overflow: hidden;
+    resize: none;
+    outline: black;
 }
 
 .options {
@@ -243,7 +298,6 @@ textarea {
     max-height: 25px;
     margin-top: auto;
     margin-bottom: auto;
-    z-index: 100;
 }
 
 .ButtonOptions {
@@ -260,7 +314,7 @@ textarea {
     position: absolute;
     background-color: #f1f1f1;
     box-shadow: 0px 8px 16px 0px rgba(0,0,0,0.2);
-    z-index: 5;
+    z-index: 1;
     border-radius: 5px;
 }
 
@@ -282,35 +336,15 @@ textarea {
 
 .allPosts {
     display: flex;
-    flex-direction: column;
+    flex-direction: column-reverse;
 }
 
 .post {
+    border: solid 1.5px lightgray;
+    border-left: none;
+    border-right: none;
+    border-top: none;
     padding-top: 10px;
-    position: relative;
-}
-
-.post:hover {
-    background-color: whitesmoke;
-    cursor: pointer;
-    border-radius: 5px;
-}
-
-.full-link {
-    position: absolute; /* Position the <a> element absolutely within the parent */
-    top: 0;
-    left: 0;
-    right: 0;
-    bottom: 0;
-    z-index: 1; /* Ensure the link is on top of other elements */
-    text-decoration: none; /* Remove the default underline */
-}
-
-.full-link::after {
-    content: ''; /* This allows the <a> element to have dimensions despite no content */
-    display: block;
-    width: 100%;
-    height: 100%;
 }
 
 .nameDate {
@@ -333,18 +367,22 @@ textarea {
 }
 
 .postText {
-    color: gray;
-    display: -webkit-box;
-    -webkit-line-clamp: 10;
-    -webkit-box-orient: vertical;
-    overflow: hidden;
+    color: black;
+}
+
+.postText p {
+    color: black;
+    margin-top: 5px;
+    margin-bottom: auto;
 }
 
 .postData {
+    padding-top: 0px;
     display: flex;
     flex-direction: row;
-    gap: 10px;
-    padding-top: 0px;
+    font-size: 14px;
+    margin-top: 10px;
+    margin-bottom: 5px;
 }
 
 .post .creater .avatar {

@@ -165,7 +165,7 @@ def club_home_default(request):
 
         if mobile(request):
             # ignore mobile layout for now
-            return render(request, "mobileDisplay/internalHomeDefault.html", context)
+            return render(request, "mobileDisplay/ClubJoined.html", context)
         else:
             return render(request, "desktopDisplay/internalHomeDefault.html", context)
     else:
@@ -411,7 +411,13 @@ def viewClubPost(request):
             'userPic': Users.objects.get(email = request.user.email).picURL,
         } 
 
-        return render(request, "desktopDisplay/post.html", context)
+        if mobile(request):
+            # ignore mobile layout for now
+            return render(request, "mobileDisplay/post.html", context)
+        else:
+            return render(request, "desktopDisplay/post.html", context)
+
+        
     else:
         # no credentials no eyes
         return render(request, "NuhUh.html")
@@ -577,8 +583,7 @@ def nehsInternalHome(request):
         }
 
         if mobile(request):
-            # ignore mobile layout for now
-            return render(request, "mobileDisplay/Nehs/internalHome.html", context)
+            return render(request, "mobileDisplay/ClubJoined.html", context)
         else:
             return render(request, "desktopDisplay/Nehs/internalHome.html", context)
     else:

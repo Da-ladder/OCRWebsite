@@ -41,9 +41,9 @@
     </div>
 
     <div class="bottom-bar">
-        <form action="/clubs/" method="get">
-            <button type="submit" class="join-button">Back</button>
-        </form>
+        
+        <button type="submit" onclick="history.back();"class="join-button">Back</button>
+        
         <form action="/joinClub" method="get">
             <input type="hidden" name="clubName" value="{{club.name}}">
             <button type="submit" class="join-button">Join</button>

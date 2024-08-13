@@ -5,7 +5,7 @@ document.querySelectorAll('.class-card').forEach(card => {
         if (url == "demo") {
             alert("Placeholder club, please add other clubs")
         } else if (url != "None") {
-            window.location.href = url;
+            window.location.replace(url);
         } else {
             
             // only occurs when there is no webpage setup with the club. It is the default page that all clubs will start with
