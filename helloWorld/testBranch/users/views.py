@@ -7,6 +7,8 @@ from .models import *
 from django.dispatch import receiver
 from allauth.account.signals import user_signed_up
 from urllib.parse import urlencode  # Import urlencode
+from django.conf import settings
+from django.core.mail import send_mail
 import re
 
 def mobile(request):
@@ -290,25 +292,39 @@ def changeClub(request):
     else:
         return render(request, "NuhUh.html")
 
-def addClubPost(request):
-    
+def addClubPost(request):    
     # Grab information
     currentPage = request.POST.get('curPage')
 
     club = Club.objects.get(name = request.POST.get("clubName"))
     postTitle = request.POST.get("title")
     postBody = request.POST.get("body")
+    
 
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # get the creator
+        creator = Users.objects.get(email = request.user.email)
+
         # Make the post
         LiveFeed.objects.create(
         title = postTitle,
         text = postBody,
         club = club,
         edited = False,
-        creator = Users.objects.get(email = request.user.email)
+        creator = creator
         )
+
+        # Email the message out (format it later)
+        subject = creator.name.title() + ' posted in ' + club.name + " - " + postTitle
+        message = subject + "\n" + postBody
+        email_from = settings.EMAIL_HOST_USER
+
+        emails = [user.email for user in club.users.all()] + [leader.email for leader in club.leaders.all()] + [advisor.email for advisor in club.advisors.all()]
+        emails.remove(request.user.email)
+
+        send_mail( subject, message, email_from, emails)
 
         # return them to the page they were on
         return redirect(currentPage)
@@ -383,14 +399,25 @@ def addComment(request):
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
 
+        # get the creator
+        creator = Users.objects.get(email = request.user.email)
+
         # Make the post with all fields filled out
         Replies.objects.create(
         text = commentText,
         post = post,
         edited = False,
         linkToOtherReply = False,
-        creator = Users.objects.get(email = request.user.email)
+        creator = creator
         )
+
+        # Email the message out (format it later)
+        subject = creator.name.title() + ' replied to your post "' + post.title + '"'
+        message = subject + "\n" + creator.name.title() + " responded with: " + commentText
+        email_from = settings.EMAIL_HOST_USER
+
+        email = [post.creator.email, ]
+        send_mail( subject, message, email_from, email)
         
         # TODO USE AJAX INSTEAD OF THIS STUFF 
         # Define GET parameters
@@ -420,15 +447,36 @@ def addReplyToComment(request):
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
         
+        # get the creator and reply to link
+        creator = Users.objects.get(email = request.user.email)
+        replyLink = Replies.objects.get(id = replyKey)
+
         # Make the post with all fields filled out
         Replies.objects.create(
         text = commentText,
         post = post,
         edited = False,
         linkToOtherReply = True,
-        replyLink = Replies.objects.get(id = replyKey),
-        creator = Users.objects.get(email = request.user.email)
+        replyLink = replyLink,
+        creator = creator
         )
+
+        # Email the message out (to person replied to) (format it later)
+        subject = creator.name.title() + ' replied to your comment "' + replyLink.text + '"'
+        message = subject + "\n" + creator.name.title() + " responded with: " + commentText
+        email_from = settings.EMAIL_HOST_USER
+
+        email = [replyLink.creator.email, ]
+        send_mail( subject, message, email_from, email)
+
+        # Email the message out (format it later)
+        subject = creator.name.title() + ' replied to your post "' + post.title + '"'
+        message = subject + "\n" + creator.name.title() + " responded with: " + commentText
+        email_from = settings.EMAIL_HOST_USER
+
+        email = [post.creator.email, ]
+        send_mail( subject, message, email_from, email)
+        
 
         # TODO USE AJAX INSTEAD OF THIS STUFF 
         # Define GET parameters
@@ -480,22 +528,10 @@ def deleteComment(request):
         return render(request, "NuhUh.html")
 
 
-
-
-    
-    
-
-
-
-
-
-
-
 # custom club homepages are created below
 # change from localhost to dhsclubs.org when pushing updates
 def nehsInternalHome(request):
     club = Club.objects.get(name = "National English Honor Society (NEHS)")
-
 
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
