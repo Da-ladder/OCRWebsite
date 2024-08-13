@@ -44,11 +44,11 @@
                         <div class="userManagementTitle">
                             Add Leaders (must be a member of the club)
                         </div>
-                    
+
                         <div id="potentialLeadersSearch" class="userSearch">
                             <textarea id="potentialLeadersSearchInput" class="search" rows="1" placeholder="Search by Email"></textarea>
                         </div>
-                    
+
                         <div id="potentialLeadersList" class="userList">
                             {% for user in users %}
                             <div class="user" onmouseover="showButton('{{user.email}}')" onmouseout="hideButton('{{user.email}}')" id = '{{user.email}}'>
@@ -60,12 +60,12 @@
                             {% endfor %}
                         </div>
                     </div>
-                
+
                     <div id="Leaders" class="userManagement">
                         <div class="userManagementTitle">
                             Remove Leaders
                         </div>
-                    
+
                         <div id="LeadersSearch" class="userSearch">
                             <textarea id="LeadersSearchInput" class="search" rows="1" placeholder="Search by Email"></textarea>
                         </div>
@@ -80,7 +80,7 @@
                             {% endfor %}
                         </div>
                     </div>
-                
+
                 </div>
             {% endif %}
         </div>
@@ -104,7 +104,7 @@
             </div>
             <div class="sidebar-section">
                 <h3>Google Drive Picture Link</h3>
-                <p>First Time? Watch video for directions:</p>
+                <p>First Time? Watch video for directions: https://youtu.be/wMlRct38IOM</p>
                 <textarea id="picURL" class="user-input" rows="1">{{club.homeURL}}</textarea>
             </div>
             <div class="sidebar-section">
