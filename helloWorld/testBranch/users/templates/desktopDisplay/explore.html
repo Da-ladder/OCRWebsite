@@ -45,7 +45,7 @@
     <!-- Main content (js needs to organize by category)-->
     <div class="container" id="clubLayoutTag">
         {% for club, category in clubsWithCategory.items %}
-            <div class="card" data-url="{{ club.url }}" data-tags="{{category}}">
+            <div class="card" data-url="{{ club.memberPage }}" data-tags="{{category}}">
                 <div class="card-text">
                     <div class="club-name"> {{ club.name }} </div>
                     <p class="card-description">{{ club.discription }}</p>

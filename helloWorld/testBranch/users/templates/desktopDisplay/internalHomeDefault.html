@@ -73,7 +73,8 @@
                     {% for post in posts %}
                         <!-- CHANGE TO dhsclubs.org when ALL tests are done-->
                         <div class="post">
-                            <a class="full-link" href="https://dhsclubs.org/viewPost?postKey={{post.pk}}"></a>
+                            
+                            <a class="full-link" href="/viewPost?postKey={{post.pk}}"></a>
                             <div class="postTopBar">
                                 <div class="creater">
                                     <img class="avatar" src="{{post.creator.picURL}}" alt="pic">

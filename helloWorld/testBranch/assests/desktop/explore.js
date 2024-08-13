@@ -4,7 +4,7 @@ document.querySelectorAll('.card').forEach(card => {
     card.addEventListener('click', () => {
         const url = card.getAttribute('data-url');
         if (url != "None") {
-            window.location.href = url;
+            window.location.replace(location.host + url);
         } else {
 
             // only occurs when there is no webpage setup with the club. It is the default page that all clubs will start with
