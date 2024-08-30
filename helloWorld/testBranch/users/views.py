@@ -15,10 +15,13 @@ def mobile(request):
     #Return True if the request comes from a mobile device.
     MOBILE_AGENT_RE=re.compile(r".*(iphone|mobile|androidtouch)",re.IGNORECASE)
 
-    if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+    try:
+        if MOBILE_AGENT_RE.match(request.META['HTTP_USER_AGENT']):
+            return True
+        else:
+            return False
+    except:
         return True
-    else:
-        return False
 
 def home(request):
     if request.user.is_authenticated:
