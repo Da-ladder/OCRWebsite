@@ -22,6 +22,8 @@ admin.site.register(Club, ClubAdmin)
 admin.site.register(ClubTag)
 admin.site.register(LiveFeed)
 admin.site.register(Replies)
+admin.site.register(ClubData)
+admin.site.register(UserTag)
 
 
 

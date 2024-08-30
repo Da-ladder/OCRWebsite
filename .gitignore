@@ -1,2 +1,3 @@
 helloWorld/letsencrypt/*
 helloWorld/docker-compose.yml
+helloWorld/testBranch/db.sqlite3

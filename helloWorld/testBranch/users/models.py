@@ -65,5 +65,19 @@ class Replies(models.Model):
 
     def __str__(self):
         return self.post.title + " reply"
+    
+class UserTag(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    tagName = models.CharField(max_length=255)
+    userList = models.ManyToManyField(Users, blank=True)
 
+    def __str__(self):
+        return self.club.name + ": " + self.tagName
 
+class ClubData(models.Model):
+    club = models.ForeignKey(Club, on_delete=models.CASCADE)
+    name = models.TextField(blank=True, null=True, max_length=2000)
+    data = models.TextField(blank=True, null=True)
+
+    def __str__(self):
+        return self.club.name + ": " + self.name
