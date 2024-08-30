@@ -21,5 +21,6 @@ urlpatterns = [
     path("viewPost", views.viewClubPost),
     path("addComment", views.addComment),
     path("addReplyToComment", views.addReplyToComment),
-    path("deleteComment", views.deleteComment)
+    path("deleteComment", views.deleteComment),
+    path("test", views.test)
 ] 

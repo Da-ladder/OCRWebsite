@@ -1,0 +1,293 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{club.name}}</title>
+    <link rel="stylesheet" href="/static/desktop/MathTeam/internalHome.css">
+</head>
+<body>
+
+    <div class="top-bar">
+        <form action="/myClubs/" method="get">
+            <button type="submit" class="join-button">Back</button>
+        </form>
+        <div class="club-name">{{club.name}}</div>
+        <form action="/leaveClub" method="get">
+            <input type="hidden" name="clubName" value="{{club.name}}">
+            <button type="submit" class="join-button">Leave</button>
+        </form>
+    </div>
+
+    <!--Cards can be added as needed. One is commented out as reference-->
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2>Team Rounds</h2>
+
+                <h3>A Team</h3>
+                <div class="userRound">
+                    <div class="identifer"></div>
+                    <div class="roundPicker">
+                        <div class="roundID">R1<div class="roundInfo">Lines and Angles</div></div>
+                        <div class="roundID">R2<div class="roundInfo">Literal Equations</div></div>
+                        <div class="roundID">R3<div class="roundInfo">Solids & Volume</div></div>
+                        <div class="roundID">R4<div class="roundInfo">Radical Expressions and Equations</div></div>
+                        <div class="roundID">R5<div class="roundInfo">Polynomials and Advanced Factoring</div></div>
+                        <div class="roundID">R6<div class="roundInfo">Counting and Probability</div></div>
+                    </div>
+                </div>
+
+                <div class="team-selector">
+                    <div>
+                        <div class="userRound">
+                            <div class="identifer">example@gmail.com</div>
+                            <div class="roundPicker">
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                            </div>
+                        </div>
+                    </div>
+                    <div>
+                        <div class="userRound">
+                            <div class="identifer">example@gmail.com</div>
+                            <div class="roundPicker">
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                                <input type="checkbox" class="round"></input> 
+                            </div>
+                        </div>
+                    </div>
+                    <div>example@gmail.com</div>
+                </div>
+                
+                <h3>B Team</h3>
+                <div class="userRound">
+                    <div class="identifer"></div>
+                    <div class="roundPicker">
+                        <div class="roundID">R1<div class="roundInfo">Lines and Angles</div></div>
+                        <div class="roundID">R2<div class="roundInfo">Literal Equations</div></div>
+                        <div class="roundID">R3<div class="roundInfo">Solids & Volume</div></div>
+                        <div class="roundID">R4<div class="roundInfo">Radical Expressions and Equations</div></div>
+                        <div class="roundID">R5<div class="roundInfo">Polynomials and Advanced Factoring</div></div>
+                        <div class="roundID">R6<div class="roundInfo">Counting and Probability</div></div>
+                    </div>
+                </div>
+                <div class="team-selector">
+                    <div>example@gmail.com</div>
+                    <div>example@gmail.com</div>
+                    <div>example@gmail.com</div>
+                </div>
+            </div>
+            <div class="card">
+                <h2>Live Feed</h2>
+                {% if postAbility %}
+                <div class="addPost">
+                    
+                    <button class="post-button" onclick="openPostCreator()" id="post-button">
+                        <div class="postButtonText">
+                            {% if userPic != None %}
+                                <img class="avatar" src="{{userPic}}" alt="pic">
+                            {% else %}
+                                <img class="avatar" src="/static/missingProfile.png" alt="pic">
+                            {% endif %}
+                            <div class="button-text">Make a post here</div>
+                        </div>
+                    </button>
+
+                        <div class="createPost" id="post-creator" style="display: none;">
+                            <textarea id="newPostTitleInput" class="user-input" rows="1" placeholder="Title"></textarea>
+                            <textarea id="newPostbodyInput" class="user-input" rows="1" placeholder="Message"></textarea>
+                            <div class="userError" id="userErrorMessage" style="display: none;">Both title and message fields must contain text</div>
+                            <div class="submitCancel">
+                                <button type="submit" class="join-button" onclick="closePostCreator()">Cancel</button>
+                                <button type="submit" class="join-button" onclick="submitForm()">Post</button>
+                            </div>
+                        </div>
+
+                        <form id="postCreateForm" action="/addPost" method="post">
+                            {% csrf_token %}
+                            <!-- Allows reuse in other clubs if needed-->
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "newPostTitle" name="title" value="">
+                            <input type="hidden" id = "newPostBody" name="body" value="">
+                        </form>
+
+                    
+
+                        <form id="deletePost" action="/deletePost" method="post">
+                            {% csrf_token %}
+                            <input type="hidden" name="curPage" value="{{request.path}}">
+                            <input type="hidden" name="clubName" value="{{club.name}}">
+                            <input type="hidden" id = "postKey" name="postKey" value="">
+                        </form>
+
+                </div>
+                {% endif %}
+                
+                <div class="allPosts">
+                    {% for post in posts %}
+                        <div class="post">
+                            
+                            <a class="full-link" href="/viewPost?postKey={{post.pk}}"></a>
+                            <div class="postTopBar">
+                                <div class="creater">
+                                    <img class="avatar" src="{{post.creator.picURL}}" alt="pic">
+                                    <div class="nameDate">
+                                        <div class="postName">  
+                                            {{post.creator.name}}
+                                        </div>
+                                        <div class="postDate">
+                                            {{post.creationTime}}
+                                        </div>
+                                    </div>
+                                </div>
+                                <div class="options" onclick="openDropdown('{{post.pk}}')" onmouseleave="closeDropdown('{{post.pk}}')">
+                                    <div class="ButtonOptions">
+                                        ⋮
+                                    </div>
+                                    <div class="dropDownOptions" id="{{post.pk}}">
+                                        <div class="dropDownSelections" onclick="deletePost('{{post.pk}}')">Delete</div>
+                                        <div class="dropDownSelections">Placeholder</div>
+                                    </div>
+                                </div>
+                                
+                                
+                            </div>
+                            
+                            <!-- make the abilty for users to reply -->
+                            <div class="postTitle">
+                                {{post.title}}
+                            </div>
+
+                            <div class="postText">
+                                {{post.text|linebreaks}}
+                            </div>
+
+                            <div class="postData">
+                                <div class="arrowUp">
+                                    <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
+                                </div>
+                                <div class="likeNumber">
+                                    {{post.likes}}
+                                </div>
+                                <div class="arrowDown">
+                                    <svg fill="#000000" height="20px" width="20px" version="1.1" id="Layer_1" xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" viewBox="0 0 330 330" xml:space="preserve" transform="matrix(1, 0, 0, -1, 0, 0)"><g id="SVGRepo_bgCarrier" stroke-width="0"></g><g id="SVGRepo_tracerCarrier" stroke-linecap="round" stroke-linejoin="round"></g><g id="SVGRepo_iconCarrier"> <path id="XMLID_224_" d="M325.606,229.393l-150.004-150C172.79,76.58,168.974,75,164.996,75c-3.979,0-7.794,1.581-10.607,4.394 l-149.996,150c-5.858,5.858-5.858,15.355,0,21.213c5.857,5.857,15.355,5.858,21.213,0l139.39-139.393l139.397,139.393 C307.322,253.536,311.161,255,315,255c3.839,0,7.678-1.464,10.607-4.394C331.464,244.748,331.464,235.251,325.606,229.393z"></path> </g></svg>
+                                </div>
+                                <div class="postComment">
+                                    <svg rpl="" aria-hidden="true" class="icon-comment" fill="currentColor" height="20" icon-name="comment-outline" viewBox="0 0 20 20" width="20" xmlns="http://www.w3.org/2000/svg"><path d="M7.725 19.872a.718.718 0 0 1-.607-.328.725.725 0 0 1-.118-.397V16H3.625A2.63 2.63 0 0 1 1 13.375v-9.75A2.629 2.629 0 0 1 3.625 1h12.75A2.63 2.63 0 0 1 19 3.625v9.75A2.63 2.63 0 0 1 16.375 16h-4.161l-4 3.681a.725.725 0 0 1-.489.191ZM3.625 2.25A1.377 1.377 0 0 0 2.25 3.625v9.75a1.377 1.377 0 0 0 1.375 1.375h4a.625.625 0 0 1 .625.625v2.575l3.3-3.035a.628.628 0 0 1 .424-.165h4.4a1.377 1.377 0 0 0 1.375-1.375v-9.75a1.377 1.377 0 0 0-1.374-1.375H3.625Z"></path></svg>
+                                </div>
+                                <div class="commentNumber">
+                                    {{post.comments}}
+                                </div>
+                            </div>
+                        </div>
+                        <div class="postSep"> <hr> </div>
+                    {% endfor %}
+
+                    {% if empty %}
+                        <p>There are no posts for now. You will be emailed when new posts are posted. 
+                            Only advisors and leaders are able to post
+                        </p>
+                    {% endif %}
+                </div>
+            </div>
+        </div>
+        <div class="sidebar">
+            <div class="sidebar-section">
+                <h3>General Schedule</h3>
+                <p>{{club.generalMeets}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>Meeting Location</h3>
+                <p>{{club.location}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>Contact(s)</h3>
+                <p>{{club.contact}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>Advisor(s)</h3>
+                <p>{{club.advisorOrAdvisors}}</p>
+            </div>
+            <div class="sidebar-section">
+                <h3>About</h3>
+                <p>{{club.discription}}</p>
+            </div>
+        </div>
+    </div>
+    <script>
+        // TODO: get new posts when they appear from the server
+        function openDropdown(postID) {
+            document.getElementById(postID).style.display = "flex";
+        }
+
+        function closeDropdown(postID) {
+            document.getElementById(postID).style.display = "none";
+        }
+
+        // Function to auto expand textarea
+        function autoExpand(field) {
+            // Reset the height of the field to auto to calculate the new scroll height
+            field.style.height = 'auto';
+            // Set the height of the field to the scroll height
+            field.style.height = field.scrollHeight + 'px';
+        }
+
+        // Add input event listener to all textareas
+        document.addEventListener('input', function (event) {
+            if (event.target.tagName.toLowerCase() === 'textarea') {
+                autoExpand(event.target);
+            }
+        });
+
+        function openPostCreator() {
+            const postMakerOpener = document.getElementById("post-button");
+            const postMaker = document.getElementById("post-creator");
+
+            postMakerOpener.style.display = "none";
+            postMaker.style.display = "";
+        }
+
+        function closePostCreator() {
+            const postMakerOpener = document.getElementById("post-button");
+            const postMaker = document.getElementById("post-creator");
+
+            postMakerOpener.style.display = "";
+            postMaker.style.display = "none";
+        }
+
+        function deletePost(postID) {
+            document.getElementById("postKey").value = postID;
+            document.getElementById("deletePost").submit();
+        }
+
+        function submitForm() {
+            // Verify that there is something in the title and body before submission
+            const title = document.getElementById("newPostTitleInput");
+            const body = document.getElementById("newPostbodyInput");
+
+            console.log(title.value)
+            console.log(body.value)
+
+            if (title.value == "" || body.value == "") {
+                document.getElementById("userErrorMessage").style.display = "";
+            } else {
+                // submit the form with the information provided
+                document.getElementById('newPostTitle').value = title.value;
+                document.getElementById('newPostBody').value = body.value;
+                // Submit the form
+                document.getElementById('postCreateForm').submit();
+            }
+        }
+    </script>
+</body>
+</html>

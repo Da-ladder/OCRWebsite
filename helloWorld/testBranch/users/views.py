@@ -23,6 +23,36 @@ def mobile(request):
     except:
         return True
 
+def test(request):
+    club = Club.objects.get(name = "Math Team")
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # gets all posts for the club
+        posts = list(reversed(LiveFeed.objects.filter(club = club)))
+        empty = False
+
+        # will result in placeholder text if there is no posts
+        if len(posts) == 0:
+            empty = True
+
+        # limits posts to leaders & advisors
+        context = {
+            'posts': posts,
+            'club': club,
+            'userPic': Users.objects.get(email = request.user.email).picURL,
+            'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists(),
+            "empty": empty
+        }
+
+        if mobile(request):
+            return render(request, "mobileDisplay/ClubJoined.html", context)
+        else:
+            return render(request, "desktopDisplay/MathTeam/internalHome.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
 def home(request):
     if request.user.is_authenticated:
         pic_url = Users.objects.get(email = request.user.email).picURL
