@@ -241,16 +241,41 @@ def club_edit(request):
     # get all tags from the database
     tags = ClubTag.objects.all()
 
-    # gets current leaders and users
+    # gets current leaders, users, and advisor(s)
     users = club.users.all()
 
     leaders = club.leaders.all()
+
+    advisors = club.advisors.all()
+
+    # union operator does not work here. Do not know why it breaks it
+    allMembers = list(advisors) + list(leaders) + list(users)
+
+    # gets all user roles attached to that club
+    userTags = UserTag.objects.filter(club = club)
+
+
+    # preprocesses tag data so that the template can load proper tags for each person
+    # this list will be structured in this way: [[email, [attached roles], [roles available]], repeat]
+    masterRoleList = []
+
+    for user in allMembers:
+        masterRoleList.append([user.email, [tag.tagName for tag in UserTag.objects.filter(club = club, userList = user)],
+        [tag.tagName for tag in UserTag.objects.filter(club = club).exclude(userList = user)]])
+    
+    
+
+    # changes userTags to a list of tagNames for template processing
+    userTags = [tag.tagName for tag in userTags]
 
     if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
         context = {
             'tags': tags,
             'users': users,
             'leaders': leaders,
+            'allMembers': allMembers,
+            'userTags': userTags,
+            'userRoles': masterRoleList,
             'currTags': currTags,
             'club': club,
             'editUsers' : True,
@@ -260,6 +285,8 @@ def club_edit(request):
         context = {
             'tags': tags,
             'currTags': currTags,
+            'allMembers': allMembers,
+            'userTags': userTags,
             'club': club,
             'editUsers' : False, # to be implemented
         }
@@ -278,6 +305,7 @@ def changeClub(request):
     tags = request.POST.get("tags")
     clubUsers = request.POST.get("users")
     clubLeaders = request.POST.get("leaders")
+    userRoles = request.POST.get("masterRoles")
 
     club = Club.objects.get(name = className)
 
@@ -303,6 +331,45 @@ def changeClub(request):
         clubLeaders = Users.objects.filter(email__in = clubLeaders)
         club.leaders.set(clubLeaders)
 
+        # setting user roles
+        userTags = UserTag.objects.filter(club = club)
+
+        roleDict = {}
+        # role Dict stores the various tags for that club
+        for uTags in userTags:
+            roleDict[uTags.tagName] = []
+
+
+        # seperates the string in groups of email and roles together
+        userRoles = userRoles.split("%")
+        if "" in userRoles:
+            userRoles.remove("")
+
+        # goes through the strings and seperates roles and emails
+        for user in userRoles:
+            refined = user.split(',.')
+            email = refined[0]
+            roles = refined[1].split(';')
+
+            if "" in roles:
+                roles.remove("")
+            
+            # add emails to their roles
+            for role in roles:
+                try:
+                    roleDict[role].append(email)
+                except:
+                    # do nothing as the role no longer exists
+                    # protects against deletion & edit of roles at the same time
+                    pass
+        
+        for roleAssign, emails in roleDict.items():
+            roleT = UserTag.objects.get(club = club, tagName = roleAssign)
+            roleT.userList.set(Users.objects.filter(email__in = emails))
+
+        # user roles SET
+        
+
         club.save()
         return redirect("/clubs")
     elif request.user.is_authenticated and club.leaders.filter(email = request.user.email).exists():
@@ -317,6 +384,44 @@ def changeClub(request):
         tags = tags.split(",  ")
         tags = ClubTag.objects.filter(name__in = tags)
         club.tagOrTags.set(tags)
+
+        # setting user roles
+        userTags = UserTag.objects.filter(club = club)
+
+        roleDict = {}
+        # role Dict stores the various tags for that club
+        for uTags in userTags:
+            roleDict[uTags.tagName] = []
+
+
+        # seperates the string in groups of email and roles together
+        userRoles = userRoles.split("%")
+        if "" in userRoles:
+            userRoles.remove("")
+
+        # goes through the strings and seperates roles and emails
+        for user in userRoles:
+            refined = user.split(',.')
+            email = refined[0]
+            roles = refined[1].split(';')
+
+            if "" in roles:
+                roles.remove("")
+            
+            # add emails to their roles
+            for role in roles:
+                try:
+                    roleDict[role].append(email)
+                except:
+                    # do nothing as the role no longer exists
+                    # protects against deletion & edit of roles at the same time
+                    pass
+        
+        for roleAssign, emails in roleDict.items():
+            roleT = UserTag.objects.get(club = club, tagName = roleAssign)
+            roleT.userList.set(Users.objects.filter(email__in = emails))
+        
+        # user roles SET
 
         club.save()
         return redirect("/clubs")
