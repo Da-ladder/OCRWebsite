@@ -15,6 +15,7 @@ urlpatterns = [
     path("deletePost", views.deleteClubPost),
     path("joinClub", views.joinClub),
     path("myClubs/", views.dis_my_clubs),
+    path("myClubs/mathTeam/", views.mathTeamIntHome),
     path("myClubs/nehs", views.nehsInternalHome),
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),
@@ -22,5 +23,4 @@ urlpatterns = [
     path("addComment", views.addComment),
     path("addReplyToComment", views.addReplyToComment),
     path("deleteComment", views.deleteComment),
-    path("test", views.test)
 ] 

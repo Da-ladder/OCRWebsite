@@ -9,6 +9,7 @@ from allauth.account.signals import user_signed_up
 from urllib.parse import urlencode  # Import urlencode
 from django.conf import settings
 from django.core.mail import send_mail
+import json
 import re
 
 def mobile(request):
@@ -22,36 +23,6 @@ def mobile(request):
             return False
     except:
         return True
-
-def test(request):
-    club = Club.objects.get(name = "Math Team")
-
-    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
-        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
-
-        # gets all posts for the club
-        posts = list(reversed(LiveFeed.objects.filter(club = club)))
-        empty = False
-
-        # will result in placeholder text if there is no posts
-        if len(posts) == 0:
-            empty = True
-
-        # limits posts to leaders & advisors
-        context = {
-            'posts': posts,
-            'club': club,
-            'userPic': Users.objects.get(email = request.user.email).picURL,
-            'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists(),
-            "empty": empty
-        }
-
-        if mobile(request):
-            return render(request, "mobileDisplay/ClubJoined.html", context)
-        else:
-            return render(request, "desktopDisplay/MathTeam/internalHome.html", context)
-    else:
-        return render(request, "NuhUh.html")
 
 def home(request):
     if request.user.is_authenticated:
@@ -700,6 +671,105 @@ def deleteComment(request):
     else:
         return render(request, "NuhUh.html")
 
+def mathTeamIntHome(request):
+    # note that this request may be intense in compute
+    # optimizations can be made
+    club = Club.objects.get(name = "Math Team")
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # gets all posts for the club
+        posts = list(reversed(LiveFeed.objects.filter(club = club)))
+        empty = False
+
+        # will result in placeholder text if there is no posts
+        if len(posts) == 0:
+            empty = True
+
+        # retrieve round data
+        multiData = ClubData.objects.filter(club = club)
+        # data is stored in json format so it is decoded before use
+        roundData = json.decoder.JSONDecoder().decode(multiData[len(multiData)-1].data)
+
+        # gets list of aTeam and bTeam members
+        updatedaTeam = [user.email for user in UserTag.objects.get(club = club, tagName = "A Team").userList.all()]
+        updatedbTeam = [user.email for user in UserTag.objects.get(club = club, tagName = "B Team").userList.all()]
+        curraTeam = roundData[1] # A team members are stored within a list in roundData
+        delaTeam = [] # people to delete in A team
+        currbTeam = roundData[2] # B team members are stored within a list in roundData
+        delbTeam = [] # people to delete in B team
+
+        # EDIT A TEAM ------------------------
+        # check for differences in stored team members(deletes by index)
+        index = 0
+        for people in curraTeam:
+            if people[0] in updatedaTeam:
+                updatedaTeam.remove(people[0])
+            else:
+                delaTeam.append(index)
+
+            index += 1
+
+        # delete members who are not supposed to be there
+        # reverse deletion so that skipping items does not occur (via index shifts)
+        for i in reversed(delaTeam):
+            del curraTeam[i]
+
+        # add members to A team who are missing with default rounds (0, 0, 0)
+        for people in updatedaTeam:
+            curraTeam.append([people, [0, 0, 0, 0, 0, 0]])
+        # END EDIT A TEAM ------------------------
+
+
+        # EDIT B TEAM ------------------------
+        # check for differences in stored team members(deletes by index)
+        index = 0
+        for people in currbTeam:
+            if people[0] in updatedbTeam:
+                updatedbTeam.remove(people[0])
+            else:
+                delbTeam.append(index)
+
+            index += 1
+
+        # delete members who are not supposed to be there
+        # reverse deletion so that skipping items does not occur (via index shifts)
+        for i in reversed(delbTeam):
+            del currbTeam[i]
+
+        # add members to B team who are missing with default rounds (0, 0, 0)
+        for people in updatedbTeam:
+            currbTeam.append([people, [0, 0, 0, 0, 0, 0]])
+        # END EDIT B TEAM ------------------------
+
+        # save edits to the database
+        roundData[1] = curraTeam
+        roundData[2] = currbTeam
+
+        multiData[len(multiData)-1].data = json.dumps(roundData)
+        multiData[len(multiData)-1].save()
+
+
+        # limits posts to leaders & advisors
+        context = {
+            'posts': posts,
+            'club': club,
+            'userPic': Users.objects.get(email = request.user.email).picURL,
+            'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists(),
+            'ateam': curraTeam,
+            'bteam': currbTeam,
+            # roundData has 4 levels: 1(Users can edit), 2(Only leaders can edit), 3(Users can input scores), 4(Only leaders can input scores)
+            'roundEditAbility': roundData[0],
+            "empty": empty,
+        }
+
+        if mobile(request):
+            return render(request, "mobileDisplay/ClubJoined.html", context)
+        else:
+            return render(request, "desktopDisplay/MathTeam/internalHome.html", context)
+    else:
+        return render(request, "NuhUh.html")
 
 # custom club homepages are created below
 # change from localhost to dhsclubs.org when pushing updates

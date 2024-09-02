@@ -92,7 +92,7 @@
                     </div>
 
                     <div id="potentialRolesSearch" class="userSearch">
-                        <textarea id="potentialLeadSersSearchInput" class="search" rows="1" placeholder="Search by Email"></textarea>
+                        <textarea id="userRoleSearch" class="search" rows="1" placeholder="Search by Email"></textarea>
                     </div>
 
                     <div id="potentialRolesList" class="userList">
@@ -269,6 +269,9 @@
             } else if (event.target.id.toLowerCase() === 'leaderssearchinput') {
                 searchList('LeadersList', 'LeadersSearchInput')
                 autoExpand(event.target);
+            } else if (event.target.id.toLowerCase() === "userrolesearch") {
+                searchList('potentialRolesList', 'userRoleSearch')
+                autoExpand(event.target); 
             } else if (event.target.tagName.toLowerCase() === 'textarea') {
                 autoExpand(event.target);
             } else {}
