@@ -19,6 +19,12 @@
         </form>
     </div>
 
+    <form action="/myClubs/mathTeam/changeRounds" method="post" id="changeEmRounds">
+        {% csrf_token %}
+        <input type="hidden" id = "ateamRounds" name="aTeam" value="">
+        <input type="hidden" id = "bteamRounds" name="bTeam" value="">
+    </form>
+
     <!--Cards can be added as needed. One is commented out as reference-->
     <div class="main-content">
         <div class="container">
@@ -26,7 +32,7 @@
                 <h2>Team Rounds</h2>
 
                 <h3>A Team</h3>
-                <div class="userRound">
+                <div class="userRoundInfo">
                     <div class="identifer"></div>
                     <div class="roundPicker">
                         <div class="roundID">R1<div class="roundInfo">Lines and Angles</div></div>
@@ -38,15 +44,11 @@
                     </div>
                 </div>
 
-                <!--'ateam': curraTeam,
-            'bteam': currbTeam,
-            'roundEditAbility': roundData[0],-->
-
                 <div class="team-selector">
                     {% if postAbility %}
                         {% for email, rounds in ateam %}
                         <div>
-                            <div class="userRound">
+                            <div class="userRoundA" id="{{email}}">
                                 <div class="identifer">{{email}}</div>
                                 <div class="roundPicker">
                                     {% for check in rounds %}
@@ -63,7 +65,7 @@
                     {% else %}
                         {% for email, rounds in ateam %}
                         <div>
-                            <div class="userRound">
+                            <div class="userRoundA" id="{{email}}">
                                 <div class="identifer">{{email}}</div>
                                 <div class="roundPicker">
                                     {% if user.email == email and roundEditAbility == 1 %}
@@ -91,7 +93,7 @@
                 </div>
                 
                 <h3>B Team</h3>
-                <div class="userRound">
+                <div class="userRoundInfo">
                     <div class="identifer"></div>
                     <div class="roundPicker">
                         <div class="roundID">R1<div class="roundInfo">Lines and Angles</div></div>
@@ -106,7 +108,7 @@
                     {% if postAbility %}
                         {% for email, rounds in bteam %}
                         <div>
-                            <div class="userRound">
+                            <div class="userRound" id="{{email}}">
                                 <div class="identifer">{{email}}</div>
                                 <div class="roundPicker">
                                     {% for check in rounds %}
@@ -123,7 +125,7 @@
                     {% else %}
                         {% for email, rounds in bteam %}
                         <div>
-                            <div class="userRound">
+                            <div class="userRound" id="{{email}}">
                                 <div class="identifer">{{email}}</div>
                                 <div class="roundPicker">
                                     {% if user.email == email and roundEditAbility == 1 %}
@@ -149,6 +151,21 @@
                         {% endfor %}
                     {% endif %}
                 </div>
+                {% if postAbility %}
+                    <div style="display: flex; margin-top: 20px;">
+                        <div>Disable Edits?</div>
+                        <input type="checkbox" class="togEdit"></input>
+                    </div>
+                {% endif %}
+                {% if postAbility %}
+                    <div style="display: flex;">
+                        <div class="sendRnd-button" onclick="submitRounds()">Submit Rounds</div>
+                    </div>
+                {% elif roundEditAbility == 1 %}
+                    <div style="display: flex;">
+                        <div class="sendRnd-button" onclick="submitRounds()">Submit Rounds</div>
+                    </div>
+                {% endif %}
             </div>
             <div class="card">
                 <h2>Live Feed</h2>
@@ -351,6 +368,41 @@
                 // Submit the form
                 document.getElementById('postCreateForm').submit();
             }
+        }
+
+        //A Team
+
+        function submitRounds() {
+            ateam = ""
+            document.querySelectorAll(".userRoundA").forEach(user => {
+                ateam += user.id + ",.";
+                user.querySelectorAll(".round").forEach(rnd =>{
+                    if (rnd.checked) {
+                        ateam += "1;";
+                    } else {
+                        ateam += "0;";
+                    }
+                })
+                ateam += "%";
+            })
+
+            bteam = ""
+            document.querySelectorAll(".userRound").forEach(user => {
+                bteam += user.id + ",.";
+                user.querySelectorAll(".round").forEach(rnd =>{
+                    if (rnd.checked) {
+                        bteam += "1;";
+                    } else {
+                        bteam += "0;";
+                    }
+                })
+                bteam += "%";
+            })
+
+            document.getElementById('ateamRounds').value = ateam;
+            document.getElementById('bteamRounds').value = bteam;
+        
+            document.getElementById('changeEmRounds').submit();
         }
     </script>
 </body>

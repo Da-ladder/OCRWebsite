@@ -771,6 +771,126 @@ def mathTeamIntHome(request):
     else:
         return render(request, "NuhUh.html")
 
+
+def mathTeamChangeRound(request):
+    aTeam = request.POST.get('aTeam')
+    bTeam = request.POST.get('bTeam')
+    club = Club.objects.get(name = "Math Team")
+
+    # server side code so it is ok if it is outside of auth measures
+    # retrieve round data
+    multiData = ClubData.objects.filter(club = club)
+    # data is stored in json format so it is decoded before use
+    roundData = json.decoder.JSONDecoder().decode(multiData[len(multiData)-1].data)
+
+    if request.user.is_authenticated and (club.advisors.filter(email = request.user.email).exists() or 
+        club.leaders.filter(email = request.user.email).exists()):
+        aTeam = aTeam.split("%")
+        del aTeam[-1] # removes the last empty space
+        bTeam = bTeam.split("%") 
+        del bTeam[-1]
+
+        for person in aTeam:
+            rawData = person.split(',.')
+            email = rawData[0]
+            rounds = rawData[1].split(";")
+            del rounds[-1]
+
+            # changing all strings to numbers
+            for i in range(len(rounds)):
+                rounds[i] = int(rounds[i])
+
+            # goes through data and changes rounds if user exists
+            # omg the inefficiency
+            # bc only a couple of items, it's ok
+            for user in roundData[1]:
+                if user[0] == email:
+                    user[1] = rounds
+
+        for person in bTeam:
+            rawData = person.split(',.')
+            email = rawData[0]
+            rounds = rawData[1].split(";")
+            del rounds[-1]
+            
+            # changing all strings to numbers
+            for i in range(len(rounds)):
+                rounds[i] = int(rounds[i])
+
+            # goes through data and changes rounds if user exists
+            for user in roundData[2]:
+                if user[0] == email:
+                    user[1] = rounds
+        
+        # saves data
+        multiData[len(multiData)-1].data = json.dumps(roundData)
+        multiData[len(multiData)-1].save()    
+
+    elif request.user.is_authenticated and club.users.filter(email = request.user.email).exists():
+        if (request.user.email in aTeam):
+            aTeam = aTeam.split("%")
+            del aTeam[-1]
+
+            # iterates through every submitted aTeam member
+            for person in aTeam:
+                rawData = person.split(',.')
+                email = rawData[0]
+                rounds = rawData[1].split(";")
+                del rounds[-1]
+
+                # changing all strings to numbers
+                for i in range(len(rounds)):
+                    rounds[i] = int(rounds[i])
+
+                # skip if their email is not the same as they are a user
+                if (email != request.user.email):
+                    continue
+                else:
+                    # goes through data and changes rounds if it exists
+                    for user in roundData[1]:
+                        if user[0] == email:
+                            user[1] = rounds
+
+            # saves data
+            multiData[len(multiData)-1].data = json.dumps(roundData)
+            multiData[len(multiData)-1].save()     
+
+        elif (request.user.email in bTeam):
+            
+            bTeam = bTeam.split("%")
+            del bTeam[-1]
+
+            # iterates through every submitted aTeam member
+            for person in bTeam:
+                rawData = person.split(',.')
+                email = rawData[0]
+                rounds = rawData[1].split(";")
+                del rounds[-1]
+
+                # changing all strings to numbers
+                for i in range(len(rounds)):
+                    rounds[i] = int(rounds[i])
+
+                # skip if their email is not the same as they are a user
+                if (email != request.user.email):
+                    continue
+                else:
+                    # goes through data and changes rounds if it exists
+                    for user in roundData[2]:
+                        if user[0] == email:
+                            user[1] = rounds
+                    
+            
+            # saves data
+            print(roundData)
+            multiData[len(multiData)-1].data = json.dumps(roundData)
+            multiData[len(multiData)-1].save() 
+    else:
+        return render(request, "NuhUh.html")
+
+    return redirect("/myClubs/mathTeam")
+
+
 # custom club homepages are created below
 # change from localhost to dhsclubs.org when pushing updates
 def nehsInternalHome(request):
