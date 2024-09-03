@@ -775,6 +775,7 @@ def mathTeamIntHome(request):
 def mathTeamChangeRound(request):
     aTeam = request.POST.get('aTeam')
     bTeam = request.POST.get('bTeam')
+    roundToggler = request.POST.get('toggle')
     club = Club.objects.get(name = "Math Team")
 
     # server side code so it is ok if it is outside of auth measures
@@ -812,7 +813,7 @@ def mathTeamChangeRound(request):
             email = rawData[0]
             rounds = rawData[1].split(";")
             del rounds[-1]
-            
+
             # changing all strings to numbers
             for i in range(len(rounds)):
                 rounds[i] = int(rounds[i])
@@ -822,11 +823,18 @@ def mathTeamChangeRound(request):
                 if user[0] == email:
                     user[1] = rounds
         
+        # changes edit state
+        roundData[0] = int(roundToggler)
+
         # saves data
         multiData[len(multiData)-1].data = json.dumps(roundData)
         multiData[len(multiData)-1].save()    
 
     elif request.user.is_authenticated and club.users.filter(email = request.user.email).exists():
+        # can't edit so they are kicked back
+        if roundData[0] == 2:
+            return redirect("/myClubs/mathTeam")
+
         if (request.user.email in aTeam):
             aTeam = aTeam.split("%")
             del aTeam[-1]

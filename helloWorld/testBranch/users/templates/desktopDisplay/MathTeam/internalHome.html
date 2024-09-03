@@ -23,6 +23,7 @@
         {% csrf_token %}
         <input type="hidden" id = "ateamRounds" name="aTeam" value="">
         <input type="hidden" id = "bteamRounds" name="bTeam" value="">
+        <input type="hidden" id = "roundEditToggle" name="toggle" value="">
     </form>
 
     <!--Cards can be added as needed. One is commented out as reference-->
@@ -154,7 +155,11 @@
                 {% if postAbility %}
                     <div style="display: flex; margin-top: 20px;">
                         <div>Disable Edits?</div>
-                        <input type="checkbox" class="togEdit"></input>
+                        {% if roundEditAbility == 1 %}
+                            <input id="roundToggle" type="checkbox" class="togEdit"></input>
+                        {% else %}
+                            <input id="roundToggle" type="checkbox" class="togEdit" checked="True"></input>
+                        {% endif %}
                     </div>
                 {% endif %}
                 {% if postAbility %}
@@ -166,6 +171,7 @@
                         <div class="sendRnd-button" onclick="submitRounds()">Submit Rounds</div>
                     </div>
                 {% endif %}
+                <div id="userRoundError" style="color: red; display: none;"> Only 3 rounds per user! </div>
             </div>
             <div class="card">
                 <h2>Live Feed</h2>
@@ -373,36 +379,64 @@
         //A Team
 
         function submitRounds() {
+            error = false
+
+            document.querySelector('.sendRnd-button').style = "background-color: gray;"
             ateam = ""
             document.querySelectorAll(".userRoundA").forEach(user => {
                 ateam += user.id + ",.";
+                rndSelections = 0;
                 user.querySelectorAll(".round").forEach(rnd =>{
                     if (rnd.checked) {
                         ateam += "1;";
+                        rndSelections += 1;
                     } else {
                         ateam += "0;";
                     }
                 })
+                if (rndSelections > 3) {
+                    error = true
+                }
+
                 ateam += "%";
             })
 
             bteam = ""
             document.querySelectorAll(".userRound").forEach(user => {
                 bteam += user.id + ",.";
+                rndSelections = 0;
                 user.querySelectorAll(".round").forEach(rnd =>{
                     if (rnd.checked) {
                         bteam += "1;";
+                        rndSelections += 1;
                     } else {
                         bteam += "0;";
                     }
                 })
+                if (rndSelections > 3) {
+                    error = true
+                }
                 bteam += "%";
             })
 
             document.getElementById('ateamRounds').value = ateam;
             document.getElementById('bteamRounds').value = bteam;
-        
-            document.getElementById('changeEmRounds').submit();
+
+            if (!!document.getElementById('roundToggle')) {
+                if (document.getElementById('roundToggle').checked) {
+                    document.getElementById('roundEditToggle').value = "2";
+                } else {
+                    document.getElementById('roundEditToggle').value = "1";
+                }
+            }
+            
+            if (error) {
+                document.getElementById('userRoundError').style.display = '';
+                document.querySelector('.sendRnd-button').style = "background-color: orange;"
+            } else {
+                document.getElementById('changeEmRounds').submit();
+            }
+            
         }
     </script>
 </body>
