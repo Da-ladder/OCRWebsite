@@ -1,0 +1,79 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>{{club.name}}</title>
+    <link rel="stylesheet" href="/static/desktop/MathTeam/internalHome.css">
+</head>
+<body>
+    <div class="main-content">
+        <div class="container">
+            <div class="card">
+                <h2>Archived Competition: {{compName}}</h2>
+
+                <h3>A Team</h3>
+                <div class="userRoundInfo">
+                    <div class="identifer"></div>
+                    <div class="roundPicker">
+                        <div class="roundID">R1<div class="roundInfo">{{ rndNames.0 }}</div></div>
+                        <div class="roundID">R2<div class="roundInfo">{{ rndNames.1 }}</div></div>
+                        <div class="roundID">R3<div class="roundInfo">{{ rndNames.2 }}</div></div>
+                        <div class="roundID">R4<div class="roundInfo">{{ rndNames.3 }}</div></div>
+                        <div class="roundID">R5<div class="roundInfo">{{ rndNames.4 }}</div></div>
+                        <div class="roundID">R6<div class="roundInfo">{{ rndNames.5 }}</div></div>
+                    </div>
+                </div>
+
+                <div class="team-selector">
+                    {% for email, rounds, name in ateam %}
+                        <div class="userRoundA" id="{{email}}">
+                            <div class="identifer">{{name}}</div>
+                            {% for check in rounds %}
+                                {% if check >= 0 %}
+                                    <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                    oninput="this.value = this.value.slice(0, 1)" value="{{check}}" disabled="true"></input>
+                                {% else %}
+                                    <input type="checkbox" class="round" disabled="true"></input>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+
+                <h3>B Team</h3>
+                <div class="userRoundInfo">
+                    <div class="identifer"></div>
+                    <div class="roundPicker">
+                        <div class="roundID">R1<div class="roundInfo">{{ rndNames.0 }}</div></div>
+                        <div class="roundID">R2<div class="roundInfo">{{ rndNames.1 }}</div></div>
+                        <div class="roundID">R3<div class="roundInfo">{{ rndNames.2 }}</div></div>
+                        <div class="roundID">R4<div class="roundInfo">{{ rndNames.3 }}</div></div>
+                        <div class="roundID">R5<div class="roundInfo">{{ rndNames.4 }}</div></div>
+                        <div class="roundID">R6<div class="roundInfo">{{ rndNames.5 }}</div></div>
+                    </div>
+                </div>
+
+                <div class="team-selector"></div>
+                    {% for email, rounds, name in bteam %}
+                        <div class="userRoundA" id="{{email}}">
+                            <div class="identifer">{{name}}</div>
+                            {% for check in rounds %}
+                                {% if check >= 0 %}
+                                    <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                    oninput="this.value = this.value.slice(0, 1)" value="{{check}}" disabled="true"></input>
+                                {% else %}
+                                    <input type="checkbox" class="round" disabled="true"></input>
+                                {% endif %}
+                            {% endfor %}
+                        </div>
+                    {% endfor %}
+                </div>
+
+            </div>
+        </div>
+    </div>
+
+</body>
+</html>

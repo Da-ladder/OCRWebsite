@@ -25,6 +25,7 @@
             <input type="hidden" id = "selectedTags" name="tags" value="">
             <input type="hidden" id = "selectedUsers" name="users" value="">
             <input type="hidden" id = "selectedLeaders" name="leaders" value="">
+            <input type="hidden" id = "masterUserRoles" name="masterRoles" value="">
 
             <button type="submit" class="join-button" onclick="submitForm()">Submit Changes</button>
         </form>
@@ -80,9 +81,52 @@
                             {% endfor %}
                         </div>
                     </div>
-
                 </div>
             {% endif %}
+
+            <div class="card" id="leaderEditor">
+                <h2>Add or Remove Roles</h2>
+                <div id="potentialLeaders" class="userManagement">
+                    <div class="userManagementTitle">
+                        Add Roles to Users (must be a member of the club)
+                    </div>
+
+                    <div id="potentialRolesSearch" class="userSearch">
+                        <textarea id="userRoleSearch" class="search" rows="1" placeholder="Search by Email"></textarea>
+                    </div>
+
+                    <div id="potentialRolesList" class="userList">
+
+                        {% for email, attRole, alvRole in userRoles%}
+                        <div class="userRole" onmouseover="" onmouseout="" id = '{{email}}'>
+                            {{email}}⠀<!-- Blank Unicode to line up the marks -->
+                            <div class="userRoles">
+                                {% for role in attRole %}
+                                    <div class="role" id="{{email}}{{role}}">{{role}}</div>
+                                {% endfor %}
+                                {% for role in alvRole %}
+                                    <div class="role" id="{{email}}{{role}}" style="display: none;">{{role}}</div>
+                                {% endfor %}
+
+                                <div class="options" onclick="openDropdown('{{email}}Options')" onmouseleave="closeDropdown('{{email}}Options')">
+                                    <div class="ButtonOptions">
+                                        ⋮
+                                    </div>
+                                    <div class="dropDownOptions" id="{{email}}Options">
+                                        {% for role in attRole %}
+                                            <div class="dropDownSelections" onclick="changeRole('{{email}}{{role}}', '{{email}}drop{{role}}')" id="{{email}}drop{{role}}" style="color:lightblue">{{role}}</div>
+                                        {% endfor %}
+                                        {% for role in alvRole %}
+                                            <div class="dropDownSelections" onclick="changeRole('{{email}}{{role}}', '{{email}}drop{{role}}')" id="{{email}}drop{{role}}">{{role}}</div>
+                                        {% endfor %}
+                                    </div>
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    </div>
+                </div>
+            </div>
         </div>
         
         <div class="sidebar">
@@ -122,6 +166,30 @@
         </div>
     </div>
     <script>
+
+        // function to "change roles" (make roles appear/disappear)
+        function changeRole(roleID, dropID) {
+            role = document.getElementById(roleID);
+            dropdownChoice = document.getElementById(dropID);
+            if (role.style.display == "none") {
+                role.style.display = "";
+                dropdownChoice.style.color = "lightblue";
+            } else {
+                role.style.display = "none";
+                dropdownChoice.style.color = "";
+            }
+        }
+
+
+        // functions to open and close dropdowns
+        function openDropdown(userID) {
+            document.getElementById(userID).style.display = "flex";
+        }
+
+        function closeDropdown(userID) {
+            document.getElementById(userID).style.display = "none";
+        }
+
         function searchList(list, inputID) {
             var input = document.getElementById(inputID).value.toLowerCase();
             var emails = document.getElementById(list).childNodes;
@@ -182,6 +250,8 @@
             document.getElementById('potentialLeadersList').appendChild(demotion);
         }
 
+        //class="userRole"
+
         // Function to auto expand textarea
         function autoExpand(field) {
             // Reset the height of the field to auto to calculate the new scroll height
@@ -199,6 +269,9 @@
             } else if (event.target.id.toLowerCase() === 'leaderssearchinput') {
                 searchList('LeadersList', 'LeadersSearchInput')
                 autoExpand(event.target);
+            } else if (event.target.id.toLowerCase() === "userrolesearch") {
+                searchList('potentialRolesList', 'userRoleSearch')
+                autoExpand(event.target); 
             } else if (event.target.tagName.toLowerCase() === 'textarea') {
                 autoExpand(event.target);
             } else {}
@@ -212,7 +285,8 @@
             const contactSect = document.getElementById('contacts').value;
             const advisorSect = document.getElementById('advisors').value;
             const newPicURL = document.getElementById('picURL').value;
-
+            
+            
             // obtain all cats that they picked
             var allTags = "";
             
@@ -243,6 +317,21 @@
                 } else {}
             });
 
+            // obtain all user roles
+            userRole = "";
+
+            // Parsing by seperating user with role via % and roles with ,. & ;
+            // only including roles that they are assigned
+            document.querySelectorAll('.userRole').forEach(user => {
+                userRole += user.id + ",.";
+                user.querySelector('.userRoles').querySelectorAll(".role").forEach(role => {
+                    if (role.style.display == '') {
+                        userRole += role.innerHTML+';';
+                    }
+                })
+                userRole += "%";
+            })
+
 
             // Set the value to the hidden input field in the form
             document.getElementById('clubAbout').value = aboutSect;
@@ -254,6 +343,7 @@
             document.getElementById('selectedTags').value = allTags;
             document.getElementById('selectedUsers').value = users;
             document.getElementById('selectedLeaders').value = leaders;
+            document.getElementById('masterUserRoles').value = userRole;
             
             // Submit the form
             document.getElementById('myForm').submit();

@@ -9,6 +9,7 @@ from allauth.account.signals import user_signed_up
 from urllib.parse import urlencode  # Import urlencode
 from django.conf import settings
 from django.core.mail import send_mail
+import json
 import re
 
 def mobile(request):
@@ -211,16 +212,41 @@ def club_edit(request):
     # get all tags from the database
     tags = ClubTag.objects.all()
 
-    # gets current leaders and users
+    # gets current leaders, users, and advisor(s)
     users = club.users.all()
 
     leaders = club.leaders.all()
+
+    advisors = club.advisors.all()
+
+    # union operator does not work here. Do not know why it breaks it
+    allMembers = list(advisors) + list(leaders) + list(users)
+
+    # gets all user roles attached to that club
+    userTags = UserTag.objects.filter(club = club)
+
+
+    # preprocesses tag data so that the template can load proper tags for each person
+    # this list will be structured in this way: [[email, [attached roles], [roles available]], repeat]
+    masterRoleList = []
+
+    for user in allMembers:
+        masterRoleList.append([user.email, [tag.tagName for tag in UserTag.objects.filter(club = club, userList = user)],
+        [tag.tagName for tag in UserTag.objects.filter(club = club).exclude(userList = user)]])
+    
+    
+
+    # changes userTags to a list of tagNames for template processing
+    userTags = [tag.tagName for tag in userTags]
 
     if request.user.is_authenticated and club.advisors.filter(email = request.user.email).exists():
         context = {
             'tags': tags,
             'users': users,
             'leaders': leaders,
+            'allMembers': allMembers,
+            'userTags': userTags,
+            'userRoles': masterRoleList,
             'currTags': currTags,
             'club': club,
             'editUsers' : True,
@@ -230,6 +256,8 @@ def club_edit(request):
         context = {
             'tags': tags,
             'currTags': currTags,
+            'allMembers': allMembers,
+            'userTags': userTags,
             'club': club,
             'editUsers' : False, # to be implemented
         }
@@ -248,6 +276,7 @@ def changeClub(request):
     tags = request.POST.get("tags")
     clubUsers = request.POST.get("users")
     clubLeaders = request.POST.get("leaders")
+    userRoles = request.POST.get("masterRoles")
 
     club = Club.objects.get(name = className)
 
@@ -273,6 +302,45 @@ def changeClub(request):
         clubLeaders = Users.objects.filter(email__in = clubLeaders)
         club.leaders.set(clubLeaders)
 
+        # setting user roles
+        userTags = UserTag.objects.filter(club = club)
+
+        roleDict = {}
+        # role Dict stores the various tags for that club
+        for uTags in userTags:
+            roleDict[uTags.tagName] = []
+
+
+        # seperates the string in groups of email and roles together
+        userRoles = userRoles.split("%")
+        if "" in userRoles:
+            userRoles.remove("")
+
+        # goes through the strings and seperates roles and emails
+        for user in userRoles:
+            refined = user.split(',.')
+            email = refined[0]
+            roles = refined[1].split(';')
+
+            if "" in roles:
+                roles.remove("")
+            
+            # add emails to their roles
+            for role in roles:
+                try:
+                    roleDict[role].append(email)
+                except:
+                    # do nothing as the role no longer exists
+                    # protects against deletion & edit of roles at the same time
+                    pass
+        
+        for roleAssign, emails in roleDict.items():
+            roleT = UserTag.objects.get(club = club, tagName = roleAssign)
+            roleT.userList.set(Users.objects.filter(email__in = emails))
+
+        # user roles SET
+        
+
         club.save()
         return redirect("/clubs")
     elif request.user.is_authenticated and club.leaders.filter(email = request.user.email).exists():
@@ -287,6 +355,44 @@ def changeClub(request):
         tags = tags.split(",  ")
         tags = ClubTag.objects.filter(name__in = tags)
         club.tagOrTags.set(tags)
+
+        # setting user roles
+        userTags = UserTag.objects.filter(club = club)
+
+        roleDict = {}
+        # role Dict stores the various tags for that club
+        for uTags in userTags:
+            roleDict[uTags.tagName] = []
+
+
+        # seperates the string in groups of email and roles together
+        userRoles = userRoles.split("%")
+        if "" in userRoles:
+            userRoles.remove("")
+
+        # goes through the strings and seperates roles and emails
+        for user in userRoles:
+            refined = user.split(',.')
+            email = refined[0]
+            roles = refined[1].split(';')
+
+            if "" in roles:
+                roles.remove("")
+            
+            # add emails to their roles
+            for role in roles:
+                try:
+                    roleDict[role].append(email)
+                except:
+                    # do nothing as the role no longer exists
+                    # protects against deletion & edit of roles at the same time
+                    pass
+        
+        for roleAssign, emails in roleDict.items():
+            roleT = UserTag.objects.get(club = club, tagName = roleAssign)
+            roleT.userList.set(Users.objects.filter(email__in = emails))
+        
+        # user roles SET
 
         club.save()
         return redirect("/clubs")
@@ -564,6 +670,299 @@ def deleteComment(request):
         return HttpResponseRedirect(url)
     else:
         return render(request, "NuhUh.html")
+
+def mathTeamIntHome(request):
+    # note that this request may be intense in compute
+    # optimizations can be made
+    club = Club.objects.get(name = "Math Team")
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # gets all posts for the club
+        posts = list(reversed(LiveFeed.objects.filter(club = club)))
+        empty = False
+
+        # will result in placeholder text if there is no posts
+        if len(posts) == 0:
+            empty = True
+
+        # retrieve round data
+        multiData = ClubData.objects.filter(club = club)
+        # data is stored in json format so it is decoded before use
+        roundData = json.decoder.JSONDecoder().decode(multiData[len(multiData)-1].data)
+
+        # gets list of aTeam and bTeam members
+        updatedaTeam = [user.email for user in UserTag.objects.get(club = club, tagName = "A Team").userList.all()]
+        updatedbTeam = [user.email for user in UserTag.objects.get(club = club, tagName = "B Team").userList.all()]
+        curraTeam = roundData[1] # A team members are stored within a list in roundData
+        delaTeam = [] # people to delete in A team
+        currbTeam = roundData[2] # B team members are stored within a list in roundData
+        delbTeam = [] # people to delete in B team
+
+        # EDIT A TEAM ------------------------
+        # check for differences in stored team members(deletes by index)
+        index = 0
+        for people in curraTeam:
+            if people[0] in updatedaTeam:
+                updatedaTeam.remove(people[0])
+            else:
+                delaTeam.append(index)
+
+            index += 1
+
+        # delete members who are not supposed to be there
+        # reverse deletion so that skipping items does not occur (via index shifts)
+        for i in reversed(delaTeam):
+            del curraTeam[i]
+
+        # add members to A team who are missing with default rounds (0, 0, 0)
+        for people in updatedaTeam:
+            curraTeam.append([people, [-1, -1, -1, -1, -1, -1], Users.objects.get(email=people).name])
+        # END EDIT A TEAM ------------------------
+
+
+        # EDIT B TEAM ------------------------
+        # check for differences in stored team members(deletes by index)
+        index = 0
+        for people in currbTeam:
+            if people[0] in updatedbTeam:
+                updatedbTeam.remove(people[0])
+            else:
+                delbTeam.append(index)
+
+            index += 1
+
+        # delete members who are not supposed to be there
+        # reverse deletion so that skipping items does not occur (via index shifts)
+        for i in reversed(delbTeam):
+            del currbTeam[i]
+
+        # add members to B team who are missing with default rounds (0, 0, 0)
+        for people in updatedbTeam:
+            currbTeam.append([people, [-1, -1, -1, -1, -1, -1], Users.objects.get(email=people).name])
+        # END EDIT B TEAM ------------------------
+
+        # save edits to the database
+        roundData[1] = curraTeam
+        roundData[2] = currbTeam
+
+        multiData[len(multiData)-1].data = json.dumps(roundData)
+        multiData[len(multiData)-1].save()
+
+
+        # limits posts to leaders & advisors
+        context = {
+            'posts': posts,
+            'club': club,
+            'userPic': Users.objects.get(email = request.user.email).picURL,
+            'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists(),
+            'ateam': curraTeam,
+            'bteam': currbTeam,
+            'prevComps': multiData,
+            'rndNames': roundData[3],
+            'compName': multiData[len(multiData)-1].name,
+            # roundData has 4 levels: 1(Users can edit), 2(Only leaders can edit), 3(Users can input scores), 4(Only leaders can input scores)
+            'roundEditAbility': roundData[0],
+            "empty": empty,
+        }
+
+        if mobile(request):
+            return render(request, "mobileDisplay/ClubJoined.html", context)
+        else:
+            return render(request, "desktopDisplay/MathTeam/internalHome.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
+
+def mathTeamNewRound(request):
+
+    club = Club.objects.get(name = "Math Team")
+
+    # get all required data
+    name = request.POST.get('name')
+    r1 = request.POST.get('r1')
+    r2 = request.POST.get('r2')
+    r3 = request.POST.get('r3')
+    r4 = request.POST.get('r4')
+    r5 = request.POST.get('r5')
+    r6 = request.POST.get('r6')
+
+    # auth
+    if request.user.is_authenticated and (club.advisors.filter(email = request.user.email).exists() 
+    or club.leaders.filter(email = request.user.email).exists()):
+
+        # prefill data with dummy people (will be written over)
+        placeholdData = [1, [["example@gmail.com", [-1, -1, 0, 0, 0, -1], "expName"], ["example1@gmail.com", [-1, 0, 0, 0, -1, -1], "expName1"]], [["example2@danbury.k12.ct.us", [-1, -1, 0, 0, 0, -1], "expName2"]],
+                        [r1, r2, r3, r4, r5, r6]]
+
+        # make new data entry
+        ClubData.objects.create(
+            club = club,
+            name = name,
+            data = json.dumps(placeholdData)
+        )
+
+        return redirect("/myClubs/mathTeam")
+    else:
+        return render(request, "NuhUh.html")
+
+
+def mathTeamChangeRound(request):
+    aTeam = request.POST.get('aTeam')
+    bTeam = request.POST.get('bTeam')
+    roundToggler = request.POST.get('toggle')
+    club = Club.objects.get(name = "Math Team")
+
+    # server side code so it is ok if it is outside of auth measures
+    # retrieve round data
+    multiData = ClubData.objects.filter(club = club)
+    # data is stored in json format so it is decoded before use
+    roundData = json.decoder.JSONDecoder().decode(multiData[len(multiData)-1].data)
+
+    if request.user.is_authenticated and (club.advisors.filter(email = request.user.email).exists() or 
+        club.leaders.filter(email = request.user.email).exists()):
+        aTeam = aTeam.split("%")
+        del aTeam[-1] # removes the last empty space
+        bTeam = bTeam.split("%") 
+        del bTeam[-1]
+
+        for person in aTeam:
+            rawData = person.split(',.')
+            email = rawData[0]
+            rounds = rawData[1].split(";")
+            del rounds[-1]
+
+            # changing all strings to numbers
+            for i in range(len(rounds)):
+                rounds[i] = int(rounds[i])
+
+            # goes through data and changes rounds if user exists
+            # omg the inefficiency
+            # bc only a couple of items, it's ok
+            for user in roundData[1]:
+                if user[0] == email:
+                    user[1] = rounds
+
+        for person in bTeam:
+            rawData = person.split(',.')
+            email = rawData[0]
+            rounds = rawData[1].split(";")
+            del rounds[-1]
+
+            # changing all strings to numbers
+            for i in range(len(rounds)):
+                rounds[i] = int(rounds[i])
+
+            # goes through data and changes rounds if user exists
+            for user in roundData[2]:
+                if user[0] == email:
+                    user[1] = rounds
+        
+        # changes edit state
+        roundData[0] = int(roundToggler)
+
+        # saves data
+        multiData[len(multiData)-1].data = json.dumps(roundData)
+        multiData[len(multiData)-1].save()    
+
+    elif request.user.is_authenticated and club.users.filter(email = request.user.email).exists():
+        # can't edit so they are kicked back
+        if roundData[0] == 2:
+            return redirect("/myClubs/mathTeam")
+
+        if (request.user.email in aTeam):
+            aTeam = aTeam.split("%")
+            del aTeam[-1]
+
+            # iterates through every submitted aTeam member
+            for person in aTeam:
+                rawData = person.split(',.')
+                email = rawData[0]
+                rounds = rawData[1].split(";")
+                del rounds[-1]
+
+                # changing all strings to numbers
+                for i in range(len(rounds)):
+                    rounds[i] = int(rounds[i])
+
+                # skip if their email is not the same as they are a user
+                if (email != request.user.email):
+                    continue
+                else:
+                    # goes through data and changes rounds if it exists
+                    for user in roundData[1]:
+                        if user[0] == email:
+                            user[1] = rounds
+
+            # saves data
+            multiData[len(multiData)-1].data = json.dumps(roundData)
+            multiData[len(multiData)-1].save()     
+
+        elif (request.user.email in bTeam):
+            
+            bTeam = bTeam.split("%")
+            del bTeam[-1]
+
+            # iterates through every submitted aTeam member
+            for person in bTeam:
+                rawData = person.split(',.')
+                email = rawData[0]
+                rounds = rawData[1].split(";")
+                del rounds[-1]
+
+                # changing all strings to numbers
+                for i in range(len(rounds)):
+                    rounds[i] = int(rounds[i])
+
+                # skip if their email is not the same as they are a user
+                if (email != request.user.email):
+                    continue
+                else:
+                    # goes through data and changes rounds if it exists
+                    for user in roundData[2]:
+                        if user[0] == email:
+                            user[1] = rounds
+                    
+            
+            # saves data
+            print(roundData)
+            multiData[len(multiData)-1].data = json.dumps(roundData)
+            multiData[len(multiData)-1].save() 
+    else:
+        return render(request, "NuhUh.html")
+
+    return redirect("/myClubs/mathTeam")
+
+def mathTeamViewComp(request):
+    club = Club.objects.get(name = "Math Team")
+
+    # server side code so it is ok if it is outside of auth measures
+    # retrieve round data
+    comp = ClubData.objects.get(club = club, name = request.GET.get('name'))
+    # data is stored in json format so it is decoded before use
+    roundData = json.decoder.JSONDecoder().decode(comp.data)
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # only gives read only access to previous comps
+        context = {
+            'club': club,
+            'ateam': roundData[1],
+            'bteam': roundData[2],
+            'rndNames': roundData[3],
+            'compName': comp.name,
+        }
+
+        if mobile(request):
+            # mobile screen has not been configured yet
+            return render(request, "mobileDisplay/ClubJoined.html", context)
+        else:
+            return render(request, "desktopDisplay/MathTeam/prevComp.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
 
 
 # custom club homepages are created below
