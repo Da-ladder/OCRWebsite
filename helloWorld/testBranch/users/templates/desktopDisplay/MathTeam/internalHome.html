@@ -26,60 +26,103 @@
         <input type="hidden" id = "roundEditToggle" name="toggle" value="">
     </form>
 
+    {% if postAbility %}
+    <form action="/myClubs/mathTeam/newRound" method="post" id="newComp">
+        {% csrf_token %}
+        <input type="hidden" id = "newCompName" name="name" value="">
+        <input type="hidden" id = "newR1Name" name="r1" value="">
+        <input type="hidden" id = "newR2Name" name="r2" value="">
+        <input type="hidden" id = "newR3Name" name="r3" value="">
+        <input type="hidden" id = "newR4Name" name="r4" value="">
+        <input type="hidden" id = "newR5Name" name="r5" value="">
+        <input type="hidden" id = "newR6Name" name="r6" value="">
+    </form>
+    {% endif %}
+
     <!--Cards can be added as needed. One is commented out as reference-->
     <div class="main-content">
         <div class="container">
             <div class="card">
-                <h2>Team Rounds</h2>
+                <h2>Team Rounds ({{compName}})</h2>
 
                 <h3>A Team</h3>
                 <div class="userRoundInfo">
                     <div class="identifer"></div>
                     <div class="roundPicker">
-                        <div class="roundID">R1<div class="roundInfo">Lines and Angles</div></div>
-                        <div class="roundID">R2<div class="roundInfo">Literal Equations</div></div>
-                        <div class="roundID">R3<div class="roundInfo">Solids & Volume</div></div>
-                        <div class="roundID">R4<div class="roundInfo">Radical Expressions and Equations</div></div>
-                        <div class="roundID">R5<div class="roundInfo">Polynomials and Advanced Factoring</div></div>
-                        <div class="roundID">R6<div class="roundInfo">Counting and Probability</div></div>
+                        <div class="roundID">R1<div class="roundInfo">{{ rndNames.0 }}</div></div>
+                        <div class="roundID">R2<div class="roundInfo">{{ rndNames.1 }}</div></div>
+                        <div class="roundID">R3<div class="roundInfo">{{ rndNames.2 }}</div></div>
+                        <div class="roundID">R4<div class="roundInfo">{{ rndNames.3 }}</div></div>
+                        <div class="roundID">R5<div class="roundInfo">{{ rndNames.4 }}</div></div>
+                        <div class="roundID">R6<div class="roundInfo">{{ rndNames.5 }}</div></div>
                     </div>
                 </div>
 
                 <div class="team-selector">
                     {% if postAbility %}
-                        {% for email, rounds in ateam %}
+                        <!-- leaders have the ability to change rounds -->
+                        {% for email, rounds, name in ateam %}
                         <div>
                             <div class="userRoundA" id="{{email}}">
-                                <div class="identifer">{{email}}</div>
+                                <div class="identifer">{{name}}</div>
                                 <div class="roundPicker">
-                                    {% for check in rounds %}
-                                        {% if check == 1 %}
-                                            <input type="checkbox" class="round" checked="True"></input>
-                                        {% else %}
-                                            <input type="checkbox" class="round"></input>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        {% for email, rounds in ateam %}
-                        <div>
-                            <div class="userRoundA" id="{{email}}">
-                                <div class="identifer">{{email}}</div>
-                                <div class="roundPicker">
-                                    {% if user.email == email and roundEditAbility == 1 %}
+                                    {% if roundEditAbility == 1 or roundEditAbility == 2 %}
                                         {% for check in rounds %}
-                                            {% if check == 1 %}
+                                            {% if check >= 0 %}
                                                 <input type="checkbox" class="round" checked="True"></input>
                                             {% else %}
                                                 <input type="checkbox" class="round"></input>
                                             {% endif %}
                                         {% endfor %}
+                                    {% elif roundEditAbility == 3 or roundEditAbility == 4 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                                oninput="this.value = this.value.slice(0, 1)" value="{{check}}"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round" disabled="true"></input>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for email, rounds, name in ateam %}
+                        <div>
+                            <div class="userRoundA" id="{{email}}">
+                                <div class="identifer">{{name}}</div>
+                                <div class="roundPicker">
+                                    {% if user.email == email and roundEditAbility == 1 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="checkbox" class="round" checked="True"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round"></input>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% elif user.email == email and roundEditAbility == 3 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                                oninput="this.value = this.value.slice(0, 1)" value="{{check}}"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round" disabled="true"></input>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% elif roundEditAbility == 3 or roundEditAbility == 4 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                                oninput="this.value = this.value.slice(0, 1)" value="{{check}}" disabled="true"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round" disabled="true"></input>
+                                            {% endif %}
+                                        {% endfor %}
                                     {% else %}
                                         {% for check in rounds %}
-                                            {% if check == 1 %}
+                                            {% if check >= 0 %}
                                                 <input type="checkbox" class="round" checked="True" disabled="True"></input>
                                             {% else %}
                                                 <input type="checkbox" class="round" disabled="True"></input>
@@ -97,49 +140,78 @@
                 <div class="userRoundInfo">
                     <div class="identifer"></div>
                     <div class="roundPicker">
-                        <div class="roundID">R1<div class="roundInfo">Lines and Angles</div></div>
-                        <div class="roundID">R2<div class="roundInfo">Literal Equations</div></div>
-                        <div class="roundID">R3<div class="roundInfo">Solids & Volume</div></div>
-                        <div class="roundID">R4<div class="roundInfo">Radical Expressions and Equations</div></div>
-                        <div class="roundID">R5<div class="roundInfo">Polynomials and Advanced Factoring</div></div>
-                        <div class="roundID">R6<div class="roundInfo">Counting and Probability</div></div>
+                        <div class="roundID">R1<div class="roundInfo">{{ rndNames.0 }}</div></div>
+                        <div class="roundID">R2<div class="roundInfo">{{ rndNames.1 }}</div></div>
+                        <div class="roundID">R3<div class="roundInfo">{{ rndNames.2 }}</div></div>
+                        <div class="roundID">R4<div class="roundInfo">{{ rndNames.3 }}</div></div>
+                        <div class="roundID">R5<div class="roundInfo">{{ rndNames.4 }}</div></div>
+                        <div class="roundID">R6<div class="roundInfo">{{ rndNames.5 }}</div></div>
                     </div>
                 </div>
                 <div class="team-selector">
                     {% if postAbility %}
-                        {% for email, rounds in bteam %}
+                        {% for email, rounds, name in bteam %}
                         <div>
                             <div class="userRound" id="{{email}}">
-                                <div class="identifer">{{email}}</div>
+                                <div class="identifer">{{name}}</div>
                                 <div class="roundPicker">
-                                    {% for check in rounds %}
-                                        {% if check == 1 %}
-                                            <input type="checkbox" class="round" checked="True"></input>
-                                        {% else %}
-                                            <input type="checkbox" class="round"></input>
-                                        {% endif %}
-                                    {% endfor %}
-                                </div>
-                            </div>
-                        </div>
-                        {% endfor %}
-                    {% else %}
-                        {% for email, rounds in bteam %}
-                        <div>
-                            <div class="userRound" id="{{email}}">
-                                <div class="identifer">{{email}}</div>
-                                <div class="roundPicker">
-                                    {% if user.email == email and roundEditAbility == 1 %}
+                                    {% if roundEditAbility == 1 or roundEditAbility == 2 %}
                                         {% for check in rounds %}
-                                            {% if check == 1 %}
+                                            {% if check >= 0 %}
                                                 <input type="checkbox" class="round" checked="True"></input>
                                             {% else %}
                                                 <input type="checkbox" class="round"></input>
                                             {% endif %}
                                         {% endfor %}
+                                    {% elif roundEditAbility == 3 or roundEditAbility == 4 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                                oninput="this.value = this.value.slice(0, 1)" value="{{check}}"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round" disabled="true"></input>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% endif %}
+                                </div>
+                            </div>
+                        </div>
+                        {% endfor %}
+                    {% else %}
+                        {% for email, rounds, name in bteam %}
+                        <div>
+                            <div class="userRound" id="{{email}}">
+                                <div class="identifer">{{name}}</div>
+                                <div class="roundPicker">
+                                    {% if user.email == email and roundEditAbility == 1 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="checkbox" class="round" checked="True"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round"></input>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% elif user.email == email and roundEditAbility == 3 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                                oninput="this.value = this.value.slice(0, 1)" value="{{check}}"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round" disabled="true"></input>
+                                            {% endif %}
+                                        {% endfor %}
+                                    {% elif roundEditAbility == 3 or roundEditAbility == 4 %}
+                                        {% for check in rounds %}
+                                            {% if check >= 0 %}
+                                                <input type="number" maxlength="1" min="0" max="6" class="round" required
+                                                oninput="this.value = this.value.slice(0, 1)" value="{{check}}" disabled="true"></input>
+                                            {% else %}
+                                                <input type="checkbox" class="round" disabled="true"></input>
+                                            {% endif %}
+                                        {% endfor %}
                                     {% else %}
                                         {% for check in rounds %}
-                                            {% if check == 1 %}
+                                            {% if check >= 0 %}
                                                 <input type="checkbox" class="round" checked="True" disabled="True"></input>
                                             {% else %}
                                                 <input type="checkbox" class="round" disabled="True"></input>
@@ -154,24 +226,75 @@
                 </div>
                 {% if postAbility %}
                     <div style="display: flex; margin-top: 20px;">
-                        <div>Disable Edits?</div>
-                        {% if roundEditAbility == 1 %}
-                            <input id="roundToggle" type="checkbox" class="togEdit"></input>
+                        <div>Enable Score Edits?</div>
+                        {% if roundEditAbility == 3 %}
+                            <input id="roundScoreToggle" type="checkbox" class="togEdit" checked="True"></input>
+                        {% elif roundEditAbility == 4 %}
+                            <input id="roundScoreToggle" type="checkbox" class="togEdit" checked="True"></input>
                         {% else %}
-                            <input id="roundToggle" type="checkbox" class="togEdit" checked="True"></input>
+                            <input id="roundScoreToggle" type="checkbox" class="togEdit"></input>
                         {% endif %}
+                    </div>
+
+                    <div style="display: flex; margin-top: 10px;">
+                        <div>Disable Edits?</div>
+                        {% if roundEditAbility == 2 %}
+                            <input id="roundToggle" type="checkbox" class="togEdit" checked="True"></input>
+                        {% elif roundEditAbility == 4 %}
+                            <input id="roundToggle" type="checkbox" class="togEdit" checked="True"></input>
+                        {% else %}
+                            <input id="roundToggle" type="checkbox" class="togEdit"></input>
+                        {% endif %}
+                    </div>
+
+                    <div id="newCompInfo" style="display: none; margin-top: 10px; flex-direction: column; gap: 5px;">
+                        <div style="display: flex; width: 100%;">
+                            <div>New Comp Name</div>
+                            <input type="text" id="newCompNamein" class="togEdit"></input>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div>R1 Name</div>
+                            <input type="text" id="newR1in" class="togEdit"></input>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div>R2 Name</div>
+                            <input type="text" id="newR2in" class="togEdit"></input>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div>R3 Name</div>
+                            <input type="text" id="newR3in" class="togEdit"></input>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div>R4 Name</div>
+                            <input type="text" id="newR4in" class="togEdit"></input>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div>R5 Name</div>
+                            <input type="text" id="newR5in" class="togEdit"></input>
+                        </div>
+                        <div style="display: flex; width: 100%;">
+                            <div>R6 Name</div>
+                            <input type="text" id="newR6in" class="togEdit"></input>
+                        </div>
                     </div>
                 {% endif %}
                 {% if postAbility %}
-                    <div style="display: flex;">
+                    <div style="display: flex; justify-content: space-between;">
+                        <div id="newCompButton" class="sendRnd-button" onclick="showInit()" >New Competition</div>
                         <div class="sendRnd-button" onclick="submitRounds()">Submit Rounds</div>
                     </div>
-                {% elif roundEditAbility == 1 %}
+                {% elif roundEditAbility == 1 or roundEditAbility == 3 %}
                     <div style="display: flex;">
                         <div class="sendRnd-button" onclick="submitRounds()">Submit Rounds</div>
                     </div>
                 {% endif %}
                 <div id="userRoundError" style="color: red; display: none;"> Only 3 rounds per user! </div>
+                <div class="sendRnd-button" style=" margin-left:0px; margin-right: auto; width: fit-content; background-color: lightcoral;" onclick="openPrevComps()">View Previous Competitions</div>
+                <div id="PrevComps" style="display: none; flex-direction: column;">
+                    {% for comp in prevComps %}
+                        <div class="prevComp" onclick="goToPrevComp('{{comp.name}}')">{{comp.name}}</div>
+                    {% endfor %}
+                </div>
             </div>
             <div class="card">
                 <h2>Live Feed</h2>
@@ -375,8 +498,70 @@
                 document.getElementById('postCreateForm').submit();
             }
         }
+        
+        // Displays previous comps
+        function openPrevComps() {
+            document.getElementById('PrevComps').style.display = "flex";
+            
+        }
 
-        //A Team
+        // Views previous comp
+        function goToPrevComp(compName) {
+            // Sends comp name to the server
+            // Additional information to send with the GET request
+            const additionalInfo = {
+                name: compName,
+            };
+
+            // Construct query parameters
+            const queryParams = new URLSearchParams(additionalInfo).toString();
+            const url = 'viewComp'
+            const fullUrl = `${url}?${queryParams}`;
+            
+            // replace the link and go there via get request
+            window.location.href = fullUrl;
+        }
+
+
+        // Displays the config settings first
+        function showInit() {
+            document.getElementById('newCompButton').setAttribute("onclick", "newRounds()");
+            document.getElementById('newCompButton').innerHTML = "Create New Competition";
+            document.getElementById('newCompInfo').style.display = "flex";
+        }
+
+        // asks the server to create new rounds for us
+        function newRounds() {
+            if (confirm("Are you sure you would like a new Comp round?")) {
+                // Make sure they understand what they are doing
+                if (confirm("You will not be able to change ANYTHING\nIf you are sure, continue")) {
+                    newName = document.getElementById("newCompNamein").value;
+                    r1 = document.getElementById("newR1in").value;
+                    r2 = document.getElementById("newR2in").value;
+                    r3 = document.getElementById("newR3in").value;
+                    r4 = document.getElementById("newR4in").value;
+                    r5 = document.getElementById("newR5in").value;
+                    r6 = document.getElementById("newR6in").value;
+
+                    if (newName != "" && r1 != "" && r2 != "" && r3 != "" && r4 != "" &&
+                    r5 != "" && r6 != "") {
+                        // Contuine if each item has something in it
+                        document.getElementById("newCompName").value = newName;
+                        document.getElementById("newR1Name").value = r1;
+                        document.getElementById("newR2Name").value = r2;
+                        document.getElementById("newR3Name").value = r3;
+                        document.getElementById("newR4Name").value = r4;
+                        document.getElementById("newR5Name").value = r5;
+                        document.getElementById("newR6Name").value = r6;
+                    
+                        document.getElementById('newComp').submit();
+                    } else {
+                        alert("Please fill out all fields!")
+                    }
+                    
+                }
+            }
+        }
 
         function submitRounds() {
             error = false
@@ -387,12 +572,18 @@
                 ateam += user.id + ",.";
                 rndSelections = 0;
                 user.querySelectorAll(".round").forEach(rnd =>{
-                    if (rnd.checked) {
-                        ateam += "1;";
-                        rndSelections += 1;
+                    if (rnd.value == "on") {
+                        if (rnd.checked) {
+                            ateam += "0;";
+                            rndSelections += 1;
+                        } else {
+                            ateam += "-1;";
+                        }
                     } else {
-                        ateam += "0;";
+                        ateam += rnd.value + ";";
+                        rndSelections += 1;
                     }
+                
                 })
                 if (rndSelections > 3) {
                     error = true
@@ -406,11 +597,16 @@
                 bteam += user.id + ",.";
                 rndSelections = 0;
                 user.querySelectorAll(".round").forEach(rnd =>{
-                    if (rnd.checked) {
-                        bteam += "1;";
-                        rndSelections += 1;
+                    if (rnd.value == "on") {
+                        if (rnd.checked) {
+                            bteam += "0;";
+                            rndSelections += 1;
+                        } else {
+                            bteam += "-1;";
+                        }
                     } else {
-                        bteam += "0;";
+                        bteam += rnd.value + ";";
+                        rndSelections += 1;
                     }
                 })
                 if (rndSelections > 3) {
@@ -423,9 +619,17 @@
             document.getElementById('bteamRounds').value = bteam;
 
             if (!!document.getElementById('roundToggle')) {
-                if (document.getElementById('roundToggle').checked) {
+                if (document.getElementById('roundScoreToggle').checked && document.getElementById('roundToggle').checked) {
+                    // disable all edits
+                    document.getElementById('roundEditToggle').value = "4";
+                } else if ((!document.getElementById('roundScoreToggle').checked) && document.getElementById('roundToggle').checked) {
+                    // disable round edits 
                     document.getElementById('roundEditToggle').value = "2";
+                } else if (document.getElementById('roundScoreToggle').checked && (!document.getElementById('roundToggle').checked)) {
+                    // enable score edits
+                    document.getElementById('roundEditToggle').value = "3";
                 } else {
+                    // enable round edits
                     document.getElementById('roundEditToggle').value = "1";
                 }
             }
@@ -433,8 +637,12 @@
             if (error) {
                 document.getElementById('userRoundError').style.display = '';
                 document.querySelector('.sendRnd-button').style = "background-color: orange;"
-            } else {
+            } else if (confirm("Are you sure you would like to submit these rounds?\nNote that changing score edits to false" +
+                " when it was previously true will not preserve round scores"
+            )){
                 document.getElementById('changeEmRounds').submit();
+            } else {
+                document.querySelector('.sendRnd-button').style = "background-color: red;"
             }
             
         }

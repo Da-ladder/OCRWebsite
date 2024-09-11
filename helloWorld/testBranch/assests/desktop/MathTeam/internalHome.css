@@ -403,3 +403,25 @@ input:hover {
     min-width: 225px;
     overflow: hidden;
 }
+
+.prevComp {
+    margin-bottom: 2px;
+}
+
+.prevComp:hover {
+    background-color: #dbaf00;
+    color: blue;
+    cursor: pointer;
+}
+
+/* Hide increment/decrement controls for Chrome, Safari, and Edge */
+input[type="number"]::-webkit-outer-spin-button,
+input[type="number"]::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+
+/* Hide increment/decrement controls for Firefox */
+input[type="number"] {
+  -moz-appearance: textfield;
+}

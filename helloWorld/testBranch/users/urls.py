@@ -17,6 +17,8 @@ urlpatterns = [
     path("myClubs/", views.dis_my_clubs),
     path("myClubs/mathTeam/", views.mathTeamIntHome),
     path("myClubs/mathTeam/changeRounds", views.mathTeamChangeRound),
+    path("myClubs/mathTeam/newRound", views.mathTeamNewRound),
+    path("myClubs/mathTeam/viewComp", views.mathTeamViewComp),
     path("myClubs/nehs", views.nehsInternalHome),
     path("myClubs/default", views.club_home_default),
     path("leaveClub", views.leaveClub),

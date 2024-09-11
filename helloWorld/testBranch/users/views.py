@@ -718,7 +718,7 @@ def mathTeamIntHome(request):
 
         # add members to A team who are missing with default rounds (0, 0, 0)
         for people in updatedaTeam:
-            curraTeam.append([people, [0, 0, 0, 0, 0, 0]])
+            curraTeam.append([people, [-1, -1, -1, -1, -1, -1], Users.objects.get(email=people).name])
         # END EDIT A TEAM ------------------------
 
 
@@ -740,7 +740,7 @@ def mathTeamIntHome(request):
 
         # add members to B team who are missing with default rounds (0, 0, 0)
         for people in updatedbTeam:
-            currbTeam.append([people, [0, 0, 0, 0, 0, 0]])
+            currbTeam.append([people, [-1, -1, -1, -1, -1, -1], Users.objects.get(email=people).name])
         # END EDIT B TEAM ------------------------
 
         # save edits to the database
@@ -759,6 +759,9 @@ def mathTeamIntHome(request):
             'postAbility': club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists(),
             'ateam': curraTeam,
             'bteam': currbTeam,
+            'prevComps': multiData,
+            'rndNames': roundData[3],
+            'compName': multiData[len(multiData)-1].name,
             # roundData has 4 levels: 1(Users can edit), 2(Only leaders can edit), 3(Users can input scores), 4(Only leaders can input scores)
             'roundEditAbility': roundData[0],
             "empty": empty,
@@ -768,6 +771,39 @@ def mathTeamIntHome(request):
             return render(request, "mobileDisplay/ClubJoined.html", context)
         else:
             return render(request, "desktopDisplay/MathTeam/internalHome.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
+
+def mathTeamNewRound(request):
+
+    club = Club.objects.get(name = "Math Team")
+
+    # get all required data
+    name = request.POST.get('name')
+    r1 = request.POST.get('r1')
+    r2 = request.POST.get('r2')
+    r3 = request.POST.get('r3')
+    r4 = request.POST.get('r4')
+    r5 = request.POST.get('r5')
+    r6 = request.POST.get('r6')
+
+    # auth
+    if request.user.is_authenticated and (club.advisors.filter(email = request.user.email).exists() 
+    or club.leaders.filter(email = request.user.email).exists()):
+
+        # prefill data with dummy people (will be written over)
+        placeholdData = [1, [["example@gmail.com", [-1, -1, 0, 0, 0, -1], "expName"], ["example1@gmail.com", [-1, 0, 0, 0, -1, -1], "expName1"]], [["example2@danbury.k12.ct.us", [-1, -1, 0, 0, 0, -1], "expName2"]],
+                        [r1, r2, r3, r4, r5, r6]]
+
+        # make new data entry
+        ClubData.objects.create(
+            club = club,
+            name = name,
+            data = json.dumps(placeholdData)
+        )
+
+        return redirect("/myClubs/mathTeam")
     else:
         return render(request, "NuhUh.html")
 
@@ -897,6 +933,36 @@ def mathTeamChangeRound(request):
         return render(request, "NuhUh.html")
 
     return redirect("/myClubs/mathTeam")
+
+def mathTeamViewComp(request):
+    club = Club.objects.get(name = "Math Team")
+
+    # server side code so it is ok if it is outside of auth measures
+    # retrieve round data
+    comp = ClubData.objects.get(club = club, name = request.GET.get('name'))
+    # data is stored in json format so it is decoded before use
+    roundData = json.decoder.JSONDecoder().decode(comp.data)
+
+    if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
+        club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # only gives read only access to previous comps
+        context = {
+            'club': club,
+            'ateam': roundData[1],
+            'bteam': roundData[2],
+            'rndNames': roundData[3],
+            'compName': comp.name,
+        }
+
+        if mobile(request):
+            # mobile screen has not been configured yet
+            return render(request, "mobileDisplay/ClubJoined.html", context)
+        else:
+            return render(request, "desktopDisplay/MathTeam/prevComp.html", context)
+    else:
+        return render(request, "NuhUh.html")
+
 
 
 # custom club homepages are created below
