@@ -9,7 +9,7 @@
 </head>
 <body>
      <!-- Navigation bar -->
-     <nav>   
+     <nav>  
         <div class="logo">Club Website</div>
         <div class="nav-items">
             <a href="/myClubs" style='color:#FF0000'>My Clubs</a>
@@ -25,10 +25,21 @@
         </div>
     </nav>
     <div class="container" id = "clubLayotTag">
-        {% if empty %}
-            <div class="class-card" data-url="demo">
-                <h3 class="class-name" font-family: 'Source Sans Pro'>Your Club Name</h3>
-                <p class="class-description" font-family: 'Source Sans Pro'>Join a club and have them appear here!</p>
+        <div class="container" id = "clubLayotTag">
+            {% if empty %}
+            <!-- New Stuff-->
+            <div class="grouped-container">
+                <h3 class="search-heading" font-family: 'Source Sans Pro'>Search Clubs</h3>
+                <input type="text" class="search-bar" placeholder="Search">
+                <input type="button" class="club-join" value="Explore All">
+                <div class = "clubs-suggested-container">
+                    <!--
+                    <div class = "suggested-class-card">
+                        <h3 class="class-name" font-family: 'Source Sans Pro'>Example CLub</h3>
+                        <p class="class-description" font-family: 'Source Sans Pro'>This is an example of a description</p>
+                    </div>
+                    -->
+                </div>
             </div>
         {% else %}
             {% for class in classes %}

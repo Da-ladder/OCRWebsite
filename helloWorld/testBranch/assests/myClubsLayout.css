@@ -1,137 +1,297 @@
 /* static/styles.css */
 body {
-    font-family: Arial, sans-serif;
-    display: flex;
-    justify-content: center;
-    align-items: center;
-    margin: 0;
-    background-color: #f4f4f4;
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+
+
+  background: radial-gradient(circle, #2c2c2c, #1a1a1a);
+
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+
+  margin: 0;
+  padding: 0;
 }
+
 
 .container {
-    margin-top:100px;
-    display: flex;
-    flex-wrap: wrap;
-    gap: 20px;
-    justify-content: center;
-    padding: 2% 2% 2% 2%; /* Added top padding for spacing */
-    /*scrollbar-width: none;*/
+  margin-top:100px;
+  display: flex;
+  flex-wrap: wrap;
+  gap: 20px;
+  justify-content: center;
+  padding: 2% 2% 2% 2%; /* Added top padding for spacing */
+  /*scrollbar-width: none;*/
 }
+
+
+/*Created by Ben Chaleski*/
+/*User without any clubs*/
+.grouped-container {
+background-color: #2d2d2d;
+width: 1000px;
+height: 1000px;
+margin-top: 10px;
+gap: 5px;
+padding: 20px;
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+
+display: flex;
+flex-direction: column;
+align-items: center;
+justify-content: flex-start;
+text-align: center;
+
+
+position: relative;  
+top: -10%;      
+left: 50%;      
+transform: translateX(-50%);
+}
+
+
+
+
+/*No clubs search bar*/
+.search-bar {
+width: 80%; /* Adjust the width as needed */
+max-width: 800px;
+height: 10px;
+padding: 15px;
+border-radius: 10px;
+border: 1px solid transparent;
+font-size: 18px;
+outline: none;
+transition: all 0.3s ease;
+position: absolute;
+top: 6%;
+background-color: #1d1d1d;
+color: #fff; /*Text color*/
+}
+
+
+/* Search bar focus effect */
+.search-bar:focus {
+border-color: #646464;
+box-shadow: 0 0 10px rgba(255, 255, 255, 0.2);
+}
+
+
+/*Search Heading Text*/
+.search-heading {
+margin: 0;
+font-size: 1.3em;
+position: absolute;
+left: 10%;
+color: #fff;
+
+
+/* Match the button height */
+height: 1.9em;
+line-height: 1.9em; /* Vertically center the text */
+box-sizing: border-box;
+}
+
+
+/*Explore more clubs button*/
+.club-join {
+border: 2px solid #7f7f7f;
+background-color: transparent;
+color: #d3d3d3;
+font-size: 16px;
+cursor: pointer;
+border-radius: 5px;
+height: 1.9em;
+width: 10%;
+padding: 0;
+text-align: center;
+box-sizing: border-box;
+
+position: absolute;
+right: 10%;
+}
+
+
+/*Recommended Clubs Division*/
+.clubs-suggested-container {
+justify-content: center;
+align-items: center;
+}
+
+
+
+
+/*Modified class cards for display recommended*/
+.suggested-class-card {
+background-color: #3d3d3d;
+color: #bdbdbd;
+flex: 0 0 auto;
+border-radius: 8px;
+box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+width: 170px;
+height: 170px;
+display: flex;
+flex-direction: column;
+justify-content: center;
+align-items: center;
+text-align: center;
+
+transition: transform 0.3s;
+}
+
+
+.suggested-class-card:hover {
+transform: translateY(-10px);
+background-color: #4d4d4d
+}
+
+
+.clubs-suggested-container {
+display: flex;
+justify-content: center;
+align-items: center;
+}
+
 
 .class-card {
-    background-color: #fff;
-    flex: 0 0 auto;
-    border-radius: 8px;
-    box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
-    width: 200px;
-    height: 200px;
-    padding: 20px;
-    display: flex;
-    flex-direction: column;
-    justify-content: center;
-    align-items: center;
-    text-align: center;
-    transition: transform 0.3s;
+  background-color: #3d3d3d;
+  color: #bdbdbd;
+  flex: 0 0 auto;
+  border-radius: 8px;
+  box-shadow: 0 4px 6px rgba(0, 0, 0, 0.1);
+  width: 200px;
+  height: 200px;
+  padding: 20px;
+  display: flex;
+  flex-direction: column;
+  justify-content: center;
+  align-items: center;
+  text-align: center;
+ 
+  transition: transform 0.3s;
 }
+
 
 .class-card .class-name {
-    margin: 0;
-    font-size: 1.5em;
+  margin: 0;
+  font-size: 1.5em;
 }
+
+
+
 
 .class-card .class-description {
-    margin-top: 10px;
-    font-size: 1em;
-    color: #666;
-    max-height: 80px; /* Adjust the maximum height as needed */
-    overflow: hidden;
-    text-overflow: ellipsis;
-    display: -webkit-box;
-    -webkit-line-clamp: 3; /* Number of lines to show before truncating */
-    -webkit-box-orient: vertical;
-    font-family: 'Source Sans Pro'
+  margin-top: 10px;
+  font-size: 1em;
+  color: #7f7f7f;
+  max-height: 80px;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  display: -webkit-box;
+  -webkit-line-clamp: 3;
+  -webkit-box-orient: vertical;
+  font-family: 'Source Sans Pro'
 }
 
-.class-card:hover {
-    transform: translateY(-10px);
-    background-color: #ffcfa2
+
+
+
+/* WebKit-specific truncation for multiple lines */
+.class-card .class-description.multi-line {
+display: -webkit-box;
+-webkit-box-orient: vertical;
+/*-webkit-line-clamp: 3;*/ /* Limit to 3 lines */
+overflow: hidden;
 }
+
+
+.class-card:hover {
+  transform: translateY(-10px);
+  background-color: #4d4d4d
+}
+
 
 /* top bar config */
 nav {
-    height: 80px;
-    width:100%;
-    top: 0;
-    overflow:hidden;
-    position:fixed;
-    background: #000000;
-    display: flex;
-    justify-content: space-between;
-    align-items: center;
-    padding: 0rem calc((100vw - 1300px) / 2);
-    margin-bottom:100px;
-    z-index: 1000; /* Ensure navbar is on top of other content */
-  }
-  
-  /* top left logo config */
-  .logo {
-    color: rgb(255, 255, 255);
-    font-size: 1.5rem;
-    font-weight: bold;
-    font-style: italic;
-    padding: 0 2rem;
-  }
-  
-  /* top text bar inactive config */
-  nav a {
-    text-decoration: none;
-    color: #ffffff;
-    padding: 0 1.5rem;
-  }
-  
-  
-  .nav-items input[type="text"], .nav-items button {
-    margin-left: 10px; /* Add spacing between input and button */
-    height: 30px; /* Adjust height as needed */
-    padding: 0 10px; /* Adjust padding as needed */
-    font-size: 14px; /* Adjust font size as needed */
-    border: none;
-    border-radius: 4px;
-  }
+  height: 80px;
+  width:100%;
+  top: 0;
+  overflow:hidden;
+  position:fixed;
+  background: #000000;
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  padding: 0rem calc((100vw - 1300px) / 2);
+  margin-bottom:100px;
+  z-index: 1000; /* Ensure navbar is on top of other content */
+}
 
-  .nav-items {
-    display: flex;
-    justify-content: space-between; /* Distribute items evenly along the main axis */
-    align-items: center; /* Center items vertically */
-  }
-  
-  .nav-items a {
-    margin: 5px; /* Adjust spacing between links */
-    text-decoration: none; /* Remove underline from links */
-  }
-  
-  .account-link {
-    text-align: center; /* Center text and image horizontally */
-    display: flex;
-  
-  }
-  
-  .account-link a {
-    display: block; /* Display as block to take full width */
-    margin-bottom: 5px; /* Adjust margin below text */
-    padding-left: 5px;
-    padding-right: 5px;
-    padding-top: 1px;
-  }
-  
-  .account-link .avatar {
-    width: 30px; /* Adjust image width */
-    height: 30px; /* Adjust image height */
-    border-radius: 50%;
-    margin-right: 15px;
-  }
-  
-  /* top text bar active config */
-  nav a:hover {
-    color: #dbaf00;
-  }
+/* top left logo config */
+.logo {
+  color: rgb(255, 255, 255);
+  font-size: 1.5rem;
+  font-weight: bold;
+  font-style: italic;
+  padding: 0 2rem;
+}
+
+/* top text bar inactive config */
+nav a {
+  text-decoration: none;
+  color: #ffffff;
+  padding: 0 1.5rem;
+}
+
+
+.nav-items input[type="text"], .nav-items button {
+  margin-left: 10px; /* Add spacing between input and button */
+  height: 30px; /* Adjust height as needed */
+  padding: 0 10px; /* Adjust padding as needed */
+  font-size: 14px; /* Adjust font size as needed */
+  border: none;
+  border-radius: 4px;
+}
+
+
+.nav-items {
+  display: flex;
+  justify-content: space-between; /* Distribute items evenly along the main axis */
+  align-items: center; /* Center items vertically */
+}
+
+.nav-items a {
+  margin: 5px; /* Adjust spacing between links */
+  text-decoration: none; /* Remove underline from links */
+}
+
+.account-link {
+  text-align: center; /* Center text and image horizontally */
+  display: flex;
+
+}
+
+.account-link a {
+  display: block; /* Display as block to take full width */
+  margin-bottom: 5px; /* Adjust margin below text */
+  padding-left: 5px;
+  padding-right: 5px;
+  padding-top: 1px;
+}
+
+.account-link .avatar {
+  width: 30px; /* Adjust image width */
+  height: 30px; /* Adjust image height */
+  border-radius: 50%;
+  margin-right: 15px;
+}
+
+/* top text bar active config */
+nav a:hover {
+  color: #dbaf00;
+}
