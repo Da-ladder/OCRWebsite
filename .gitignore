@@ -1,3 +1,4 @@
 helloWorld/letsencrypt/*
 helloWorld/docker-compose.yml
+helloWorld/webVenv/*
 helloWorld/testBranch/prod.sqlite3
