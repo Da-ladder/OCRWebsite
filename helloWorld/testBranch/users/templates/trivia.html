@@ -1,0 +1,35 @@
+<!DOCTYPE html>
+<html lang = "en">
+    <head>
+        <meta charset = "UTF-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+        <title>Home</title>
+        <link rel="stylesheet" href="/static/loginDefault.css">
+        <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/5.15.4/css/all.min.css">
+        <link rel="stylesheet" href="/static/classStyle.css">
+    </head>
+    <body>
+        <h1>GeeksforGeeks</h1>
+        <script>
+            const chatSocket = new WebSocket('ws://' + window.location.host + '/ws/somepath/');
+
+            chatSocket.onmessage = function(e) {
+                const data = JSON.parse(e.data);
+                const message = data['message'];
+                console.log(message);
+                // Handle incoming message
+            };
+
+            chatSocket.onclose = function(e) {
+                console.error('Chat socket closed unexpectedly');
+            };
+
+            // Send message to server
+            function sendMessage(message) {
+                chatSocket.send(JSON.stringify({
+                    'message': message
+                }));
+            }
+        </script>
+    </body>
+</html>

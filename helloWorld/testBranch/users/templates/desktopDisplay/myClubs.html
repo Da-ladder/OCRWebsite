@@ -25,9 +25,14 @@
         </div>
     </nav>
     <div class="container" id = "clubLayotTag">
-        <div class="container" id = "clubLayotTag">
+        <div class="clubContainer" id = "clubLayotTag">
             {% if empty %}
-            <!-- New Stuff-->
+            <div class="example-card">
+                <h3 class="class-name" font-family: 'Source Sans Pro'>Your Club</h3>
+                <p class="class-description" font-family: 'Source Sans Pro'>Add clubs through the explore tab!</p>
+            </div>
+            
+            <!-- New Stuff - Binning for now until it is fully ready
             <div class="grouped-container">
                 <h3 class="search-heading" font-family: 'Source Sans Pro'>Search Clubs</h3>
                 <input type="text" class="search-bar" placeholder="Search">
@@ -35,14 +40,15 @@
                     <input type="button" class="club-join" value="Explore All">
                 </a>
                 <div class = "clubs-suggested-container">
-                    <!--
+                    
                     <div class = "suggested-class-card">
                         <h3 class="class-name" font-family: 'Source Sans Pro'>Example CLub</h3>
                         <p class="class-description" font-family: 'Source Sans Pro'>This is an example of a description</p>
                     </div>
-                    -->
+                    
                 </div>
             </div>
+            -->
         {% else %}
             {% for class in classes %}
                 <div class="class-card" data-url="{{ class.memberPage }}">

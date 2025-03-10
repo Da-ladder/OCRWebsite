@@ -58,6 +58,7 @@ SITE_ID = 4
 SOCIALACCOUNT_LOGIN_ON_GET = True
 
 INSTALLED_APPS = [
+    'daphne',
     'django.contrib.admin',
     'django.contrib.auth',
     'django.contrib.contenttypes',
@@ -69,6 +70,7 @@ INSTALLED_APPS = [
     'allauth.account',
     'allauth.socialaccount',
     'allauth.socialaccount.providers.google',
+    'channels',
     'users',
 ]
 
@@ -117,7 +119,7 @@ TEMPLATES = [
     },
 ]
 
-WSGI_APPLICATION = 'testBranch.wsgi.application'
+# WSGI_APPLICATION = 'testBranch.wsgi.application'
 
 
 # Database
@@ -199,3 +201,11 @@ AUTHENTICATION_BACKENDS = (
 #ACCOUNT_ADAPTER = 'users.authConfig.MyAccountAdapter'
 LOGIN_REDIRECT_URL = "/clubs/"
 LOGOUT_REDIRECT_URL = "/"
+
+ASGI_APPLICATION = "testBranch.asgi.application"
+
+CHANNEL_LAYERS = {
+    'default': {
+        'BACKEND': 'channels.layers.InMemoryChannelLayer',
+    },
+}

@@ -42,6 +42,11 @@ def logout_view(request):
     logout(request)
     return redirect("/")
 
+def trivia(request):
+    return render(request, 'trivia.html')
+    
+
+
 def club_display_new(request):
     # get all clubs and put them in a dictionary where each club will have tags related to them seperated
     # by ",  " for easy deciper on the js side
