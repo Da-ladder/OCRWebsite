@@ -119,7 +119,7 @@ TEMPLATES = [
     },
 ]
 
-# WSGI_APPLICATION = 'testBranch.wsgi.application'
+WSGI_APPLICATION = 'testBranch.wsgi.application'
 
 
 # Database
@@ -202,8 +202,10 @@ AUTHENTICATION_BACKENDS = (
 LOGIN_REDIRECT_URL = "/clubs/"
 LOGOUT_REDIRECT_URL = "/"
 
+# Daphne
 ASGI_APPLICATION = "testBranch.asgi.application"
 
+# needs to be changed to redis later
 CHANNEL_LAYERS = {
     'default': {
         'BACKEND': 'channels.layers.InMemoryChannelLayer',

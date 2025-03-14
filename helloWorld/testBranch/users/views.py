@@ -543,7 +543,7 @@ def addComment(request):
     # get club by checking what club the org post comes from & get the post
     post = LiveFeed.objects.get(id = postKey)
     club = Club.objects.get(name = post.club.name)
-
+    
     # Check if they are authed to make comments on the post
     if request.user.is_authenticated and (club.users.filter(email = request.user.email).exists() or 
         club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
