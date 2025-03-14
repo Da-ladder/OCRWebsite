@@ -44,6 +44,10 @@ def logout_view(request):
 
 def trivia(request):
     return render(request, 'trivia.html')
+
+
+def triviaQuestionMaker(request):
+    return render(request, 'triviaQuestionMaker.html')
     
 
 
