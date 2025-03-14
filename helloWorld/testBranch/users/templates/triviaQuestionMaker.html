@@ -1,1 +1,45 @@
-<p> hiiiii </p>
+<!DOCTYPE html>
+<html>
+<head>
+    <meta charset = "UTF-8">
+        <meta name="viewport" content = "width=device-width, initial-scale=1.0">
+        <title>Question Maker</title>
+        <link rel="stylesheet" href="/static/triviaQuestionMaker.css">
+</head>
+    <body>
+        <h1 id="CurQuestionNum">Question 1</h1>
+        <div class="QuestionName">
+            <input type="text" id="QuestionName" class="textField" placeholder="Enter Question Here"></input>
+        </div>
+
+        <h3>Question Options</h3>
+        <div class="Choices" style="display: flex; flex-direction: column; gap: 5px;">
+            <div class= "optionContainer">
+                <div>Option #1</div>
+                <input type="text" id="QuestionOption1" class="optionTextField" placeholder="Enter Option 1 Here"></input>
+            </div>
+
+            <div class= "optionContainer">
+                <div>Option #2</div>
+                <input type="text" id="QuestionOption2" class="optionTextField" placeholder="Enter Option 2 Here"></input>
+            </div>
+
+            <div class= "optionContainer">
+                <div>Option #3</div>
+                <input type="text" id="QuestionOption3" class="optionTextField" placeholder="Enter Option 3 Here"></input>
+            </div>
+
+            <div class= "optionContainer">
+                <div>Option #4</div>
+                <input type="text" id="QuestionOption4" class="optionTextField" placeholder="Enter Option 4 Here"></input>
+            </div>
+            
+        </div>
+
+        <div class="buttonNav">
+            <button onclick="">Previous Question</button>
+            <button onclick="">Next Question</button>
+        </div>
+
+    </body>
+</html>

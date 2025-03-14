@@ -1,0 +1,31 @@
+body {
+  font-family: Arial, sans-serif;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  flex-direction: column;
+
+
+  background-color: #f5f7fa;
+
+
+  overflow-x: hidden;
+  overflow-y: scroll;
+
+
+  margin: 0;
+  padding: 0;
+}
+
+.optionTextField {
+    margin-left: 10px;
+}
+
+.optionContainer {
+    display: flex; 
+    width: 100%;
+}
+
+.buttonNav {
+    margin-top: 10px;
+}
