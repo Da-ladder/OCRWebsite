@@ -8,6 +8,14 @@
 </head>
     <body>
         <h1 id="CurQuestionNum">Question 1</h1>
+
+        <!-- Change ACTION & MAKE BACKEND -->
+        <form id="questionForm" action="/triviaQuestionUpload" method="post">
+            {% csrf_token %}
+            <input type="hidden" id = "QuestionList" name="Qstack" value="">
+        </form>
+
+
         <div class="QuestionName">
             <input type="text" id="QuestionName" class="textField" placeholder="Enter Question Here"></input>
         </div>
@@ -17,29 +25,157 @@
             <div class= "optionContainer">
                 <div>Option #1</div>
                 <input type="text" id="QuestionOption1" class="optionTextField" placeholder="Enter Option 1 Here"></input>
+                <input type="checkbox" title="Check off this box if this option is correct" 
+                        id="QuestionCorrect1" class="optionTextField"></input>
             </div>
 
             <div class= "optionContainer">
                 <div>Option #2</div>
                 <input type="text" id="QuestionOption2" class="optionTextField" placeholder="Enter Option 2 Here"></input>
+                <input type="checkbox" title="Check off this box if this option is correct" 
+                        id="QuestionCorrect2" class="optionTextField"></input>
             </div>
 
             <div class= "optionContainer">
                 <div>Option #3</div>
                 <input type="text" id="QuestionOption3" class="optionTextField" placeholder="Enter Option 3 Here"></input>
+                <input type="checkbox" title="Check off this box if this option is correct" 
+                        id="QuestionCorrect3" class="optionTextField"></input>
             </div>
 
             <div class= "optionContainer">
                 <div>Option #4</div>
                 <input type="text" id="QuestionOption4" class="optionTextField" placeholder="Enter Option 4 Here"></input>
+                <input type="checkbox" title="Check off this box if this option is correct" 
+                        id="QuestionCorrect4" class="optionTextField"></input>
             </div>
             
         </div>
 
         <div class="buttonNav">
-            <button onclick="">Previous Question</button>
-            <button onclick="">Next Question</button>
+            <button onclick="getLastQuestion()">Previous Question</button>
+            <button onclick="getNextQuestion()">Next Question</button>
         </div>
 
+        <button onclick="deleteQuestion()" style="margin-top: 10px;">Delete Question</button>
+        <button onclick="submitForm()" style="margin-top: 20px;">Upload Questions to Server</button>
+    <script>
+        // var as = JSON.parse(jstring);
+
+        // stores the IDs of the textfields in ORDER - Change this if the ids are changed
+        var textFields = ["QuestionName", "QuestionOption1", "QuestionCorrect1", 
+                                          "QuestionOption2", "QuestionCorrect2",
+                                          "QuestionOption3", "QuestionCorrect3",
+                                          "QuestionOption4", "QuestionCorrect4"];
+
+        // track the INDEX of the question the user is editing
+        var Qnum = 0;
+
+        // stores questions in q_list format:
+        // [Q1_Name, [q_option1, 2, 3, 4]], 
+        // [Q2_Name, [q_option1, 2, 3, 4]], ect
+        var questionArray = [["Starting Question", "option1", true, "option2", false, "option3", false, "option4", false]]; // Starts with Q #1
+
+        // saves the current question information
+        function saveQuestion() {
+
+            let storedQindex = 0; 
+            
+            // loops over text fields
+            for (let i in textFields) {
+                let element = document.getElementById(textFields[i]);
+
+                if (element.type === "checkbox") {
+                    questionArray[Qnum][storedQindex] = element.checked;
+                } else {
+                    questionArray[Qnum][storedQindex] = element.value;
+                }
+                storedQindex++;
+            }
+        }
+
+        // loads the question that the user is currently on and updates the question #
+        function loadQuestion() {
+
+            let storedQindex = 0; 
+
+            // loops over text fields
+            for (let i in textFields) {
+                let element = document.getElementById(textFields[i]);
+
+                if (element.type === "checkbox") {
+                    element.checked = questionArray[Qnum][storedQindex];
+                } else {
+                    element.value = questionArray[Qnum][storedQindex];
+                }
+
+                storedQindex++;
+            }
+
+            document.getElementById("CurQuestionNum").innerHTML = "Question " + String(Qnum+1) + " of " + questionArray.length;
+        }
+
+        // deletes the current question the user is on
+        function deleteQuestion() {
+            if (questionArray.length <= 1) {
+                console.log("Can not delete the only question!")
+                return
+            }
+
+            questionArray.splice(Qnum, 1);
+
+            if ((Qnum+1) > questionArray.length) {
+                Qnum--;
+            }
+
+            loadQuestion();
+        }
+
+        // gets the last question
+        // TODO: SAVE ANSWERS
+        function getLastQuestion() {
+            saveQuestion();
+
+            if (Qnum > 0) {
+                Qnum -= 1;
+            } else {
+                console.log("Can not go below Question 1")
+                return
+            }
+
+            loadQuestion();
+        }
+
+        // gets the last question
+        // TODO: SAVE ANSWERS
+        function getNextQuestion() {
+            saveQuestion();
+
+            let totalQnum = questionArray.length; // Gets amount of questions in list currently
+
+            Qnum += 1; // Tracks index
+            if ((Qnum+1) > totalQnum) {
+                let blankQarray = ["Next Question", "option1", false, 
+                                                    "option2", false, 
+                                                    "option3", false, 
+                                                    "option4", false]
+                questionArray.push(blankQarray);
+            }
+
+            loadQuestion();
+        }
+
+
+        function submitForm() {
+            document.getElementById("QuestionList").value = JSON.stringify(questionArray);
+            document.getElementById("questionForm").submit();
+        }
+
+
+        document.addEventListener("DOMContentLoaded", function() {
+            loadQuestion(); // Loads question once the content has been loaded
+        });
+
+    </script>
     </body>
 </html>

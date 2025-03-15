@@ -48,6 +48,30 @@ def trivia(request):
 
 def triviaQuestionMaker(request):
     return render(request, 'triviaQuestionMaker.html')
+
+def triviaQuestionUpload(request):
+    # gets the trivia club object to attach to the extra data model
+    club = Club.objects.get(name = "Trivia")
+
+    if request.user.is_authenticated and (club.advisors.filter(email = request.user.email).exists() or club.leaders.filter(email = request.user.email).exists()):
+
+        # converts Qstack in the POST request into a list as it is sent as a json
+        questionList = request.POST.get('Qstack')
+        questionList = json.loads(questionList)
+
+        # 0 is the current question number & false is if the round is active
+        questionStore = [0, False, questionList]
+
+        # saves the question bank to the DB
+        ClubData.objects.create(
+                club = club,
+                name = "Question Bank #" + str(club.clubdata_set.count() + 1),
+                data = json.dumps(questionStore)
+        )
+
+        return redirect("/triviaQuestionMaker") # redirects to prevent form resubmission
+    else:
+        return redirect("/") # redirects to main page
     
 
 

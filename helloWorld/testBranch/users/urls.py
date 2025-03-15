@@ -28,5 +28,6 @@ urlpatterns = [
     path("deleteComment", views.deleteComment),
     path("trivia", views.trivia),
     path("triviaQuestionMaker", views.triviaQuestionMaker),
+    path("triviaQuestionUpload", views.triviaQuestionUpload),
     # path("triviaQuestionUpload"),
 ] 

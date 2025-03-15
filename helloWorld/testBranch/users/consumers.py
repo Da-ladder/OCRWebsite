@@ -44,6 +44,8 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # Send message to WebSocket
         await self.send(text_data=json.dumps({"message": message}))
 
+    # Recieve 
+
     
     @database_sync_to_async
     def post_comment(self, commentText):
