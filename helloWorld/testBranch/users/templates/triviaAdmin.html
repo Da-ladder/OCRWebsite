@@ -7,6 +7,13 @@
     <link rel="stylesheet" href="/static/trivia.css">
 </head>
 <body>
+    <div class="Start/Stop Rounds">
+        <button class="selectOption" onclick="questionSelection(0)">Opt 1</button>
+        <button class="selectOption" onclick="questionSelection(1)">Opt 2</button>
+    </div>
+
+
+    <h3 id="">User View</h3>
     <h3 id="">Question</h3>
     <div class="topOptions">
         <button class="selectOption" onclick="questionSelection(0)">Opt 1</button>
@@ -29,6 +36,35 @@
     </div>
     
     <script>
+        const adminRoomName = "";
+
+        const adminSocket = new WebSocket(
+            'ws://'
+            + window.location.host
+            + '/ws/trivia/adminControl'
+        );
+
+        adminSocket.onmessage = function(e) {
+            // do something (we should get # of player still in game & # that have answered)
+        }
+
+        adminSocket.onclose = function(e) {
+            console.error('Admin socket closed unexpectedly');
+        };
+
+
+        function startRound() {
+            adminSocket.send('START')
+        }
+
+        function endRound() {
+            adminSocket.send('END')
+        }
+
+
+
+
+        // ------- USER INTERFACE START -------
         const roomName = "triviaRoom";
         const userState = true; // Keeps track is the user is still in the game - CLIENT SIDE ONLY
 
@@ -151,6 +187,7 @@
             }));
             messageInputDom.value = '';
         };
+        // ------- USER INTERFACE END -------
     </script>
 </body>
 </html>

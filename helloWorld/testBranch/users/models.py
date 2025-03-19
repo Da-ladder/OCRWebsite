@@ -44,11 +44,11 @@ class Club(models.Model):
 class LiveFeed(models.Model):
     title = models.CharField(max_length=255, blank=True, null=True) # DO NOT let users type more than 255 for the title
     text = models.TextField(blank=True, null=True, max_length=24000)
-    club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubFeed')
+    club = models.ForeignKey(Club, on_delete=models.CASCADE, related_name='clubFeed', db_index=True)
     likes = models.IntegerField(default=0)
     comments = models.IntegerField(default=0)
     edited = models.BooleanField(default=False)
-    creationTime = models.DateTimeField(default=timezone.now)
+    creationTime = models.DateTimeField(default=timezone.now, db_index=True)
     creator = models.ForeignKey(Users, on_delete=models.CASCADE, related_name='op', null=True) # op as in original poster
 
     def __str__(self):
@@ -78,6 +78,7 @@ class ClubData(models.Model):
     club = models.ForeignKey(Club, on_delete=models.CASCADE)
     name = models.TextField(blank=True, null=True, max_length=2000)
     data = models.TextField(blank=True, null=True)
+    creationTime = models.DateTimeField(default=timezone.now, db_index=True)
 
     def __str__(self):
         return self.club.name + ": " + self.name
