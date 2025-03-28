@@ -7,14 +7,14 @@
     <link rel="stylesheet" href="/static/trivia.css">
 </head>
 <body>
-    <div class="Start/Stop Rounds">
-        <button class="selectOption" onclick="questionSelection(0)">Opt 1</button>
-        <button class="selectOption" onclick="questionSelection(1)">Opt 2</button>
+    <div class="roundControls">
+        <button id="startButton" class="controlButton" onclick="startRound()">Start Round</button>
+        <button class="controlButton" onclick="endRound()">Time (Nonfunctional)</button>
     </div>
 
 
     <h3 id="">User View</h3>
-    <h3 id="">Question</h3>
+    <h3 class="questionDisplay">Question</h3>
     <div class="topOptions">
         <button class="selectOption" onclick="questionSelection(0)">Opt 1</button>
         <button class="selectOption" onclick="questionSelection(1)">Opt 2</button>
@@ -36,6 +36,13 @@
     </div>
     
     <script>
+        // Wait function
+        function wait(ms) {
+            // Don't ask me how this works, I have no clue it just does
+            return new Promise(resolve => setTimeout(resolve, ms));
+        }   
+
+
         const adminRoomName = "";
 
         const adminSocket = new WebSocket(
@@ -53,8 +60,13 @@
         };
 
 
-        function startRound() {
-            adminSocket.send('START')
+        async function startRound() {
+            document.getElementById("startButton").disabled = true;
+            document.getElementById("startButton").innerHTML = "round in progress, check user view";
+            adminSocket.send('START');
+            await wait(5000); // Waits 5 seconds before letting the user click again
+            document.getElementById("startButton").disabled = false;
+            document.getElementById("startButton").innerHTML = "Start Round";
         }
 
         function endRound() {
@@ -75,11 +87,6 @@
             + roomName
             + '/'
         );
-
-        // Wait function
-        function wait(ms) {
-            return new Promise(resolve => setTimeout(resolve, ms));
-        }   
 
 
         function addMessageToChat(message) {

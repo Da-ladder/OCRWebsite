@@ -7,15 +7,15 @@
     <link rel="stylesheet" href="/static/trivia.css">
 </head>
 <body>
-    <h3 id="">Question</h3>
+    <h3 id="qDisplay" class="questionDisplay">Question</h3>
     <div class="topOptions">
-        <button class="selectOption" onclick="questionSelection(0)">Opt 1</button>
-        <button class="selectOption" onclick="questionSelection(1)">Opt 2</button>
+        <button id="opt1" class="selectOption" onclick="questionSelection(0)">Opt 1</button>
+        <button id="opt2" class="selectOption" onclick="questionSelection(1)">Opt 2</button>
     </div>
 
     <div class="bottomOptions">
-        <button class="selectOption" onclick="questionSelection(2)">Opt 3</button>
-        <button class="selectOption" onclick="questionSelection(3)">Opt 4</button>
+        <button id="opt3" class="selectOption" onclick="questionSelection(2)">Opt 3</button>
+        <button id="opt4" class="selectOption" onclick="questionSelection(3)">Opt 4</button>
     </div>
 
     
@@ -30,7 +30,8 @@
     
     <script>
         const roomName = "triviaRoom";
-        const userState = true; // Keeps track is the user is still in the game - CLIENT SIDE ONLY
+        var countdownInProgress = false;
+        var userState = true; // Keeps track is the user is still in the game - CLIENT SIDE ONLY
 
         const chatSocket = new WebSocket(
             'ws://'
@@ -56,11 +57,22 @@
         }
 
         async function countdown() {
-            let seconds = 5;
+            // Lets other function override countdown if it ever lags behind
+            countdownInProgress = true; 
+
+            // countdown timer control
+            let seconds = 3;
             console.log("Countdown Starting!")
+            document.getElementById("qDisplay").innerHTML = "Get Ready!";
+            await wait(1000)
 
             for (let i = seconds; i >= 0; i--) {
                 console.log(i)
+                if (!countdownInProgress) {
+                    break; // Break if countdown has been stopped
+                }
+                document.getElementById("qDisplay").innerHTML = i; //Display countdown
+
                 await wait(1000)
             }
             
@@ -68,8 +80,21 @@
         }
 
         function displayQuestionsOptions(Qstack) {
+            countdownInProgress = false;
             console.log("Displaying questions and options!")
-            console.log(Qstack)
+
+            // enables options
+            document.getElementById("opt1").disabled = false;
+            document.getElementById("opt2").disabled = false;
+            document.getElementById("opt3").disabled = false;
+            document.getElementById("opt4").disabled = false;
+
+            // loads questions and options
+            document.getElementById("qDisplay").innerHTML = Qstack[0];
+            document.getElementById("opt1").innerHTML = Qstack[1];
+            document.getElementById("opt2").innerHTML = Qstack[2];
+            document.getElementById("opt3").innerHTML = Qstack[3];
+            document.getElementById("opt4").innerHTML = Qstack[4];
         }
 
         function questionSelection(optNum) {
