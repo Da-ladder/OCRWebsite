@@ -35,8 +35,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # if branch when 
         if (userOptPicked != -1):
-            self.checkAnswer()
-
+            await self.checkAnswer(userOptPicked)
             return
         elif (len(message) == 0):
             return # makes sure the message is not just spaces
@@ -108,20 +107,23 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Get the question list
         questionList = ClubData.objects.filter(club=club_wrapper).latest('creationTime')
-        questionList = questionList.data
+        questionData = json.loads(questionList.data)
 
         # get the current question that we are on
-        if (not questionList[1]):
-            return False
-        curQnum = questionList[0]
+        # if (not questionList[1]):
+            # return False
+
+        curQnum = questionData[0]
         
 
         # answer*2+2 is the exact index we need to fetch the answer from to compare it to the user's answer
         # the if statement will evaluate to true if the answer is correct
-        if (questionList[2][curQnum][answer*2+2]):
+        if (questionData[2][curQnum][answer*2+2]):
+            print("ur right")
             return True
         else:
             # remove them from the "player list"
+            print("ur wrong")
             pass
 
 
@@ -196,7 +198,7 @@ class AdminConsumer(AsyncWebsocketConsumer):
         print("Questions and options given")
 
 
-        # time.sleep(31) # 30 seconds to answer the question + some headroom
+        time.sleep(31) # 30 seconds to answer the question + some headroom
 
         # shut down ability to answer questions
 

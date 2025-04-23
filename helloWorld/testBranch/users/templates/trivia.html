@@ -98,6 +98,7 @@
         }
 
         function questionSelection(optNum) {
+            console.log("opt Selected: " + optNum)
             chatSocket.send(JSON.stringify({
                 'message': "",
                 'optionSelected': optNum

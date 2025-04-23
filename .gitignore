@@ -3,3 +3,4 @@ helloWorld/docker-compose.yml
 helloWorld/webVenv/*
 helloWorld/testBranch/prod.sqlite3
 helloWorld/testBranch/db.sqlite3
+localVenv/*
