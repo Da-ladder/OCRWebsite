@@ -18,7 +18,7 @@ class ChatConsumer(AsyncWebsocketConsumer):
         self.room_group_name = f"_trivia" # sets all user websockets to link together
 
         # Join room group
-        print("room" + str(self.room_group_name))
+        # print("room" + str(self.room_group_name))
         # print("User" + str(self.scope["user"].email)) # will show up as AnonymousUser if not logged in and their email otherwise
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
 
@@ -29,25 +29,33 @@ class ChatConsumer(AsyncWebsocketConsumer):
         dBquestionList = await ClubData.objects.filter(club=club_wrapper).alatest('creationTime')
         questionList = json.loads(dBquestionList.data)
 
+        userEmail = str(self.scope["user"].email)
+
+        print(userEmail)
+
         if (questionList[0] == 0 and not questionList[1]):
             # check if user is on the list
             # 3 is player safe list (only added when they get a question right)
             # 4 is current player list
             # 5 is eliminated list
-            if (str(self.scope["user"].email) in questionList[4]):
+            if (userEmail in questionList[4]):
                 # don't do anything bc they're already in
                 pass
-            elif (str(self.scope["user"].email) in questionList[5]):
+            elif (userEmail in questionList[5]):
                 # tell the user that they are already elimed
-                await self.elim_notice()
+                await self.elim_notice([userEmail])
             else:
                 # they're not in so add them to the list
-                questionList[4].append(str(self.scope["user"].email))
+                questionList[4].append(userEmail)
+                dBquestionList.data = json.dumps(questionList)
+                await database_sync_to_async(dBquestionList.save)()
         else:
             # elim the user if we have already started. Let the users know & send them the question
-            questionList[5].append(str(self.scope["user"].email))
-            await self.elim_notice()
-
+            questionList[5].append(userEmail)
+            dBquestionList.data = json.dumps(questionList)
+            await database_sync_to_async(dBquestionList.save)()
+            await self.elim_notice([userEmail])
+            
     async def disconnect(self, close_code):
         # Leave room group
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
@@ -92,8 +100,17 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def start_countdown(self, event):
         await self.send(text_data=json.dumps(["", [], True, [], False]))
 
-    async def elim_notice(self, event):
-        await self.send(text_data=json.dumps(["", [], False, [], True]))
+    async def elim_notice(self, emails, answers = ""):
+        if (str(self.scope["user"].email) in emails):
+            if (answers == ""):
+                await self.send(text_data=json.dumps(["", [], False, [], True]))
+            else:
+                await self.send(text_data=json.dumps(["", [answers], False, [], True]))
+        else:
+            if (answers == ""):
+                await self.send(text_data=json.dumps(["", [], False, [], False]))
+            else:
+                await self.send(text_data=json.dumps(["", [answers], False, [], False]))
 
     async def send_questions(self, event):
         question = event["question"]
@@ -141,16 +158,25 @@ class ChatConsumer(AsyncWebsocketConsumer):
             # return False
 
         curQnum = questionData[0]
+
+        userEmail = str(self.scope["user"].email)
         
 
         # answer*2+2 is the exact index we need to fetch the answer from to compare it to the user's answer
         # the if statement will evaluate to true if the answer is correct
         if (questionData[2][curQnum][answer*2+2]):
             # move their email address to the "safe" list
+            if (userEmail in questionList[4]):
+                questionList[4].remove(userEmail)
+                questionList[4].remove(userEmail)
+                pass
             print("ur right")
             return True
         else:
             # move their email address to the "elim" list
+            if (userEmail in questionList[4]):
+                questionList[4].remove(userEmail)
+                pass
             print("ur wrong")
             pass
 
@@ -238,7 +264,7 @@ class AdminConsumer(AsyncWebsocketConsumer):
         dBquestionList.data = json.dumps(questionList)
         await database_sync_to_async(dBquestionList.save)()
 
-        # group send status in game
+        # group send status in game + questions and answers
 
 
         print("Round over")
