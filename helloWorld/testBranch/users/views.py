@@ -43,7 +43,10 @@ def logout_view(request):
     return redirect("/")
 
 def trivia(request):
-    return render(request, 'trivia.html')
+    if request.user.is_authenticated:
+        return render(request, 'trivia.html')
+    else:
+        return render(request, 'NuhUh.html')
 
 def triviaAdmin(request):
     return render(request, 'triviaAdmin.html')

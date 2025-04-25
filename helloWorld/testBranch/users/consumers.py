@@ -1,4 +1,5 @@
 # chat/consumers.py
+import asyncio
 import json
 import time # testing delay w/ async
 
@@ -18,10 +19,34 @@ class ChatConsumer(AsyncWebsocketConsumer):
 
         # Join room group
         print("room" + str(self.room_group_name))
-        # print("User" + str(self.scope["user"])) # will show up as AnonymousUser if not logged in and their email otherwise
+        # print("User" + str(self.scope["user"].email)) # will show up as AnonymousUser if not logged in and their email otherwise
         await self.channel_layer.group_add(self.room_group_name, self.channel_name)
 
         await self.accept()
+
+        # only allow users to "join the list" if we haven't started the first question
+        club_wrapper = await Club.objects.aget(name = "Trivia")
+        dBquestionList = await ClubData.objects.filter(club=club_wrapper).alatest('creationTime')
+        questionList = json.loads(dBquestionList.data)
+
+        if (questionList[0] == 0 and not questionList[1]):
+            # check if user is on the list
+            # 3 is player safe list (only added when they get a question right)
+            # 4 is current player list
+            # 5 is eliminated list
+            if (str(self.scope["user"].email) in questionList[4]):
+                # don't do anything bc they're already in
+                pass
+            elif (str(self.scope["user"].email) in questionList[5]):
+                # tell the user that they are already elimed
+                await self.elim_notice()
+            else:
+                # they're not in so add them to the list
+                questionList[4].append(str(self.scope["user"].email))
+        else:
+            # elim the user if we have already started. Let the users know & send them the question
+            questionList[5].append(str(self.scope["user"].email))
+            await self.elim_notice()
 
     async def disconnect(self, close_code):
         # Leave room group
@@ -67,6 +92,9 @@ class ChatConsumer(AsyncWebsocketConsumer):
     async def start_countdown(self, event):
         await self.send(text_data=json.dumps(["", [], True, [], False]))
 
+    async def elim_notice(self, event):
+        await self.send(text_data=json.dumps(["", [], False, [], True]))
+
     async def send_questions(self, event):
         question = event["question"]
         opt1 = event["opt1"]
@@ -80,7 +108,6 @@ class ChatConsumer(AsyncWebsocketConsumer):
     def post_comment(self, commentText):
         # time.sleep(30) # delays by 30 sec (await waits for this function to complete)
 
-        # TODO Anon users can still post, prevent this in future iterations!!!
         try:
             creator = Users.objects.get(email = self.scope["user"])
         except:
@@ -101,12 +128,12 @@ class ChatConsumer(AsyncWebsocketConsumer):
     
     # it will currently fetch from the db EVERY time it needs to check the answer,
     # improve this via using cache & redis later on
-    @database_sync_to_async
-    def checkAnswer(self, answer):
-        club_wrapper = Club.objects.get(name = "Trivia")
+    async def checkAnswer(self, answer):
+        print("Answer passed to function")
+        club_wrapper = await Club.objects.aget(name = "Trivia")
 
         # Get the question list
-        questionList = ClubData.objects.filter(club=club_wrapper).latest('creationTime')
+        questionList = await ClubData.objects.filter(club=club_wrapper).alatest('creationTime')
         questionData = json.loads(questionList.data)
 
         # get the current question that we are on
@@ -119,10 +146,11 @@ class ChatConsumer(AsyncWebsocketConsumer):
         # answer*2+2 is the exact index we need to fetch the answer from to compare it to the user's answer
         # the if statement will evaluate to true if the answer is correct
         if (questionData[2][curQnum][answer*2+2]):
+            # move their email address to the "safe" list
             print("ur right")
             return True
         else:
-            # remove them from the "player list"
+            # move their email address to the "elim" list
             print("ur wrong")
             pass
 
@@ -141,24 +169,22 @@ class AdminConsumer(AsyncWebsocketConsumer):
         # Leave room group
         await self.channel_layer.group_discard(self.room_group_name, self.channel_name)
 
-    # Receive message from WebSocket dkdj
+    # Receive message from WebSocket
     async def receive(self, text_data):
         if (text_data == "START"):
             await self.startRound()
-            
-        sync_to_async(time.sleep(6))
 
 
     # Receive message from room group
     async def chat_message(self, event):
         pass
 
-    @database_sync_to_async
-    def startRound(self):
-        club_wrapper = Club.objects.get(name = "Trivia")
+    #@database_sync_to_async
+    async def startRound(self):
+        club_wrapper = await Club.objects.aget(name = "Trivia")
 
         # Get the question list
-        dBquestionList = ClubData.objects.filter(club=club_wrapper).latest('creationTime')
+        dBquestionList = await ClubData.objects.filter(club=club_wrapper).alatest('creationTime')
         questionList = json.loads(dBquestionList.data)
 
         # Abort if another round is in progress
@@ -167,20 +193,20 @@ class AdminConsumer(AsyncWebsocketConsumer):
             return
         
         # locks down round
-        # questionList[1] = True # blocks another round from starting
+        questionList[1] = True # blocks another round from starting
         dBquestionList.data = json.dumps(questionList)
-        dBquestionList.save() 
+        await database_sync_to_async(dBquestionList.save)()
 
         curQuest = questionList[0]
         
         # start countdown for all users
         print("Countdown Started")
-        async_to_sync(self.channel_layer.group_send)(
+        await self.channel_layer.group_send(
             "_trivia", {"type": "start.countdown"} # . is replaced with _ so chat.message calls chat_message
         )
         
         # wait for countdown to end
-        time.sleep(4)
+        await asyncio.sleep(4)
 
 
         print("Current Question: " + str(curQuest))
@@ -188,7 +214,7 @@ class AdminConsumer(AsyncWebsocketConsumer):
         # get questions from the database to give to the user
         # index 2 is where the question list is and the other numbers are due to
         # dB storage being opt1, t/f ans, opt2, t/f ans...
-        async_to_sync(self.channel_layer.group_send)(
+        await self.channel_layer.group_send(
             "_trivia", {"type": "send.questions", "question" : questionList[2][curQuest][0], 
                         "opt1" : questionList[2][curQuest][1],
                         "opt2" : questionList[2][curQuest][3],
@@ -198,8 +224,21 @@ class AdminConsumer(AsyncWebsocketConsumer):
         print("Questions and options given")
 
 
-        time.sleep(31) # 30 seconds to answer the question + some headroom
+        await asyncio.sleep(31) # 30 seconds to answer the question + some headroom
 
         # shut down ability to answer questions
+        questionList[1] = False
+        questionList[0] += 1 # move on to the next question
+
+        # merge list of ppl who have unanswered questions with eliminated cluster
+        # list 5 is eliminated email addresses and list 4 is ppl who did not answer yet
+        questionList[5].extend(questionList[4])
+
+        # save changes
+        dBquestionList.data = json.dumps(questionList)
+        await database_sync_to_async(dBquestionList.save)()
+
+        # group send status in game
+
 
         print("Round over")
