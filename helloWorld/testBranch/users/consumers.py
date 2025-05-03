@@ -160,25 +160,29 @@ class ChatConsumer(AsyncWebsocketConsumer):
         curQnum = questionData[0]
 
         userEmail = str(self.scope["user"].email)
-        
+
+        # 3 is player safe list (only added when they get a question right)
+        # 4 is current player list
+        # 5 is eliminated list
 
         # answer*2+2 is the exact index we need to fetch the answer from to compare it to the user's answer
         # the if statement will evaluate to true if the answer is correct
         if (questionData[2][curQnum][answer*2+2]):
             # move their email address to the "safe" list
-            if (userEmail in questionList[4]):
-                questionList[4].remove(userEmail)
-                questionList[4].remove(userEmail)
-                pass
-            print("ur right")
-            return True
+            if (userEmail in questionData[4]):
+                questionData[4].remove(userEmail)
+                questionData[3].append(userEmail)
+            print("ur right") # Test
         else:
             # move their email address to the "elim" list
-            if (userEmail in questionList[4]):
-                questionList[4].remove(userEmail)
-                pass
-            print("ur wrong")
-            pass
+            if (userEmail in questionData[4]):
+                questionData[4].remove(userEmail)
+                questionData[5].append(userEmail)
+            print("ur wrong") # Test
+
+        # save this to the database
+        questionList.data = json.dumps(questionData)
+        await database_sync_to_async(questionList.save)()
 
 
 class AdminConsumer(AsyncWebsocketConsumer):
@@ -250,21 +254,38 @@ class AdminConsumer(AsyncWebsocketConsumer):
         print("Questions and options given")
 
 
-        await asyncio.sleep(31) # 30 seconds to answer the question + some headroom
+        await asyncio.sleep(10) # 30 seconds to answer the question + some headroom
+
+        # get the latest version of the database
+        # retrive the new question array (with correct positions for people)
+        dBquestionList = await ClubData.objects.filter(club=club_wrapper).alatest('creationTime')
+        questionList = json.loads(dBquestionList.data)
 
         # shut down ability to answer questions
         questionList[1] = False
         questionList[0] += 1 # move on to the next question
 
+        # Save so that no one else can answer the question
+        dBquestionList.data = json.dumps(questionList)
+        await database_sync_to_async(dBquestionList.save)()
+
         # merge list of ppl who have unanswered questions with eliminated cluster
         # list 5 is eliminated email addresses and list 4 is ppl who did not answer yet
-        questionList[5].extend(questionList[4])
+        questionList[5].extend(questionList[4]) # if they didn't answer, they're out
+
+        # move 3rd list to 4th list
+        questionList[4] = []
+        questionList[4].extend(questionList[3])
+
+        # clear list 3
+        questionList[3] = []
+
 
         # save changes
         dBquestionList.data = json.dumps(questionList)
         await database_sync_to_async(dBquestionList.save)()
+        print(questionList)
+        
 
         # group send status in game + questions and answers
-
-
         print("Round over")
